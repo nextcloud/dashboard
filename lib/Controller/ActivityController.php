@@ -25,28 +25,20 @@ use OCP\IRequest;
  * Description of ActivityController
  */
 class ActivityController extends Controller {
-	/**
-	 * @var Data
-	 */
+
+	/** @var Data */
 	private $data;
-	/**
-	 * @var DashboardService
-	 */
+
+	/** @var DashboardService */
 	private $dashboardService;
 
-	/**
-	 * @var GroupHelper
-	 */
+	/** @var GroupHelper */
 	private $myGroupHelper;
 
-	/**
-	 * @var UserSettings
-	 */
+	/** @var UserSettings */
 	private $userSettings;
 
-	/**
-	 * @var string
-	 */
+	/**@var string */
 	private $userId;
 
 	/**

@@ -24,18 +24,17 @@ use OCP\IRequest;
  * Description of PersonalController
  */
 class PersonalController extends Controller {
+
 	const INBOX_REMOTE_SYSTEM_NAME = 'inbox_remote_system_name';
 	const INBOX_PORT = 'inbox_port';
 	const INBOX_SSL = 'inbox_ssl';
 	const INBOX_USERNAME = 'inbox_username';
 	const INBOX_PASSWORD = 'inbox_password';
-	/**
-	 * @var DashboardService
-	 */
+
+	/** @var DashboardService */
 	private $dashboardService;
-	/**
-	 * @var \OCP\IL10N
-	 */
+
+	/** @var \OCP\IL10N */
 	protected $l10n;
 
 	/**

@@ -26,6 +26,7 @@ use OCP\Settings\ISection;
  * Description of AdminController
  */
 class AdminController extends Controller implements ISection {
+
 	const SHOW_ACTIVITY = 'show_activity';
 	const SHOW_INBOX = 'show_inbox';
 	const SHOW_ANNOUNCEMENT = 'show_announcement';
@@ -38,17 +39,13 @@ class AdminController extends Controller implements ISection {
 	const INBOX_POSITION = 'inbox_position';
 	const ANNOUNCEMENT_POSITION = 'announcement_position';
 	const CALENDAR_POSITION = 'calendar_position';
-	/**
-	 * @var DashboardSettingsMapper
-	 */
+
+	/** @var DashboardSettingsMapper */
 	private $dashboardSettingsMapper;
-	/**
-	 * @var DashboardService
-	 */
+
+	/** @var DashboardService */
 	private $dashboardService;
-	/**
-	 * @var \OCP\IL10N
-	 */
+	/** @var \OCP\IL10N */
 	protected $l10n;
 
 	/**

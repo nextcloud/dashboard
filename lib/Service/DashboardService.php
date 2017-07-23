@@ -22,29 +22,20 @@ use OCP\Security\ICrypto;
  * Description of DashboardService
  */
 class DashboardService {
-	/**
-	 * @var string
-	 */
+
+	/** @var string */
 	private $appName;
 
-	/**
-	 * @var IConfig
-	 */
+	/** @var IConfig */
 	private $config;
 
-	/**
-	 * @var ICrypto
-	 */
+	/** @var ICrypto */
 	private $crypto;
 
-	/**
-	 * @var IGroupManager
-	 */
+	/** @var IGroupManager */
 	private $groupManager;
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $userId;
 
 	/**

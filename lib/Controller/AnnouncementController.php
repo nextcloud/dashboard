@@ -15,7 +15,6 @@ namespace OCA\Dashboard\Controller;
 
 use OCA\Dashboard\Db\Announcement;
 use OCA\Dashboard\Db\AnnouncementMapper;
-use OCA\Dashboard\Db\DashboardSettingsMapper;
 use OCA\Dashboard\Service\DashboardService;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
@@ -27,27 +26,18 @@ use OCP\IRequest;
  * Description of AnnouncementController
  */
 class AnnouncementController extends Controller {
+
 	const TITLE = 'title';
 	const CONTENT = 'content';
 	const EXPIRATION = 'expiration';
-	/**
-	 * @var AnnouncementMapper
-	 */
+
+	/** @var AnnouncementMapper */
 	private $announcementMapper;
 
-	/**
-	 * @var DashboardSettingsMapper
-	 */
-	private $dashboardSettingsMapper;
-
-	/**
-	 * @var DashboardService
-	 */
+	/** @var DashboardService */
 	private $dashboardService;
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $userId;
 
 	/**

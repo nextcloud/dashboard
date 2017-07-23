@@ -33,17 +33,13 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  */
 class CalendarController extends Controller {
 
-	/**
-	 * @var IURLGenerator
-	 */
+	/** @var IURLGenerator */
 	private $urlGenerator;
-	/**
-	 * @var string
-	 */
+
+	/** @var string */
 	private $userId;
-	/**
-	 * @var IUserManager
-	 */
+
+	/** @var IUserManager */
 	private $userManager;
 
 	/** @var Principal */

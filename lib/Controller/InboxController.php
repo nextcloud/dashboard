@@ -22,9 +22,8 @@ use OCP\IRequest;
  * Description of InboxController
  */
 class InboxController extends Controller {
-	/**
-	 * @var DashboardService
-	 */
+
+	/** @var DashboardService */
 	private $dashboardService;
 
 	/**
