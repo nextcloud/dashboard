@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<info>
+    <id>dashboard</id>
+    <name>Dashboard</name>
+    <description>Dashboard</description>
+    <licence>GNU AGPLv3</licence>
+    <author>regio iT gesellschaft für informationstechnologie mbh</author>
+    <version>4.0.1</version>
+    <namespace>Dashboard</namespace>
+    <category>other</category>
+    <dependencies>
+        <php min-version="5.6" max-version="7"/>
+        <nextcloud min-version="12" max-version="13"/>
+    </dependencies>
+    <settings>
+        <admin-section>OCA\Dashboard\Controller\AdminController</admin-section>
+        <admin>OCA\Dashboard\Controller\AdminController</admin>
+    </settings>
+</info>

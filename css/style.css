@@ -1,0 +1,88 @@
+#app {
+    font-family: Arial, sans-serif;
+}
+
+#app h1 a {
+    color: #777777;
+    font-size: 225%;
+}
+
+#app h2 {
+    color: #777777;
+    font-size: 125%;
+}
+
+#app section {
+    padding: 20px;
+}
+
+#app table.dataTable.no-footer {
+    border-bottom: none;
+}
+
+#app table.dataTable tbody td {
+    line-height: normal;
+    padding: 5px 20px;
+    white-space: normal;
+}
+
+#app table.dataTable thead th {
+    border-bottom: none;
+    color: #777777;
+    font-weight: normal;
+    padding: 10px 20px;
+}
+
+#app .row-fluid {
+    border-bottom: 5px solid #00B4EC;
+}
+
+#announcements a {
+    text-decoration: underline;
+}
+
+#announcement-form, #event {
+    display: none;
+}
+#announcementedit-form, #event {
+    display: none;
+}
+
+#quota {
+    background-color: rgba(70, 191, 189, 0.9);
+}
+
+#quota div {
+    background-color: rgba(247, 70, 74, 0.9);
+    color: white;
+}
+
+.myCollapse {
+    display: none;
+}
+
+.myCollapse.in {
+    display: block;
+}
+.collapse, .collapsing {
+    display: none;
+}
+
+.collapse.in {
+    display: block;
+}
+
+@media (max-width: 767px) {
+    #app .row-fluid {
+        border-bottom: none;
+    }
+
+    #app .span6 {
+        border-bottom: 5px solid #00B4EC;
+    }
+}
+
+.ui-dialog-titlebar-close{
+    width: auto;
+    min-width: inherit;
+}

@@ -1,0 +1,11 @@
+.dashboard_settings input[maxlength='2'] {
+    width: 2em;
+}
+
+.dashboard_settings input[maxlength='5'] {
+    width: 5em;
+}
+
+.dashboard_settings .error {
+    border-color: red;
+}
