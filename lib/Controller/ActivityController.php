@@ -7,6 +7,7 @@
  * later. See the COPYING file.
  *
  * @author regio iT gesellschaft für informationstechnologie mbh
+ * @author Maxence Lange <maxence@nextcloud.com>
  * @copyright regio iT 2017
  * @license GNU AGPL version 3 or any later version
  *
@@ -27,9 +28,7 @@
 
 namespace OCA\Dashboard\Controller;
 
-use OCA\Activity\Data;
-use OCA\Activity\GroupHelper;
-use OCA\Activity\UserSettings;
+use OCA\Dashboard\Service\ActivityService;
 use OCA\Dashboard\Service\DashboardService;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\DataResponse;
@@ -40,20 +39,11 @@ use OCP\IRequest;
  */
 class ActivityController extends Controller {
 
-	/** @var Data */
-	private $data;
-
 	/** @var DashboardService */
 	private $dashboardService;
 
-	/** @var GroupHelper */
-	private $myGroupHelper;
-
-	/** @var UserSettings */
-	private $userSettings;
-
-	/**@var string */
-	private $userId;
+	/** @var ActivityService */
+	private $activityService;
 
 	/**
 	 * ActivityController constructor.
@@ -61,73 +51,57 @@ class ActivityController extends Controller {
 	 * @param string $appName
 	 * @param IRequest $request
 	 * @param DashboardService $dashboardService
-	 * @param Data $data
-	 * @param $userId
-	 * @param GroupHelper $myGroupHelper
-	 * @param UserSettings $userSettings
+	 * @param ActivityService $activityService
+	 *
+	 * @internal param $userId
+	 * @internal param GroupHelper $myGroupHelper
+	 * @internal param UserSettings $userSettings
 	 */
 	public function __construct(
-		$appName, IRequest $request, DashboardService $dashboardService, Data $data, $userId,
-		GroupHelper $myGroupHelper, UserSettings $userSettings
+		$appName, IRequest $request, DashboardService $dashboardService,
+		ActivityService $activityService
 	) {
 		parent::__construct($appName, $request);
 		$this->dashboardService = $dashboardService;
-		$this->data = $data;
-		$this->userId = $userId;
-		$this->myGroupHelper = $myGroupHelper;
-		$this->userSettings = $userSettings;
+		$this->activityService = $activityService;
 	}
 
 	/**
 	 * load Activities
 	 *
-	 * @return DataResponse
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
+	 *
+	 * @return DataResponse
 	 */
 	public function index() {
-		// todo: dynamic count
-		$count = 20;
-		$data = $this->data->get(
-			$this->myGroupHelper, $this->userSettings, $this->userId, 0, $count, "desc", "all"
-		);
+
+		$filesDeleted = $this->activityService->getDeletedFilesFromActivity();
+		$filesCreated = $this->activityService->getCreatedFilesFromActivity();
 
 		$newData = [];
-		$data = $data["data"];
-		$loop = 0;
+		foreach ($filesCreated as $files) {
 
-		$files_deleted = [];
-		// Write deleted-files in a list - filter these files
-		foreach ($data as $dataEvent) {
-			if ($dataEvent["type"] == "file_deleted") {
-				array_push($files_deleted, $dataEvent["object_name"]);
+			if (in_array($files['object_name'], $filesDeleted)) {
+				continue;
 			}
-		}
 
-		// todo: Admin can configure File-Limit
-		if ($loop < 6) {
-			foreach ($data as $dataEvent) {
-				// Write files!=created in a list
-				if ($dataEvent["type"] == "file_created") {
-					if ($loop < 6) {
-						if (in_array($dataEvent["object_name"], $files_deleted) == false) {
-							$dataActivity = array(
-								[
-									"object_name" => $dataEvent["object_name"],
-									"link"        => $dataEvent["link"],
-									"type"        => $dataEvent["type"],
-									"timestamp"   => $dataEvent["timestamp"],
-									"user"        => $dataEvent["user"],
-								]
-							);
-							$newData = array_merge($newData, $dataActivity);
-							$loop++;
-						}
-					}
-				}
+			$newData[] = [
+				'object_name' => $files['object_name'],
+				'link'        => $files['link'],
+				'type'        => $files['type'],
+				'timestamp'   => $files['timestamp'],
+				'user'        => $files['user']
+			];
+
+			// todo: Admin can configure File-Limit
+			if (sizeof($newData) >= 6) {
+				break;
 			}
 		}
 
 		return new DataResponse(['data' => $newData]);
 	}
+
+
 }
