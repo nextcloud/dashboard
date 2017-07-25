@@ -1,0 +1,24 @@
+{
+    "name": "bordercloud/tether",
+    "description": "Clone of hubspot/tether",
+    "type": "library",
+    "homepage": "https://github.com/BorderCloud/tether.git",
+    "version": "1.1.1",
+    
+    "require": {
+    },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "bordercloud/tether",
+                "version": "1.1.1",
+                "source": {
+                    "url": "https://github.com/BorderCloud/tether.git",
+                    "type": "git",
+                    "reference": "1.1.1"
+                }
+            }
+        }
+    ]    
+} 
