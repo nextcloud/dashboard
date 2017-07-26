@@ -1,19 +1,21 @@
 <?xml version="1.0"?>
-<info>
+<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
     <id>dashboard</id>
     <name>Dashboard</name>
-    <description>Dashboard</description>
+    <summary>Dashboard app for Nextcloud</summary>
+    <description>Dashboard app for Nextcloud</description>
+    <version>4.0.2</version>
     <licence>agpl</licence>
     <author>regio iT gesellschaft für informationstechnologie mbh</author>
-    <version>4.0.1</version>
     <namespace>Dashboard</namespace>
-    <category>other</category>
+    <category>tools</category>
+    <bugs>https://github.com/nextcloud/dashboard/issues</bugs>
     <dependencies>
         <php min-version="5.6" max-version="7"/>
         <nextcloud min-version="12" max-version="13"/>
     </dependencies>
     <settings>
-        <admin-section>OCA\Dashboard\Controller\AdminController</admin-section>
         <admin>OCA\Dashboard\Controller\AdminController</admin>
+        <admin-section>OCA\Dashboard\Controller\AdminController</admin-section>
     </settings>
 </info>
