@@ -3,7 +3,7 @@
     <id>dashboard</id>
     <name>Dashboard</name>
     <description>Dashboard</description>
-    <licence>GNU AGPLv3</licence>
+    <licence>agpl</licence>
     <author>regio iT gesellschaft für informationstechnologie mbh</author>
     <version>4.0.1</version>
     <namespace>Dashboard</namespace>
