@@ -49,7 +49,7 @@ class Application extends App {
 		$container->registerAlias('OCA\Activity\FeedController', Feed::class);
 		$container->registerAlias('OCA\Activity\SettingsController', Settings::class);
 		$container->registerAlias(
-			'OCA\OCA\Dashboard\Controller\AdminController', AdminController::class
+			'AdminController', AdminController::class
 		);
 
 		$container->registerService(

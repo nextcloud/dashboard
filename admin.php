@@ -27,7 +27,7 @@
 
 $app = new \OCA\Dashboard\AppInfo\Application();
 /** @var OCA\Dashboard\Controller\AdminController $controller */
-$controller = $app->getContainer()->query('OCA\Dashboard\Controller\AdminController');
+$controller = $app->getContainer()->query('AdminController');
 return $controller->index()->render();
 
 

@@ -34,12 +34,11 @@ use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IL10N;
 use OCP\IRequest;
-use OCP\Settings\ISection;
 
 /**
  * Description of AdminController
  */
-class AdminController extends Controller implements ISection {
+class AdminController extends Controller {
 
 	const SHOW_ACTIVITY = 'show_activity';
 	const SHOW_INBOX = 'show_inbox';
@@ -59,34 +58,9 @@ class AdminController extends Controller implements ISection {
 
 	/** @var DashboardService */
 	private $dashboardService;
+
 	/** @var \OCP\IL10N */
 	protected $l10n;
-
-	/**
-	 * @NoAdminRequired
-	 */
-	public function getID() {
-		return $this->appName;
-	}
-	/*
-	public function getSection()
-	{
-		return 'dashboard_admin';
-	}*/
-	/**
-	 * @NoAdminRequired
-	 */
-
-	public function getName() {
-		return $this->appName;
-	}
-
-	/**
-	 * @NoAdminRequired
-	 */
-	public function getPriority() {
-		return 90;
-	}
 
 	/**
 	 * AdminController constructor.
@@ -333,4 +307,6 @@ class AdminController extends Controller implements ISection {
 
 		return new TemplateResponse($this->appName, 'admin', $params, 'blank');
 	}
+
+
 }
