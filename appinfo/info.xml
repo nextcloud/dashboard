@@ -1,21 +1,32 @@
 <?xml version="1.0"?>
-<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
-    <id>dashboard</id>
-    <name>Dashboard</name>
-    <summary>Dashboard app for Nextcloud</summary>
-    <description>Dashboard app for Nextcloud</description>
-    <version>4.0.4</version>
-    <licence>agpl</licence>
-    <author>regio iT gesellschaft für informationstechnologie mbh</author>
-    <namespace>Dashboard</namespace>
-    <category>tools</category>
-    <bugs>https://github.com/nextcloud/dashboard/issues</bugs>
-    <dependencies>
-        <php min-version="5.6" max-version="7"/>
-        <nextcloud min-version="12" max-version="13"/>
-    </dependencies>
-    <settings>
-        <admin>OCA\Dashboard\Controller\AdminController</admin>
-        <admin-section>OCA\Dashboard\Controller\AdminController</admin-section>
-    </settings>
+<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+	<id>dashboard</id>
+	<name>Dashboard</name>
+	<summary>Dashboard app for Nextcloud</summary>
+	<description>
+		<![CDATA[The Dashboard app allows users to easily keep an eye on their instance, and to retrieve useful information.
+        Here is what they can see:
+
+                - last uploaded files
+                - most recent e-mails
+                - last notifications
+                - upcoming events
+                - remaining storage space in their account
+]]>
+	</description>
+	<version>4.0.5</version>
+	<licence>agpl</licence>
+	<author>regio iT gesellschaft für informationstechnologie mbh</author>
+	<namespace>Dashboard</namespace>
+	<category>tools</category>
+	<bugs>https://github.com/nextcloud/dashboard/issues</bugs>
+	<dependencies>
+		<php min-version="5.6" max-version="7"/>
+		<nextcloud min-version="12" max-version="13"/>
+	</dependencies>
+	<settings>
+		<admin>OCA\Dashboard\Controller\AdminController</admin>
+		<admin-section>OCA\Dashboard\Controller\AdminController</admin-section>
+	</settings>
 </info>
