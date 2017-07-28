@@ -1,4 +1,5 @@
 nbproject/private/
+vendor/
 build/
 nbbuild/
 nbdist/
