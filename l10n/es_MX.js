@@ -5,6 +5,8 @@ OC.L10N.register(
     "Save changes" : "Guardar cambios",
     "Create announcement" : "Crear anuncio",
     "Settings have been updated." : "Las configuraciones han sido actualizadas.",
+    "Show box" : "Mostar caja",
+    "Wide box" : "Caja ancha",
     "Placement" : "Ubicación",
     "Activity" : "Actividad",
     "Inbox" : "Buzón de entrada",

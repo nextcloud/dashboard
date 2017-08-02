@@ -5,6 +5,8 @@ OC.L10N.register(
     "Save changes" : "Сохранить изменения",
     "Create announcement" : "Создать уведомление",
     "Settings have been updated." : "Настройки обновлены.",
+    "Show box" : "Показать рамку",
+    "Wide box" : "Расширить рамку",
     "Placement" : "Pазмещение",
     "Activity" : "События",
     "Inbox" : "Входящие",
