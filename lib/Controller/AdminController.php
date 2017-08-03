@@ -52,6 +52,8 @@ class AdminController extends Controller {
 	const INBOX_POSITION = 'inbox_position';
 	const ANNOUNCEMENT_POSITION = 'announcement_position';
 	const CALENDAR_POSITION = 'calendar_position';
+	const ANNOUNCEMENT_GROUP = 'announcement_group';
+
 
 	/** @var DashboardSettingsMapper */
 	private $dashboardSettingsMapper;
@@ -131,7 +133,12 @@ class AdminController extends Controller {
 			],
 			static::CALENDAR_POSITION      => [
 				'flags' => FILTER_NULL_ON_FAILURE,
+			],
+			static::ANNOUNCEMENT_GROUP      => [
+				'filter' => FILTER_UNSAFE_RAW,
+				'flags'  => FILTER_NULL_ON_FAILURE,
 			]
+
 		];
 		$input = filter_input_array(INPUT_POST, $definition);
 
@@ -216,6 +223,12 @@ class AdminController extends Controller {
 			$dashboardSettings->setKey('announcement_position');
 			$dashboardSettings->setValue((int)$input[static::ANNOUNCEMENT_POSITION]);
 			$this->dashboardSettingsMapper->update($dashboardSettings);
+
+			$dashboardSettings = $this->dashboardSettingsMapper->findOne(intval(13));
+			$dashboardSettings->setId(13);
+			$dashboardSettings->setKey('announcement_group');
+			$dashboardSettings->setValue((int)$input[static::ANNOUNCEMENT_GROUP]);
+			$this->dashboardSettingsMapper->update($dashboardSettings);
 		}
 
 		return new DataResponse(
@@ -245,6 +258,8 @@ class AdminController extends Controller {
 		$inboxPosition = 2;
 		$announcementPosition = 3;
 		$calendarPosition = 4;
+		$announcementGroup = 'News';
+
 
 		$limit = 20;
 		$dashboardSettings = $this->dashboardSettingsMapper->findAll($limit);
@@ -275,7 +290,6 @@ class AdminController extends Controller {
 				case 'show_wide_calendar':
 					$showWideCalendar = (int)$setting->value;
 					break;
-
 				case 'activity_position':
 					$activityPosition = (int)$setting->value;
 					break;
@@ -287,6 +301,9 @@ class AdminController extends Controller {
 					break;
 				case 'calendar_position':
 					$calendarPosition = (int)$setting->value;
+					break;
+				case 'announcement_group':
+					$announcementGroup = $setting->value;
 					break;
 			}
 		}
@@ -302,7 +319,8 @@ class AdminController extends Controller {
 			static::ACTIVITY_POSITION      => $activityPosition,
 			static::INBOX_POSITION         => $inboxPosition,
 			static::ANNOUNCEMENT_POSITION  => $announcementPosition,
-			static::CALENDAR_POSITION      => $calendarPosition
+			static::CALENDAR_POSITION      => $calendarPosition,
+			static::ANNOUNCEMENT_GROUP     => $announcementGroup
 		];
 
 		return new TemplateResponse($this->appName, 'admin', $params, 'blank');

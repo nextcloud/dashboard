@@ -84,7 +84,7 @@ class PageController extends Controller {
 	 * @NoCSRFRequired
 	 */
 	public function index() {
-		$canCreateAnnouncements = $this->dashboardService->isInGroup('News');
+		$canCreateAnnouncements = $this->dashboardService->isInGroup($this->dashboardService->getSystemValue('announcement_group'));
 		$storageInfo = OC_Helper::getStorageInfo('/');
 
 		$csp = new ContentSecurityPolicy();

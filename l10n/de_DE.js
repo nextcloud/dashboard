@@ -1,6 +1,7 @@
 OC.L10N.register(
     "dashboard",
     {
+    "Administration group of announcements" : "Administrationsgruppe von Ankündigungen",
     "Dashboard" : "Dashboard",
     "Save changes" : "Änderungen speichern ",
     "Create announcement" : "Ankündigung erstellen",

@@ -43,6 +43,8 @@ style('dashboard', 'settings');
     <input name="show_wide_activity" type="hidden" value="0"/>
     <input name="show_wide_announcement" type="hidden" value="0"/>
     <input name="show_wide_calendar" type="hidden" value="0"/>
+    <input name="announcement_group" type="hidden" value="news"/>
+    <input name="announcement_group" type="hidden" value="news"/>
 
         <table class="grid activitysettings">
             <thead>
@@ -162,6 +164,9 @@ style('dashboard', 'settings');
             </tr>
             </tbody>
         </table>
+        <label for="announcement_group"><?php p($l->t('Administration group of announcements')); ?></label>
+        <input id="announcement_group" name="announcement_group" type="text" value="<?php p($_['announcement_group']); ?>"/>
+
         <input type="submit" value="<?php p($l->t('Save')); ?>"/>
 
 </form>

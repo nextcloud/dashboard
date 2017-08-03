@@ -82,7 +82,8 @@ class AnnouncementController extends Controller {
 	public function create() {
 		$data = [];
 		// todo: group should be configurable
-		$canCreateAnnouncements = $this->dashboardService->isInGroup('News');
+		$canCreateAnnouncements = $this->dashboardService->
+			isInGroup($this->dashboardService->getSystemValue('announcement_group'));
 
 		if (!$canCreateAnnouncements) {
 			return new DataResponse($data, Http::STATUS_FORBIDDEN);
@@ -135,7 +136,7 @@ class AnnouncementController extends Controller {
 	public function edit($id) {
 		$data = [];
 
-		$canEditAnnouncements = $this->dashboardService->isInGroup('News');
+		$canEditAnnouncements = $this->dashboardService->isInGroup($this->dashboardService->getSystemValue('announcement_group'));
 		if (!$canEditAnnouncements) {
 			return new DataResponse($data, Http::STATUS_FORBIDDEN);
 		}
@@ -159,7 +160,7 @@ class AnnouncementController extends Controller {
 	public function updateEdit($id) {
 		$data = [];
 
-		$canEditAnnouncements = $this->dashboardService->isInGroup('News');
+		$canEditAnnouncements = $this->dashboardService->isInGroup($this->dashboardService->getSystemValue('announcement_group'));
 
 		if (!$canEditAnnouncements) {
 			return new DataResponse($data, Http::STATUS_FORBIDDEN);
@@ -212,7 +213,7 @@ class AnnouncementController extends Controller {
 	public function destroy($id) {
 		$data = [];
 
-		$canDeleteAnnouncements = $this->dashboardService->isInGroup('News');
+		$canDeleteAnnouncements = $this->dashboardService->isInGroup($this->dashboardService->getSystemValue('announcement_group'));
 
 		if (!$canDeleteAnnouncements) {
 			return new DataResponse($data, Http::STATUS_FORBIDDEN);
@@ -235,8 +236,8 @@ class AnnouncementController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function index() {
-		$canDeleteAnnouncements = $this->dashboardService->isInGroup('News');
-		$canEditAnnouncements = $this->dashboardService->isInGroup('News');
+		$canDeleteAnnouncements = $this->dashboardService->isInGroup($this->dashboardService->getSystemValue('announcement_group'));
+		$canEditAnnouncements = $this->dashboardService->isInGroup($this->dashboardService->getSystemValue('announcement_group'));
 
 		$limit = 5;
 		$announcements = $this->announcementMapper->findAll($limit);
