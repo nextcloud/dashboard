@@ -84,7 +84,7 @@ class PageController extends Controller {
 	 * @NoCSRFRequired
 	 */
 	public function index() {
-		$canCreateAnnouncements = $this->dashboardService->isInGroup($this->dashboardService->getSystemValue('announcement_group'));
+		//$canCreateAnnouncements = $this->dashboardService->isInGroup($this->dashboardService->getSystemValue('announcement_group'));
 		$storageInfo = OC_Helper::getStorageInfo('/');
 
 		$csp = new ContentSecurityPolicy();
@@ -98,18 +98,19 @@ class PageController extends Controller {
 		$csp->allowEvalScript(true);
 		$csp->addAllowedFrameDomain("*");
 		$csp->allowInlineScript(true);
-		$showActivity = 1;
-		$showInbox = 1;
-		$showAnnouncement = 1;
-		$showCalendar = 1;
-		$showWideActivity = 0;
-		$showWideInbox = 0;
-		$showWideAnnouncement = 0;
-		$showWideCalendar = 0;
-		$activityPosition = 1;
-		$inboxPosition = 2;
-		$announcementPosition = 3;
-		$calendarPosition = 4;
+		$showActivity = '1';
+		$showInbox = '1';
+		$showAnnouncement = '1';
+		$showCalendar = '1';
+		$showWideActivity = '0';
+		$showWideInbox = '0';
+		$showWideAnnouncement = '0';
+		$showWideCalendar = '0';
+		$activityPosition = '1';
+		$inboxPosition = '2';
+		$announcementPosition = '3';
+		$calendarPosition = '4';
+		$canCreateAnnouncements=true;
 		$limit = 20;
 		$dashboardSettings = $this->dashboardSettingsMapper->findAll($limit);
 		foreach ($dashboardSettings as $setting) {
@@ -150,6 +151,10 @@ class PageController extends Controller {
 					break;
 				case 'calendar_position':
 					$calendarPosition = (int)$setting->value;
+					break;
+				case 'announcement_group':
+					$announcementGroup = $setting->value;
+					$canCreateAnnouncements =$this->dashboardService->isInGroup($announcementGroup);
 					break;
 			}
 		}
@@ -228,7 +233,7 @@ class PageController extends Controller {
 
 	private function getPanel($key, $default = '') {
 		$value = $this->dashboardService->getAppValue($key, $default);
-		if (in_array($value, ['activities', 'announcements', 'calendar', 'inbox'])) {
+		if (in_array($value, ['activities', 'inbox', 'announcements', 'calendar'])) {
 			return $value;
 		} else {
 			return 'blank';

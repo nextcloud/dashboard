@@ -43,8 +43,7 @@ style('dashboard', 'settings');
     <input name="show_wide_activity" type="hidden" value="0"/>
     <input name="show_wide_announcement" type="hidden" value="0"/>
     <input name="show_wide_calendar" type="hidden" value="0"/>
-    <input name="announcement_group" type="hidden" value="news"/>
-    <input name="announcement_group" type="hidden" value="news"/>
+    <input name="announcement_group" type="hidden" value="News"/>
 
         <table class="grid activitysettings">
             <thead>
