@@ -1,0 +1,28 @@
+{ "translations": {
+    "Dashboard" : "Irányítópult",
+    "Save changes" : "Változások mentése",
+    "Create announcement" : "Közlemény létrehozás",
+    "Settings have been updated." : "Beállítások frissítve.",
+    "Wide box" : "Széles doboz",
+    "Placement" : "Elhelyezés",
+    "Activity" : "Tevékenység",
+    "Inbox" : "Bejövő",
+    "Announcements" : "Közlemények",
+    "Calendar" : "Naptár",
+    "Save" : "Mentés",
+    "Recently uploaded files" : "Mostanában feltöltött fájlok",
+    "Next events" : "Következő események",
+    "Edit announcement" : "Közlemény szerkesztése",
+    "Used space" : "Felhasznált hely",
+    "Title" : "Cím",
+    "Expiration date" : "Lejárati dátum",
+    "Content" : "Tartalom",
+    "SSL" : "SSL",
+    "Username" : "Felhasználónév",
+    "Password" : "Jelszó",
+    "File" : "Fájl",
+    "Uploaded by" : "Feltöltötte:",
+    "Uploaded at" : "Feltöltve ekkor:",
+    "Message" : "Üzenet"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
