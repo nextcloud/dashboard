@@ -4,6 +4,7 @@ OC.L10N.register(
     "Dashboard" : "Tablica",
     "Save changes" : "Zapisz zmiany",
     "Create announcement" : "Utwórz ogłoszenie",
+    "Settings have been updated." : "Ustawienia zostały zaktualizowane.",
     "Activity" : "Aktywność",
     "Announcements" : "Ogłoszenia",
     "Calendar" : "Kalendarz",
