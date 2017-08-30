@@ -15,6 +15,7 @@ OC.L10N.register(
     "Edit announcement" : "Redigeeri teadet",
     "Delete announcement" : "Kustuta teade",
     "Used space" : "Kasutatud ruum",
+    "You have used <strong>%s</strong> of the available <strong>%s</strong>" : "Oled kasutanud <strong>%s</strong> saadaolevast <strong>%s</strong>",
     "Title" : "Pealkiri",
     "Expiration date" : "Aegumise kuupäev",
     "Content" : "Sisu",

@@ -3,7 +3,11 @@
     "Save changes" : "Zapisz zmiany",
     "Create announcement" : "Utwórz ogłoszenie",
     "Settings have been updated." : "Ustawienia zostały zaktualizowane.",
+    "Show box" : "Pokaż okno",
+    "Wide box" : "Szerokie okno",
+    "Placement" : "Położenie",
     "Activity" : "Aktywność",
+    "Inbox" : "Odebrane",
     "Announcements" : "Ogłoszenia",
     "Calendar" : "Kalendarz",
     "Save" : "Zapisz",
@@ -12,6 +16,7 @@
     "Edit announcement" : "Edytuj ogłoszenie",
     "Delete announcement" : "Usuń ogłoszenie",
     "Used space" : "Użyta przestrzeń",
+    "You have used <strong>%s</strong> of the available <strong>%s</strong>" : "Używasz <strong>%s</strong> z <strong>%s</strong> dostępnych",
     "Title" : "Tytuł",
     "Expiration date" : "Data wygaśnięcia",
     "Content" : "Zawartość",
@@ -21,6 +26,7 @@
     "Password" : "Hasło",
     "File" : "Plik",
     "Uploaded by" : "Wysłane przez",
+    "Uploaded at" : "Wrzucono o",
     "Message" : "Komunikat",
     "Received" : "Otrzymane"
 },"pluralForm" :"nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);"
