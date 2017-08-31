@@ -5,6 +5,7 @@ OC.L10N.register(
     "Save changes" : "Salvesta muudatused",
     "Create announcement" : "Loo teade",
     "Settings have been updated." : "Seadistused on uuendatud",
+    "Placement" : "Paigutus",
     "Activity" : "Tegevus",
     "Inbox" : "Postkast",
     "Announcements" : "Teated",
