@@ -4,6 +4,8 @@ OC.L10N.register(
     "Save changes" : "Uložit změny",
     "Create announcement" : "Vytvořit oznámení",
     "Settings have been updated." : "Nastavení byla aktualizována.",
+    "Show box" : "Zobrazit box",
+    "Wide box" : "Skrýt box",
     "Placement" : "Umístění",
     "Activity" : "Aktivita",
     "Inbox" : "Doručené",
