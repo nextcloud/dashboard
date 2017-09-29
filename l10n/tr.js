@@ -8,7 +8,7 @@ OC.L10N.register(
     "Show box" : "Kutuyu görüntüle",
     "Wide box" : "Geniş kutu",
     "Placement" : "Konum",
-    "Activity" : "İşlem",
+    "Activity" : "Etkinlik",
     "Inbox" : "Gelen Kutusu",
     "Announcements" : "Duyurular",
     "Calendar" : "Takvim",
