@@ -25,7 +25,7 @@ OC.L10N.register(
     "Mailserver" : "მეილსერვერი",
     "SSL" : "SSL",
     "Username" : "მომხმარებლის სახელი",
-    "Password" : "პაროლ",
+    "Password" : "პაროლი",
     "File" : "ფაილი",
     "Uploaded by" : "ატვირთა",
     "Uploaded at" : "აიტვირთა",
