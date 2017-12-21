@@ -1,7 +1,7 @@
 OC.L10N.register(
     "dashboard",
     {
-    "Dashboard" : "訊息面板",
+    "Dashboard" : "主控台",
     "Save changes" : "儲存變更",
     "Create announcement" : "發佈公告",
     "Settings have been updated." : "設定已更新。",
@@ -28,7 +28,7 @@ OC.L10N.register(
     "Password" : "密碼",
     "File" : "檔案",
     "Uploaded by" : "上傳者",
-    "Uploaded at" : "上傳來自",
+    "Uploaded at" : "上傳時間",
     "Message" : "訊息",
     "Received" : "已接收"
 },
