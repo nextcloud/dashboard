@@ -1,9 +1,13 @@
 OC.L10N.register(
     "dashboard",
     {
+    "Dashboard" : "Painel de controlo",
     "Save changes" : "Guardar alterações",
     "Create announcement" : "Criar anúncio",
     "Settings have been updated." : "Definições foram actualizadas",
+    "Show box" : "Caixa de visualização",
+    "Wide box" : "Caixa larga",
+    "Placement" : "Colocação",
     "Activity" : "Atividade",
     "Inbox" : "Caixa de Entrada",
     "Announcements" : "Anúncios",
