@@ -20,6 +20,7 @@
 	<author>regio iT gesellschaft für informationstechnologie mbh</author>
 	<namespace>Dashboard</namespace>
 	<category>tools</category>
+	<website>https://github.com/nextcloud/dashboard</website>
 	<bugs>https://github.com/nextcloud/dashboard/issues</bugs>
 	<repository type="git">https://github.com/nextcloud/dashboard.git</repository>
 	<screenshot>https://raw.githubusercontent.com/nextcloud/dashboard/master/screenshots/v4.0.5.png</screenshot>
