@@ -14,7 +14,7 @@
   ],
   "require": {
     "twbs/bootstrap": "4.0.0-alpha.6",
-    "fullcalendar/fullcalendar": "v3.8.2",
+    "fullcalendar": "v3.8.2",
     "datatables/datatables": "1.10.15",
     "tinymce/tinymce": "4.6.4",
     "bordercloud/tether": "1.1.1"
