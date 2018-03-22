@@ -9,6 +9,7 @@
  * @author regio iT gesellschaft für informationstechnologie mbh
  * @copyright regio iT 2017
  * @license GNU AGPL version 3 or any later version
+ * @contributor tuxedo-rb | TUXEDO Computers GmbH | https://www.tuxedocomputers.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -38,6 +39,8 @@ use OCP\IRequest;
 use OCP\IURLGenerator;
 use OCP\IUserManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use OCP\IGroupManager;
+use OCP\ILogger;
 
 
 /**
@@ -71,6 +74,11 @@ class CalendarController extends Controller {
 	/** @var EventDispatcherInterface */
 	private $dispatcher;
 
+	/** @var IGroupManager */
+	private $groupManager;
+
+	/** @var ILogger */
+	private $logger;
 
 	/**
 	 * CalendarController constructor.
@@ -84,11 +92,15 @@ class CalendarController extends Controller {
 	 * @param IDBConnection $db
 	 * @param EventDispatcherInterface $dispatcher
 	 * @param SecureRandom $secureRandom
+	 * @param IGroupManager $groupManager
+	 * @param ILogger $logger
 	 */
 	public function __construct(
 		$appName, IRequest $request, IURLGenerator $urlGenerator, IUserManager $userManager,
 		$userId, Principal $principalBackend, IDBConnection $db,
-		EventDispatcherInterface $dispatcher, SecureRandom $secureRandom
+		EventDispatcherInterface $dispatcher, SecureRandom $secureRandom,
+		IGroupManager $groupManager,
+		ILogger $logger
 	) {
 		parent::__construct($appName, $request);
 		$this->urlGenerator = $urlGenerator;
@@ -98,8 +110,15 @@ class CalendarController extends Controller {
 		$this->userId = $userId;
 		$this->secureRandom = $secureRandom;
 		$this->dispatcher = $dispatcher;
+		$this->groupManager = $groupManager;
+		$this->logger = $logger;
 		$this->calDavBackend = new CalDAV\CalDavBackend(
-			$this->db, $this->principalBackend, $this->userManager, $this->secureRandom,
+			$this->db, $this->principalBackend, $this->userManager,
+			// we need a groupmanager-obj here as 4th constructor parameter
+			$this->groupManager,
+			$this->secureRandom,
+			// we need a logger-obj here as 6th constructor parameter
+			$this->logger,
 			$this->dispatcher
 		);
 	}
