@@ -9,6 +9,7 @@
  * @author regio iT gesellschaft für informationstechnologie mbh
  * @copyright regio iT 2017
  * @license GNU AGPL version 3 or any later version
+ * @contributor tuxedo-rb | TUXEDO Computers GmbH | https://www.tuxedocomputers.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -104,7 +105,9 @@ class Application extends App {
 				$c->getServer()
 				  ->getUserManager(),
 				$c->getServer()
-				  ->getGroupManager()
+				  ->getGroupManager(),
+				$c->getServer()->getShareManager(),
+				$c->getServer()->getUserSession()
 			);
 		}
 		);
