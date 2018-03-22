@@ -8,6 +8,7 @@
  * @author regio iT gesellschaft für informationstechnologie mbh
  * @copyright regio iT 2017
  * @license GNU AGPL version 3 or any later version
+ * @contributor tuxedo-rb | TUXEDO Computers GmbH | https://www.tuxedocomputers.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -37,10 +38,12 @@ style('dashboard', 'bootstrap-responsive.min');
 script('dashboard', '../vendor/datatables/datatables/media/js/jquery.dataTables.min');
 style('dashboard', '../vendor/datatables/datatables/media/css/jquery.dataTables.min');
 
-// fullcalendar
-script('dashboard', '../vendor/fullcalendar/fullcalendar/dist/fullcalendar.min');
-script('dashboard', '../vendor/fullcalendar/fullcalendar/dist/locale-all');
-style('dashboard', '../vendor/fullcalendar/fullcalendar/dist/fullcalendar.min');
+// fullcalendar (v3.8.2)
+script('dashboard', '../vendor/fullcalendar/fullcalendar.min');
+// load language-file depending on language settings of current user
+$langFile = '../vendor/fullcalendar/locale/' . $l->getLanguageCode();
+script('dashboard', $langFile);
+style('dashboard', '../vendor/fullcalendar/fullcalendar.min');
 
 // tinymce
 script('dashboard', '../vendor/tinymce/tinymce/tinymce.min');
