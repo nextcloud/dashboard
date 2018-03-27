@@ -9,6 +9,7 @@
  * @author regio iT gesellschaft für informationstechnologie mbh
  * @copyright regio iT 2017
  * @license GNU AGPL version 3 or any later version
+ * @contributor tuxedo-rb | TUXEDO Computers GmbH | https://www.tuxedocomputers.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -145,11 +146,11 @@ class AdminController extends Controller {
 		$success = empty($errors);
 		if ($success) {
 
-			$entity = $this->dashboardSettingsMapper->findOne(intval(1));
-			$entity->setId('1');
-			$entity->setKey('show_activity');
-			$entity->setValue((int)$input[static::SHOW_INBOX]);
-			$this->dashboardSettingsMapper->update($entity);
+			$dashboardSettings = $this->dashboardSettingsMapper->findOne(intval(1));
+			$dashboardSettings->setId(1);
+			$dashboardSettings->setKey('show_activity');
+			$dashboardSettings->setValue((int)$input[static::SHOW_ACTIVITY]);
+			$this->dashboardSettingsMapper->update($dashboardSettings);
 
 			$dashboardSettings = $this->dashboardSettingsMapper->findOne(intval(2));
 			$dashboardSettings->setId(2);

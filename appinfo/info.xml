@@ -32,4 +32,12 @@
 		<admin>OCA\Dashboard\Controller\AdminController</admin>
 		<admin-section>OCA\Dashboard\Controller\AdminController</admin-section>
 	</settings>
+        <repair-steps>
+		<install>
+			<step>OCA\Dashboard\Migration\SetDefaultDashboardSettings</step>
+		</install>
+		<uninstall>
+			<step>OCA\Dashboard\Migration\DropDashboardTables</step>
+		</uninstall>
+	</repair-steps>
 </info>
