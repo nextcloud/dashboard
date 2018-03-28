@@ -32,7 +32,7 @@
 		<admin>OCA\Dashboard\Controller\AdminController</admin>
 		<admin-section>OCA\Dashboard\Controller\AdminController</admin-section>
 	</settings>
-        <repair-steps>
+	<repair-steps>
 		<install>
 			<step>OCA\Dashboard\Migration\SetDefaultDashboardSettings</step>
 		</install>

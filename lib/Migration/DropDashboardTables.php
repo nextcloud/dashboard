@@ -53,7 +53,7 @@ class DropDashboardTables implements IRepairStep {
 	}
 
 	public function getName() {
-		return 'drop all Dashboard tables';
+		return 'remove all Dashboard tables';
 	}
 
 	/**
@@ -63,7 +63,7 @@ class DropDashboardTables implements IRepairStep {
 		$this->db->dropTable('dashboard_announcements');
 		$this->db->dropTable('dashboard_files');
 		$this->db->dropTable('dashboard_settings');
-		$output->info("Dashboard tables droped");
+		$output->info("Dashboard tables removed");
 	}
 
 }

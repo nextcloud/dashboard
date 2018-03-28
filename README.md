@@ -10,12 +10,13 @@ run `composer install` to get 3rd party scripts
   of user-group 'News'
 
 - this user-group is hardcoded in following files:
-  ./dashboard/lib/Controller/AnnouncementController.php
-  ./dashboard/lib/Controller/PageController.php
+  `./dashboard/lib/Controller/AnnouncementController.php`
+  and
+  `./dashboard/lib/Controller/PageController.php`
 
 - an disabled dashboard section in the advanced admin settings should have a
-  unique position number, even if it should not displayed
-  (don't use a position number several times)
+  unique placement number, even if it should not displayed
+  (don't use a placement number several times)
 
 
 ## Todo
