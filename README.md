@@ -23,8 +23,4 @@ run `composer install` to get 3rd party scripts
 
 - make announcement group configurable
 
-- calendar entries which contains a double-point char
-  (at example: 'Meeting 10:45') creates a empty undefined entry in the
-  fullcalendar component
-
 - check inbox implementation

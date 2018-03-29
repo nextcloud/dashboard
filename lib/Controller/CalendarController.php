@@ -194,11 +194,20 @@ class CalendarController extends Controller {
 			$newEventArray = [];
 			//parse Event-Information into Array
 			foreach ($parts as $element) {
-				$part1 = substr($element, 0, strrpos($element, ":"));
-				$part2 = substr(
-					$element, strrpos($element, ":") + 1,
-					strlen($element) - strrpos($element, ":") + 1
-				);
+				// exception for calendar text with containing double-point chars
+				// (at example 'Meeting 10:45')
+				if (substr_count($element, ':') > 1 &&
+				    (strpos($element, 'SUMMARY:') === 0))
+				{
+					$part1 = substr($element, 0, strpos($element, ":"));
+					$part2 = substr($element, strpos($element, ":") +1);
+				} else {
+					$part1 = substr($element, 0, strrpos($element, ":"));
+					$part2 = substr(
+					    $element, strrpos($element, ":") + 1,
+					    strlen($element) - strrpos($element, ":") + 1
+					);
+				}
 				$newEventArray = $newEventArray + [$part1 => $part2];
 			}
 			$fixeslastmodified = strtotime(date("Y-m-d H:i:s"));
