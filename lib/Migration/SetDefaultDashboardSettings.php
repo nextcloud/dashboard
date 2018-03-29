@@ -32,6 +32,7 @@ use OCP\Migration\IRepairStep;
 use OCP\Migration\IOutput;
 use OCA\Dashboard\Db\DashboardSettings;
 use OCA\Dashboard\Db\DashboardSettingsMapper;
+use OCP\IConfig;
 
 /**
  * writes default settings into table dashboard_settings during app-installation
@@ -46,16 +47,22 @@ class SetDefaultDashboardSettings implements IRepairStep {
 	/** @var DashboardSettingsMapper */
 	private $dashboardSettingsMapper;
 
+	/** @var IConfig */
+	private $config;
+
 	/**
 	 * @param DashboardSettings $dashboardSettings
 	 * @param DashboardSettingsMapper $dashboardSettingsMapper
+	 * @param IConfig $config
 	 */
 	public function __construct(
 		DashboardSettings $dashboardSettings,
-		DashboardSettingsMapper $dashboardSettingsMapper
+		DashboardSettingsMapper $dashboardSettingsMapper,
+		IConfig $config
 	) {
 		$this->dashboardSettings = $dashboardSettings;
 		$this->dashboardSettingsMapper = $dashboardSettingsMapper;
+		$this->config = $config;
 	}
 
 	public function getName() {
@@ -66,6 +73,12 @@ class SetDefaultDashboardSettings implements IRepairStep {
 	 * @param IOutput $output
 	 */
 	public function run(IOutput $output) {
+		// enabling the app is not the only one event which triggers install
+		if ($this->config->getAppValue('dashboard', 'setDefaultDashboardSettings') === 'yes') {
+			$output->info('default Dashboard settings already saved');
+			return;
+		}
+
 		$this->dashboardSettings->setId(1);
 		$this->dashboardSettings->setKey('show_activity');
 		$this->dashboardSettings->setValue(1);
@@ -125,6 +138,8 @@ class SetDefaultDashboardSettings implements IRepairStep {
 		$this->dashboardSettings->setKey('calendar_position');
 		$this->dashboardSettings->setValue(4);
 		$this->dashboardSettingsMapper->insert($this->dashboardSettings);
+
+		$this->config->setAppValue('dashboard', 'setDefaultDashboardSettings', 'yes');
 
 		$output->info("initial default Dashboard settings saved");
 	}

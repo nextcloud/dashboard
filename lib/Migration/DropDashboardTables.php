@@ -32,6 +32,7 @@ namespace OCA\Dashboard\Migration;
 use OCP\Migration\IRepairStep;
 use OCP\Migration\IOutput;
 use OCP\IDBConnection;
+use OCP\IConfig;
 
 /**
  * removes all dashboard tables during app-uninstall
@@ -43,13 +44,18 @@ class DropDashboardTables implements IRepairStep {
 	/** @var IDBConnection */
 	private $db;
 
+	/** @var IConfig */
+	private $config;
+
 	/**
 	 * @param IDBConnection $db
+	 * @param IConfig $config
 	 */
 	public function __construct(
 		IDBConnection $db
 	) {
 		$this->db = $db;
+		$this->config = $config;
 	}
 
 	public function getName() {
@@ -63,6 +69,9 @@ class DropDashboardTables implements IRepairStep {
 		$this->db->dropTable('dashboard_announcements');
 		$this->db->dropTable('dashboard_files');
 		$this->db->dropTable('dashboard_settings');
+
+		$this->config->deleteAppValue('dashboard', 'setDefaultDashboardSettings');
+
 		$output->info("Dashboard tables removed");
 	}
 
