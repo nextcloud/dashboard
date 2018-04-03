@@ -52,7 +52,8 @@ class DropDashboardTables implements IRepairStep {
 	 * @param IConfig $config
 	 */
 	public function __construct(
-		IDBConnection $db
+		IDBConnection $db,
+		IConfig $config
 	) {
 		$this->db = $db;
 		$this->config = $config;
@@ -70,7 +71,8 @@ class DropDashboardTables implements IRepairStep {
 		$this->db->dropTable('dashboard_files');
 		$this->db->dropTable('dashboard_settings');
 
-		$this->config->deleteAppValue('dashboard', 'setDefaultDashboardSettings');
+		$this->config->deleteAppFromAllUsers('dashboard');
+		$this->config->deleteAppValues('dashboard');
 
 		$output->info("Dashboard tables removed");
 	}
