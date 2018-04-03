@@ -5,6 +5,9 @@ OC.L10N.register(
     "Save changes" : "Запис на промените",
     "Create announcement" : "Създай уведомление",
     "Settings have been updated." : "Настройките бяха актуализирани.",
+    "Show box" : "Покажи кутия",
+    "Wide box" : "Уголеми кутията",
+    "Placement" : "Разположение",
     "Activity" : "Активност",
     "Inbox" : "Входящи",
     "Announcements" : "Уведомления",
@@ -26,6 +29,7 @@ OC.L10N.register(
     "File" : "Файл",
     "Uploaded by" : "Качено от",
     "Uploaded at" : "Качено на",
-    "Message" : "Съобщение"
+    "Message" : "Съобщение",
+    "Received" : "Получени"
 },
 "nplurals=2; plural=(n != 1);");
