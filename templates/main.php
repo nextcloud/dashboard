@@ -41,8 +41,17 @@ style('dashboard', '../vendor/datatables/datatables/media/css/jquery.dataTables.
 // fullcalendar (v3.8.2)
 script('dashboard', '../vendor/fullcalendar/fullcalendar.min');
 // load language-file depending on language settings of current user
-$langFile = '../vendor/fullcalendar/locale/' . $l->getLanguageCode();
-script('dashboard', $langFile);
+$ncLangCodeCurrUser = $l->getLanguageCode();
+/*
+ * don't load a language-file if lang-code 'en' (default language of fullcalendar)
+ * getLanguageCode() returns strings like en_GB and needs to be formatted to
+ * match the language specific filenames of fullcalendar
+ */
+if ($ncLangCodeCurrUser !== 'en') {
+	$formatLangCode = str_replace('_', '-', mb_strtolower($ncLangCodeCurrUser));
+	$langFile = '../vendor/fullcalendar/locale/' . $formatLangCode;
+	script('dashboard', $langFile);
+}
 style('dashboard', '../vendor/fullcalendar/fullcalendar.min');
 
 // tinymce
