@@ -9,6 +9,7 @@
  * @author regio iT gesellschaft für informationstechnologie mbh
  * @copyright regio iT 2017
  * @license GNU AGPL version 3 or any later version
+ * @contributor tuxedo-rb | TUXEDO Computers GmbH | https://www.tuxedocomputers.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -42,6 +43,7 @@ class PersonalController extends Controller {
 	const INBOX_REMOTE_SYSTEM_NAME = 'inbox_remote_system_name';
 	const INBOX_PORT = 'inbox_port';
 	const INBOX_SSL = 'inbox_ssl';
+	const INBOX_VALIDATE_CERT = 'inbox_validate_cert';
 	const INBOX_USERNAME = 'inbox_username';
 	const INBOX_PASSWORD = 'inbox_password';
 
@@ -83,6 +85,9 @@ class PersonalController extends Controller {
 			static::INBOX_SSL                => $this->dashboardService->getUserValue(
 				static::INBOX_SSL
 			),
+			static::INBOX_VALIDATE_CERT      => $this->dashboardService->getUserValue(
+				static::INBOX_VALIDATE_CERT
+			),
 			static::INBOX_USERNAME           => $this->dashboardService->getUserValue(
 				static::INBOX_USERNAME
 			),
@@ -120,6 +125,10 @@ class PersonalController extends Controller {
 				'filter' => FILTER_VALIDATE_BOOLEAN,
 				'flags'  => FILTER_NULL_ON_FAILURE,
 			],
+			static::INBOX_VALIDATE_CERT      => [
+				'filter' => FILTER_VALIDATE_BOOLEAN,
+				'flags'  => FILTER_NULL_ON_FAILURE,
+			],
 			static::INBOX_USERNAME           => [
 				'filter' => FILTER_UNSAFE_RAW,
 				'flags'  => FILTER_NULL_ON_FAILURE,
@@ -146,6 +155,9 @@ class PersonalController extends Controller {
 			$this->dashboardService->setUserValue(static::INBOX_PORT, $input[static::INBOX_PORT]);
 			$this->dashboardService->setUserValue(
 				static::INBOX_SSL, (int)$input[static::INBOX_SSL]
+			);
+			$this->dashboardService->setUserValue(
+				static::INBOX_VALIDATE_CERT, (int)$input[static::INBOX_VALIDATE_CERT]
 			);
 			$this->dashboardService->setUserValue(
 				static::INBOX_USERNAME, $input[static::INBOX_USERNAME]
