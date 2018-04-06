@@ -10,6 +10,7 @@
  * @author Maxence Lange <maxence@nextcloud.com>
  * @copyright regio iT 2017
  * @license GNU AGPL version 3 or any later version
+ * @contributor tuxedo-rb | TUXEDO Computers GmbH | https://www.tuxedocomputers.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -81,8 +82,9 @@ class ActivityController extends Controller {
 
 		$newData = [];
 		foreach ($filesCreated as $files) {
-
-			if (in_array($files['object_name'], $filesDeleted)) {
+			if (in_array($files['object_name'], $filesDeleted[0]) &&
+				$files['timestamp'] < $filesDeleted[1])
+			{
 				continue;
 			}
 
