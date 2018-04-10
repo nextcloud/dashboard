@@ -77,6 +77,33 @@
     color: white;
 }
 
+table.dataTable thead .sorting {
+    background-image: url("../img/button-up-down.svg");
+    background-size: 0.8em;
+}
+
+table.dataTable thead .sorting:hover {
+    background-image: url("../img/button-up-down-dark.svg");
+}
+
+table.dataTable thead .sorting_desc {
+    background-image: url("../img/button-down.svg");
+    background-size: 0.8em;
+}
+
+table.dataTable thead .sorting_desc:hover {
+    background-image: url("../img/button-down-dark.svg");
+}
+
+table.dataTable thead .sorting_asc {
+    background-image: url("../img/button-up.svg");
+    background-size: 0.8em;
+}
+
+table.dataTable thead .sorting_asc:hover {
+    background-image: url("../img/button-up-dark.svg");
+}
+
 .myCollapse {
     display: none;
 }
