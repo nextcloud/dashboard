@@ -28,7 +28,7 @@ OC.L10N.register(
     "Password" : "Passwort",
     "File" : "Datei",
     "Uploaded by" : "Hochgeladen von",
-    "Uploaded at" : "Hochgeladen nach",
+    "Uploaded at" : "Hochgeladen am",
     "Message" : "Nachricht",
     "Received" : "Erhalten"
 },
