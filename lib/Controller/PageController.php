@@ -9,6 +9,7 @@
  * @author regio iT gesellschaft für informationstechnologie mbh
  * @copyright regio iT 2017
  * @license GNU AGPL version 3 or any later version
+ * @contributor tuxedo-rb | TUXEDO Computers GmbH | https://www.tuxedocomputers.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -102,6 +103,7 @@ class PageController extends Controller {
 		$showInbox = 1;
 		$showAnnouncement = 1;
 		$showCalendar = 1;
+		$showQuota = 1;
 		$showWideActivity = 0;
 		$showWideInbox = 0;
 		$showWideAnnouncement = 0;
@@ -126,6 +128,9 @@ class PageController extends Controller {
 					break;
 				case 'show_calendar':
 					$showCalendar = (int)$setting->value;
+					break;
+				case 'show_quota':
+					$showQuota = (int)$setting->value;
 					break;
 				case 'show_wide_activity':
 					$showWideActivity = (int)$setting->value;
@@ -160,6 +165,7 @@ class PageController extends Controller {
 			'show_inbox'               => $showInbox,
 			'show_announcement'        => $showAnnouncement,
 			'show_calendar'            => $showCalendar,
+			'show_quota'               => $showQuota,
 			'show_wide_activity'       => $showWideActivity,
 			'show_wide_inbox'          => $showWideInbox,
 			'show_wide_announcement'   => $showWideAnnouncement,

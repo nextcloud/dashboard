@@ -18,10 +18,15 @@ imap.
 As long as the changes made by this fork are not merged into
 nextcloud/dashboard master, follow these steps to install this fork.
 
+
 ### Preparation
 
 Disable and remove the previous version of the Dashboard App through the
 admin backend.
+
+There are two ways to install this fork, following described under `Installation
+per git clone` and `Installation per archive download`.
+Choose your prefered method.
 
 
 ### Installation per git clone
@@ -68,6 +73,19 @@ chown -R www-data:www-data [path to your webroot]/nextcloud/apps/dashboard
 ```
 
 Finally, enable the Dashboard App through the admin backend.
+
+
+## App Configuration
+
+It is possible to limit access to the Dashboard App to a certain group of users.
+Simply activate the `Limit to groups` checkbox and choose the desired
+user-group in the Apps overview.
+
+Visibility, positioning and proportioning of the 5 main dashboard sections
+are configurable under `Administration` -> `Additional settings`.
+
+The individual Email settings for each user are configurable under `Personal` ->
+`Additional settings`.
 
 
 ## Notes

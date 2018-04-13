@@ -138,6 +138,11 @@ class SetDefaultDashboardSettings implements IRepairStep {
 		$this->dashboardSettings->setKey('calendar_position');
 		$this->dashboardSettings->setValue(4);
 		$this->dashboardSettingsMapper->insert($this->dashboardSettings);
+		
+		$this->dashboardSettings->setId(13);
+		$this->dashboardSettings->setKey('show_quota');
+		$this->dashboardSettings->setValue(1);
+		$this->dashboardSettingsMapper->insert($this->dashboardSettings);
 
 		$this->config->setAppValue('dashboard', 'setDefaultDashboardSettings', 'yes');
 

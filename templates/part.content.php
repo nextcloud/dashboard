@@ -37,6 +37,7 @@
     <?php print_unescaped($this->inc("section.{$_['panel_3']}")); ?>
 </div>
 
+<?php if($_['show_quota']===1) : ?>
 <div class="row-fluid">
     <section class="dashboard-section">
         <h1><a data-toggle="myCollapse" data-target="#quota"><?php p($l->t('Used space')); ?></a></h1>
@@ -49,6 +50,7 @@
         <div style="clear: both;"></div>
     </section>
 </div>
+<?php endif; ?>
 
 <?php if ($_['can_create_announcements'] === true): ?>
     <div id="announcement-form">
