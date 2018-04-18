@@ -79,8 +79,9 @@ class ActivityController extends Controller {
 
 		$filesDeleted = $this->activityService->getDeletedFilesFromActivity();
 		$filesCreated = $this->activityService->getCreatedFilesFromActivity();
+		$sharedFiles = $this->activityService->getSharedFilesFromActivity();
 
-		$newData = [];
+		$newData = $sharedFiles;
 		foreach ($filesCreated as $files) {
 			if (in_array($files['object_name'], $filesDeleted[0]) &&
 				$files['timestamp'] < $filesDeleted[1])
