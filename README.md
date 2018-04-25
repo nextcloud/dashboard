@@ -26,7 +26,7 @@ admin backend.
 
 There are two ways to install this fork, following described under `Installation
 per git clone` and `Installation per archive download`.
-Choose your prefered method.
+Choose your preferred method.
 
 
 ### Installation per git clone

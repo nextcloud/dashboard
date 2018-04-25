@@ -76,35 +76,8 @@ class ActivityController extends Controller {
 	 * @return DataResponse
 	 */
 	public function index() {
-
-		$filesDeleted = $this->activityService->getDeletedFilesFromActivity();
-		$filesCreated = $this->activityService->getCreatedFilesFromActivity();
-		$sharedFiles = $this->activityService->getSharedFilesFromActivity();
-
-		$newData = $sharedFiles;
-		foreach ($filesCreated as $files) {
-			if (in_array($files['object_name'], $filesDeleted[0]) &&
-				$files['timestamp'] < $filesDeleted[1])
-			{
-				continue;
-			}
-
-			$newData[] = [
-				'object_name' => $files['object_name'],
-				'link'        => $files['link'],
-				'type'        => $files['type'],
-				'timestamp'   => $files['timestamp'],
-				'user'        => $files['user']
-			];
-
-			// todo: Admin can configure File-Limit
-			if (sizeof($newData) >= 6) {
-				break;
-			}
-		}
-
-		return new DataResponse(['data' => $newData]);
+		$activityData = $this->activityService->getFilesFromActivity(TRUE);
+		return new DataResponse(['data' => $activityData]);
 	}
-
 
 }

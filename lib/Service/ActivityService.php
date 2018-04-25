@@ -27,22 +27,10 @@
 
 namespace OCA\Dashboard\Service;
 
-use OCA\Activity\Data;
-use OCA\Activity\GroupHelper;
-use OCA\Activity\UserSettings;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 
 class ActivityService {
-
-	/** @var Data */
-	private $data;
-
-	/** @var GroupHelper */
-	private $myGroupHelper;
-
-	/** @var UserSettings */
-	private $userSettings;
 
 	/**@var string */
 	private $userId;
@@ -53,173 +41,123 @@ class ActivityService {
 	/**
 	 * ActivityService constructor.
 	 *
-	 * @param Data $data
 	 * @param string $userId
-	 * @param GroupHelper $myGroupHelper
-	 * @param UserSettings $userSettings
 	 * @param IDBConnection $connection
 	 */
-	function __construct(
-		Data $data,
-		$userId,
-		GroupHelper $myGroupHelper,
-		UserSettings $userSettings,
-		IDBConnection $connection
-	) {
-		$this->data = $data;
+	function __construct($userId, IDBConnection $connection) {
 		$this->userId = $userId;
-		$this->myGroupHelper = $myGroupHelper;
-		$this->userSettings = $userSettings;
 		$this->connection = $connection;
 	}
 
-
 	/**
-	 * @return array
-	 */
-	public function getDeletedFilesFromActivity() {
-		$files = $this->getFilesFromActivity('file_deleted');
-		$deleted = [];
-		foreach ($files as $file) {
-			$deleted[] = [
-				$file['object_name'],
-				$file['timestamp']
-			];
-		}
-
-		return $deleted;
-	}
-
-
-	/**
-	 * @return array
-	 */
-	public function getCreatedFilesFromActivity() {
-		return $this->getFilesFromActivity('file_created');
-	}
-
-
-	/**
-	 * @param string $type
+	 * get all file activities for current user
+	 * and optional all shared files activities for current user
 	 *
+	 * @param boolean $getSharedFiles
 	 * @return array
 	 */
-	private function getFilesFromActivity($type) {
-		$entries = $this->data->get(
-			$this->myGroupHelper, $this->userSettings, $this->userId, 0, 20, "desc",
-			'all', 'files'
-		)['data'];
-
-		$files = [];
-		foreach ($entries as $entry) {
-			if ($entry['type'] === $type) {
-				foreach ($entry['subject_rich'][1] as $file) {
-					$files[] = [
-						'object_name' => $file['name'],
-						'link'        => $file['link'],
-						'type'        => $entry['type'],
-						'timestamp'   => $entry['timestamp'],
-						'user'        => $entry['user']
-					];
-				}
-			}
-		}
-
-		return $files;
-	}
-
-	/**
-	 * get all shared and unshared events for current user
-	 * 
-	 * @return array
-	 */
-	public function getSharedFilesFromActivity() {
+	public function getFilesFromActivity($getSharedFiles = FALSE) {
 		$queryBuilder = $this->connection->getQueryBuilder();
 		// SELECT * FROM [prefix]_activity
 		$queryBuilder->select('*')->from('activity');
-		// WHERE affecteduser = [current user]
-		$queryBuilder->where($queryBuilder->expr()
-			->eq(
-				'affecteduser',
-				$queryBuilder->createNamedParameter($this->userId)
+		// WHERE
+		$queryBuilder->where(
+		// (user = [current user] AND app = 'files')
+			$queryBuilder->expr()->andX(
+				$queryBuilder->expr()->eq(
+					'user',
+					$queryBuilder->createNamedParameter($this->userId)
+				),
+				$queryBuilder->expr()->eq(
+					'app',
+					$queryBuilder->createNamedParameter('files')
+				)
 			)
 		);
-		// AND user != [current user]
-		$queryBuilder->andWhere($queryBuilder->expr()
-			->neq(
-				'user',
-				$queryBuilder->createNamedParameter($this->userId)
-			)
-		);
-		// AND (subject = 'shared_with_by' OR subject = 'unshared_by')
-		$queryBuilder->andWhere($queryBuilder->expr()
-			->in(
-				'subject',
-				$queryBuilder->createNamedParameter(
-					['unshared_by', 'shared_with_by',],
-					IQueryBuilder::PARAM_STR_ARRAY)
-			)
-		);
+		if ($getSharedFiles === TRUE) {
+		// OR
+			$queryBuilder->orWhere(
+		// (affecteduser = [current user] AND (subject = 'unshared_by' OR subject = 'shared_with_by'))
+				$queryBuilder->expr()->andX(
+					$queryBuilder->expr()->eq(
+						'affecteduser',
+						$queryBuilder->createNamedParameter($this->userId)
+					),
+					$queryBuilder->expr()->in(
+						'subject',
+						$queryBuilder->createNamedParameter(
+							['unshared_by', 'shared_with_by',],
+							IQueryBuilder::PARAM_STR_ARRAY
+						)
+					)
+				)
+			);
+		}
 		// ORDER BY timestamp DESC
 		$queryBuilder->orderBy('timestamp', 'DESC');
 
+		$queryBuilder->setMaxResults(30);
 		$result = $queryBuilder->execute();
-		$sharedFiles = array();
+
+		$files = array();
 		while ($row = $result->fetch()) {
-			$sharedFiles[] = array(
+			$files[] = array(
 				'object_name' => substr($row['file'], 1),
-				'link'        => str_replace(
-					'apps/files/?dir=/',
-					'f/' . $row['object_id'],
-					$row['link']
-				),
-				'type'        => $row['subject'],
+				'link'	      =>
+					str_replace(
+						'apps/files/?dir=/',
+						'f/' . $row['object_id'],
+						$row['link']
+					),
+				'type'	      => $row['subject'],
 				'timestamp'   => $row['timestamp'],
-				'user'        => $row['user'],
+				'user'	      => $row['user'],
 				'file_id'     => $row['object_id']
 			);
 		}
 		$result->closeCursor();
 
-		return $this->filterSharedFilesResult($sharedFiles);
- 	}
+		return $this->filterFilesResult($files, 6);
+	}
 
 	/**
-	 * Note: chronologic descending sorted array required
-	 *
-	 * @param array $sharedFiles
-	 * @param int $limitResult
 	 * 
+	 * Note: chronologic descending sorted array required
+	 * 
+	 * @param array $files
+	 * @param int $limitResult
 	 * @return array
 	 */
-	private function filterSharedFilesResult ($sharedFiles, $limitResult = 6){
-		$filteredSharedFiles = array();
+	private function filterFilesResult($files, $limitResult = 6) {
+		$filter = array(
+			'created_self',
+			'renamed_self',
+			'restored_self',
+			'shared_with_by'
+		);
+		$filteredFiles = array();
 		$ignoreFileId = array();
 		$i = 0;
 
-		foreach ($sharedFiles as $sharedFile) {
-			if ($sharedFile['type'] === 'shared_with_by') {
-				if (!in_array($sharedFile['file_id'], $ignoreFileId)) {
-					// latest chronologic occurrence of shared
-					// we add this entry to result-array and
-					// ignore further entries with this file_id
-					$filteredSharedFiles[] = $sharedFile;
-					$ignoreFileId[] = $sharedFile['file_id'];
+		foreach ($files as $file) {
+			if (in_array($file['type'], $filter)) {
+				if (!in_array($file['file_id'], $ignoreFileId)) {
+					$filteredFiles[] = $file;
+					$ignoreFileId[] = $file['file_id'];
 					$i++;
 					if ($i === $limitResult) {
 						break;
 					}
 				}
-			} elseif ($sharedFile['type'] === 'unshared_by') {
-				if (!in_array($sharedFile['file_id'], $ignoreFileId)) {
-					// latest chronologic occurrence of unshared
-					// access to this file was revoked for current user
-					// we ignore further entries with this file_id
-					$ignoreFileId[] = $sharedFile['file_id'];
+			} elseif ($file['type'] === 'unshared_by'
+				|| $file['type'] === 'deleted_self')
+			{
+				if (!in_array($file['file_id'], $ignoreFileId)) {
+					$ignoreFileId[] = $file['file_id'];
 				}
 			}
 		}
-		return $filteredSharedFiles;
+		return $filteredFiles;
 	}
 
 }

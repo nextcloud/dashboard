@@ -48,7 +48,7 @@ style('dashboard', 'settings');
         <label for="inbox_ssl"><?php p($l->t('SSL')); ?></label>
         <input style="min-height: 0;"<?php if ($_['inbox_ssl']): ?>checked="checked"<?php endif; ?> id="inbox_ssl" name="inbox_ssl" type="checkbox" value="1"/>
         <br />
-	<label for="inbox_validate_cert"><?php p($l->t('validate Cert')); ?></label>
+        <label for="inbox_validate_cert"><?php p($l->t('validate Cert')); ?></label>
         <input style="min-height: 0;"<?php if ($_['inbox_validate_cert']): ?>checked="checked"<?php endif; ?> id="inbox_validate_cert" name="inbox_validate_cert" type="checkbox" value="1"/>
     </div>
     <label for="inbox_username"><?php p($l->t('Username')); ?></label>
