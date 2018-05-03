@@ -35,11 +35,11 @@ if($_['show_inbox']===1)    {?>
 <h1><a data-toggle="myCollapse" data-target="#inbox"><?php p($l->t('Inbox')); ?></a></h1>
 
 <div class="myCollapse in" id="inbox">
-    <table class="hover">
+    <table class="hover" style="width: 100%;">
         <thead>
         <tr>
-            <th><?php p($l->t('Message')); ?></th>
-            <th><?php p($l->t('Received')); ?></th>
+            <th style="width: 75%;"><?php p($l->t('Message')); ?></th>
+            <th style="width: 25%;"><?php p($l->t('Received')); ?></th>
         </tr>
         </thead>
         <tbody></tbody>

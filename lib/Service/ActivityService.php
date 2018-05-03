@@ -111,7 +111,7 @@ class ActivityService {
 					),
 				'type'	      => $row['subject'],
 				'timestamp'   => $row['timestamp'],
-				'user'	      => $row['user'],
+				'user'        => $row['user'],
 				'file_id'     => $row['object_id']
 			);
 		}

@@ -46,8 +46,8 @@
     vertical-align: bottom;
 }
 
-#announcements a {
-    text-decoration: underline;
+#announcements {
+    margin: 2.5%;
 }
 
 #announcement-form, #event {

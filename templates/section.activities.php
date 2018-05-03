@@ -33,12 +33,12 @@ if($_['show_activity']===1)    {?>
 } ?>>
 <h1><a data-toggle="myCollapse" data-target="#activities"><?php p($l->t('Recently uploaded files')); ?></a></h1>
 <div class="myCollapse in" id="activities">
-    <table class="hover">
+    <table class="hover" style="width: 100%;">
         <thead>
         <tr>
-            <th><?php p($l->t('File')); ?></th>
-            <th><?php p($l->t('Uploaded by')); ?></th>
-            <th><?php p($l->t('Uploaded at')); ?></th>
+            <th style="width: 50%;"><?php p($l->t('File')); ?></th>
+            <th style="width: 25%;"><?php p($l->t('Uploaded by')); ?></th>
+            <th style="width: 25%;"><?php p($l->t('Uploaded at')); ?></th>
         </tr>
         </thead>
         <tbody></tbody>
