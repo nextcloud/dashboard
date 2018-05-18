@@ -32,4 +32,4 @@ OC.L10N.register(
     "Message" : "წერილი",
     "Received" : "მიიღო"
 },
-"nplurals=2; plural=(n==1);");
+"nplurals=2; plural=(n!=1);");
