@@ -82,7 +82,7 @@ Simply activate the `Limit to groups` checkbox and choose the desired
 user-group in the Apps overview.
 
 Visibility, positioning and proportioning of the 5 main dashboard sections
-are configurable under `Administration` -> `Additional settings`.
+are configurable under `Administration` -> `Dashboard`.
 
 The individual Email settings for each user are configurable under `Personal` ->
 `Additional settings`.
@@ -98,7 +98,7 @@ The individual Email settings for each user are configurable under `Personal` ->
  and
  `./dashboard/lib/Controller/PageController.php`
 
-- a disabled dashboard section in the additional admin settings should have a
+- a disabled dashboard section in the dashboard admin settings should have a
  unique placement number, even if it should not displayed
  (don't use the same placement number several times)
 

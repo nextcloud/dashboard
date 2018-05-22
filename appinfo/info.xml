@@ -29,8 +29,8 @@
 		<nextcloud min-version="12" max-version="13"/>
 	</dependencies>
 	<settings>
-		<admin>OCA\Dashboard\Controller\AdminController</admin>
-		<admin-section>OCA\Dashboard\Controller\AdminController</admin-section>
+		<admin>OCA\Dashboard\Settings\Admin</admin>
+		<admin-section>OCA\Dashboard\Settings\Section</admin-section>
 	</settings>
 	<repair-steps>
 		<install>

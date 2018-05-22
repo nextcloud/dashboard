@@ -51,5 +51,5 @@ $container->getServer()->getNavigationManager()->add(function () use ($container
         'name' => $l10n->t('Dashboard')
     ];
 });
-App::registerAdmin($container->getAppName(), 'admin');
+//App::registerAdmin($container->getAppName(), 'admin');
 App::registerPersonal($container->getAppName(), 'personal');
