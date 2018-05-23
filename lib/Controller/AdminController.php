@@ -52,6 +52,8 @@ class AdminController extends Controller {
 	const INBOX_POSITION = 'inbox_position';
 	const ANNOUNCEMENT_POSITION = 'announcement_position';
 	const CALENDAR_POSITION = 'calendar_position';
+	const ANNOUNCEMENT_GROUP = 'announcement_group';
+
 
 	/** @var DashboardSettingsMapper */
 	private $dashboardSettingsMapper;
@@ -131,7 +133,12 @@ class AdminController extends Controller {
 			],
 			static::CALENDAR_POSITION      => [
 				'flags' => FILTER_NULL_ON_FAILURE,
+			],
+			static::ANNOUNCEMENT_GROUP      => [
+				'filter' => FILTER_UNSAFE_RAW,
+				'flags'  => FILTER_NULL_ON_FAILURE,
 			]
+
 		];
 		$input = filter_input_array(INPUT_POST, $definition);
 
@@ -144,77 +151,82 @@ class AdminController extends Controller {
 
 		$success = empty($errors);
 		if ($success) {
-
-			$entity = $this->dashboardSettingsMapper->findOne(intval(1));
-			$entity->setId('1');
-			$entity->setKey('show_activity');
-			$entity->setValue((int)$input[static::SHOW_INBOX]);
-			$this->dashboardSettingsMapper->update($entity);
+			$dashboardSettings = $this->dashboardSettingsMapper->findOne(intval(1));
+			$dashboardSettings->setId(1);
+			$dashboardSettings->setKey('show_activity');
+			$dashboardSettings->setValue($input[static::SHOW_ACTIVITY]);
+			$this->dashboardSettingsMapper->update($dashboardSettings);
 
 			$dashboardSettings = $this->dashboardSettingsMapper->findOne(intval(2));
 			$dashboardSettings->setId(2);
 			$dashboardSettings->setKey('show_inbox');
-			$dashboardSettings->setValue((int)$input[static::SHOW_INBOX]);
+			$dashboardSettings->setValue($input[static::SHOW_INBOX]);
 			$this->dashboardSettingsMapper->update($dashboardSettings);
 
 			$dashboardSettings = $this->dashboardSettingsMapper->findOne(intval(3));
 			$dashboardSettings->setId(3);
 			$dashboardSettings->setKey('show_announcement');
-			$dashboardSettings->setValue((int)$input[static::SHOW_ANNOUNCEMENT]);
+			$dashboardSettings->setValue($input[static::SHOW_ANNOUNCEMENT]);
 			$this->dashboardSettingsMapper->update($dashboardSettings);
 
 			$dashboardSettings = $this->dashboardSettingsMapper->findOne(intval(4));
 			$dashboardSettings->setId(4);
 			$dashboardSettings->setKey('show_calendar');
-			$dashboardSettings->setValue((int)$input[static::SHOW_CALENDAR]);
+			$dashboardSettings->setValue($input[static::SHOW_CALENDAR]);
 			$this->dashboardSettingsMapper->update($dashboardSettings);
 
 			$dashboardSettings = $this->dashboardSettingsMapper->findOne(intval(5));
 			$dashboardSettings->setId(5);
 			$dashboardSettings->setKey('show_wide_activity');
-			$dashboardSettings->setValue((int)$input[static::SHOW_WIDE_ACTIVITY]);
+			$dashboardSettings->setValue($input[static::SHOW_WIDE_ACTIVITY]);
 			$this->dashboardSettingsMapper->update($dashboardSettings);
 
 			$dashboardSettings = $this->dashboardSettingsMapper->findOne(intval(6));
 			$dashboardSettings->setId(6);
 			$dashboardSettings->setKey('show_wide_inbox');
-			$dashboardSettings->setValue((int)$input[static::SHOW_WIDE_INBOX]);
+			$dashboardSettings->setValue($input[static::SHOW_WIDE_INBOX]);
 			$this->dashboardSettingsMapper->update($dashboardSettings);
 
 			$dashboardSettings = $this->dashboardSettingsMapper->findOne(intval(7));
 			$dashboardSettings->setId(7);
 			$dashboardSettings->setKey('show_wide_announcement');
-			$dashboardSettings->setValue((int)$input[static::SHOW_WIDE_ANNOUNCEMENT]);
+			$dashboardSettings->setValue($input[static::SHOW_WIDE_ANNOUNCEMENT]);
 			$this->dashboardSettingsMapper->update($dashboardSettings);
 
 			$dashboardSettings = $this->dashboardSettingsMapper->findOne(intval(8));
 			$dashboardSettings->setId(8);
 			$dashboardSettings->setKey('show_wide_calendar');
-			$dashboardSettings->setValue((int)$input[static::SHOW_WIDE_CALENDAR]);
+			$dashboardSettings->setValue($input[static::SHOW_WIDE_CALENDAR]);
 			$this->dashboardSettingsMapper->update($dashboardSettings);
 
 			$dashboardSettings = $this->dashboardSettingsMapper->findOne(intval(9));
 			$dashboardSettings->setId(9);
 			$dashboardSettings->setKey('calendar_position');
-			$dashboardSettings->setValue((int)$input[static::CALENDAR_POSITION]);
+			$dashboardSettings->setValue($input[static::CALENDAR_POSITION]);
 			$this->dashboardSettingsMapper->update($dashboardSettings);
 
 			$dashboardSettings = $this->dashboardSettingsMapper->findOne(intval(10));
 			$dashboardSettings->setId(10);
 			$dashboardSettings->setKey('activity_position');
-			$dashboardSettings->setValue((int)$input[static::ACTIVITY_POSITION]);
+			$dashboardSettings->setValue($input[static::ACTIVITY_POSITION]);
 			$this->dashboardSettingsMapper->update($dashboardSettings);
 
 			$dashboardSettings = $this->dashboardSettingsMapper->findOne(intval(11));
 			$dashboardSettings->setId(11);
 			$dashboardSettings->setKey('inbox_position');
-			$dashboardSettings->setValue((int)$input[static::INBOX_POSITION]);
+			$dashboardSettings->setValue($input[static::INBOX_POSITION]);
 			$this->dashboardSettingsMapper->update($dashboardSettings);
 
 			$dashboardSettings = $this->dashboardSettingsMapper->findOne(intval(12));
 			$dashboardSettings->setId(12);
 			$dashboardSettings->setKey('announcement_position');
-			$dashboardSettings->setValue((int)$input[static::ANNOUNCEMENT_POSITION]);
+			$dashboardSettings->setValue($input[static::ANNOUNCEMENT_POSITION]);
+			$this->dashboardSettingsMapper->update($dashboardSettings);
+
+			$dashboardSettings = $this->dashboardSettingsMapper->findOne(intval(13));
+			$dashboardSettings->setId(13);
+			$dashboardSettings->setKey('announcement_group');
+			$dashboardSettings->setValue($input[static::ANNOUNCEMENT_GROUP]);
 			$this->dashboardSettingsMapper->update($dashboardSettings);
 		}
 
@@ -233,18 +245,20 @@ class AdminController extends Controller {
 	 * @return TemplateResponse
 	 */
 	public function index() {
-		$showActivity = 1;
-		$showInbox = 1;
-		$showAnnouncement = 1;
-		$showCalendar = 1;
-		$showWideActivity = 0;
-		$showWideInbox = 0;
-		$showWideAnnouncement = 0;
-		$showWideCalendar = 0;
-		$activityPosition = 1;
-		$inboxPosition = 2;
-		$announcementPosition = 3;
-		$calendarPosition = 4;
+		$showActivity = '1';
+		$showInbox = '1';
+		$showAnnouncement = '1';
+		$showCalendar = '1';
+		$showWideActivity = '0';
+		$showWideInbox = '0';
+		$showWideAnnouncement = '0';
+		$showWideCalendar = '0';
+		$activityPosition = '1';
+		$inboxPosition = '2';
+		$announcementPosition = '3';
+		$calendarPosition = '4';
+		$announcementGroup = 'News';
+
 
 		$limit = 20;
 		$dashboardSettings = $this->dashboardSettingsMapper->findAll($limit);
@@ -252,41 +266,43 @@ class AdminController extends Controller {
 			$key = $setting->key;
 			switch ($key) {
 				case 'show_activity':
-					$showActivity = (int)$setting->value;
+					$showActivity = $setting->value;
 					break;
 				case 'show_inbox':
-					$showInbox = (int)$setting->value;
+					$showInbox = $setting->value;
 					break;
 				case 'show_announcement':
-					$showAnnouncement = (int)$setting->value;
+					$showAnnouncement = $setting->value;
 					break;
 				case 'show_calendar':
-					$showCalendar = (int)$setting->value;
+					$showCalendar = $setting->value;
 					break;
 				case 'show_wide_activity':
-					$showWideActivity = (int)$setting->value;
+					$showWideActivity = $setting->value;
 					break;
 				case 'show_wide_inbox':
-					$showWideInbox = (int)$setting->value;
+					$showWideInbox = $setting->value;
 					break;
 				case 'show_wide_announcement':
-					$showWideAnnouncement = (int)$setting->value;
+					$showWideAnnouncement = $setting->value;
 					break;
 				case 'show_wide_calendar':
-					$showWideCalendar = (int)$setting->value;
+					$showWideCalendar = $setting->value;
 					break;
-
 				case 'activity_position':
-					$activityPosition = (int)$setting->value;
+					$activityPosition = $setting->value;
 					break;
 				case 'inbox_position':
-					$inboxPosition = (int)$setting->value;
+					$inboxPosition = $setting->value;
 					break;
 				case 'announcement_position':
-					$announcementPosition = (int)$setting->value;
+					$announcementPosition = $setting->value;
 					break;
 				case 'calendar_position':
-					$calendarPosition = (int)$setting->value;
+					$calendarPosition = $setting->value;
+					break;
+				case 'announcement_group':
+					$announcementGroup = $setting->value;
 					break;
 			}
 		}
@@ -302,7 +318,8 @@ class AdminController extends Controller {
 			static::ACTIVITY_POSITION      => $activityPosition,
 			static::INBOX_POSITION         => $inboxPosition,
 			static::ANNOUNCEMENT_POSITION  => $announcementPosition,
-			static::CALENDAR_POSITION      => $calendarPosition
+			static::CALENDAR_POSITION      => $calendarPosition,
+			static::ANNOUNCEMENT_GROUP     => $announcementGroup
 		];
 
 		return new TemplateResponse($this->appName, 'admin', $params, 'blank');

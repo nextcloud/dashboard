@@ -29,6 +29,7 @@ namespace OCA\Dashboard\Controller;
 
 use OCA\Dashboard\Db\Announcement;
 use OCA\Dashboard\Db\AnnouncementMapper;
+use OCA\Dashboard\Db\DashboardSettingsMapper;
 use OCA\Dashboard\Service\DashboardService;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
@@ -48,11 +49,18 @@ class AnnouncementController extends Controller {
 	/** @var AnnouncementMapper */
 	private $announcementMapper;
 
+	/** @var DashboardSettingsMapper */
+	private $dashboardSettingsMapper;
+
+
 	/** @var DashboardService */
 	private $dashboardService;
 
 	/** @var string */
 	private $userId;
+
+	/** @var string */
+	private $announcement_group;
 
 	/**
 	 * AnnouncementController constructor.
@@ -60,17 +68,31 @@ class AnnouncementController extends Controller {
 	 * @param string $appName
 	 * @param IRequest $request
 	 * @param AnnouncementMapper $announcementMapper
+	 * @param DashboardSettingsMapper $dashboardSettingsMapper
 	 * @param DashboardService $dashboardService
 	 * @param string $userId
 	 */
 	public function __construct(
-		$appName, IRequest $request, AnnouncementMapper $announcementMapper,
+		$appName, IRequest $request, AnnouncementMapper $announcementMapper, DashboardSettingsMapper $dashboardSettingsMapper,
 		DashboardService $dashboardService, $userId
 	) {
 		parent::__construct($appName, $request);
 		$this->announcementMapper = $announcementMapper;
+		$this->dashboardSettingsMapper = $dashboardSettingsMapper;
 		$this->dashboardService = $dashboardService;
 		$this->userId = $userId;
+
+		$this->announcement_group="";
+		$limit = 20;
+		$dashboardSettings = $this->dashboardSettingsMapper->findAll($limit);
+		foreach ($dashboardSettings as $setting) {
+			$key = $setting->key;
+			switch ($key) {
+				case 'announcement_group':
+					$this->announcement_group = $setting->value;
+					break;
+			}
+		}
 	}
 
 	/**
@@ -81,9 +103,7 @@ class AnnouncementController extends Controller {
 	 */
 	public function create() {
 		$data = [];
-		// todo: group should be configurable
-		$canCreateAnnouncements = $this->dashboardService->isInGroup('News');
-
+		$canCreateAnnouncements = $this->dashboardService->isInGroup($this->announcement_group);
 		if (!$canCreateAnnouncements) {
 			return new DataResponse($data, Http::STATUS_FORBIDDEN);
 		}
@@ -134,8 +154,7 @@ class AnnouncementController extends Controller {
 	 */
 	public function edit($id) {
 		$data = [];
-
-		$canEditAnnouncements = $this->dashboardService->isInGroup('News');
+		$canEditAnnouncements = $this->dashboardService->isInGroup($this->announcement_group);
 		if (!$canEditAnnouncements) {
 			return new DataResponse($data, Http::STATUS_FORBIDDEN);
 		}
@@ -158,8 +177,7 @@ class AnnouncementController extends Controller {
 	 */
 	public function updateEdit($id) {
 		$data = [];
-
-		$canEditAnnouncements = $this->dashboardService->isInGroup('News');
+		$canEditAnnouncements = $this->dashboardService->isInGroup($this->announcement_group);
 
 		if (!$canEditAnnouncements) {
 			return new DataResponse($data, Http::STATUS_FORBIDDEN);
@@ -211,8 +229,7 @@ class AnnouncementController extends Controller {
 	 */
 	public function destroy($id) {
 		$data = [];
-
-		$canDeleteAnnouncements = $this->dashboardService->isInGroup('News');
+		$canDeleteAnnouncements = $this->dashboardService->isInGroup($this->announcement_group);
 
 		if (!$canDeleteAnnouncements) {
 			return new DataResponse($data, Http::STATUS_FORBIDDEN);
@@ -235,8 +252,8 @@ class AnnouncementController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function index() {
-		$canDeleteAnnouncements = $this->dashboardService->isInGroup('News');
-		$canEditAnnouncements = $this->dashboardService->isInGroup('News');
+		$canDeleteAnnouncements = $this->dashboardService->isInGroup($this->announcement_group);
+		$canEditAnnouncements = $this->dashboardService->isInGroup($this->announcement_group);
 
 		$limit = 5;
 		$announcements = $this->announcementMapper->findAll($limit);

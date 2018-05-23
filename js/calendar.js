@@ -92,7 +92,7 @@
                 minTime: '02:00:00',
                 maxTime: '24:00:00',
                 // Text/Time Customization
-                lang: OC.getLocale().substr(0, 2),
+                locale: OC.getLocale().substr(0, 2),
                 // Clicking & Hovering
                 eventClick: function (calEvent) {
                     var elem = $('#event');

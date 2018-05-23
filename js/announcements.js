@@ -90,7 +90,6 @@
                 media_live_embeds: true,
                 relative_urls: false
             });
-
             elem.find('img[class=icon_edit]').click(function () {
                 announcementID=$(this).data('id');
                 // call data-entrys from choosen announcement
