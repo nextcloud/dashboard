@@ -3,6 +3,8 @@
     "Save changes" : "Salvas mudanças",
     "Create announcement" : "Criar anúncio",
     "Settings have been updated." : "Configurações atualizadas.",
+    "Dashboard app for Nextcloud" : "Aplicativo de painel para o Nextcloud",
+    "The Dashboard app allows users to easily keep an eye on their instance, and to retrieve useful information.\n        Here is what they can see:\n\n                - last uploaded files\n                - most recent e-mails\n                - last notifications\n                - upcoming events\n                - remaining storage space in their account" : "O aplicativo Dashboard permite que os usuários fiquem atentos à sua instalação e para recuperarem informações úteis.\n        Aqui está o que eles podem ver:\n\n                - últimos aruqivos enviados\n                - emails mais recentes\n                - últimas notificações\n                - próximos eventos\n                - espaço de armazenamento restante",
     "Show box" : "Mostrar box",
     "Wide box" : "Box largo",
     "Placement" : "Colocação",
