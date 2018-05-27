@@ -5,6 +5,8 @@ OC.L10N.register(
     "Save changes" : "Guardar cambios",
     "Create announcement" : "Crear anuncio",
     "Settings have been updated." : "La configuración se ha actualizado.",
+    "Dashboard app for Nextcloud" : "Aplicación Dashboard para Nextcloud",
+    "The Dashboard app allows users to easily keep an eye on their instance, and to retrieve useful information.\n        Here is what they can see:\n\n                - last uploaded files\n                - most recent e-mails\n                - last notifications\n                - upcoming events\n                - remaining storage space in their account" : "La app Dashboard (muro) permite a los usuarios controlar fácilmente su instancia y recibir información útil.\n        Esto es lo que se puede ver:\n\n                - Últimos archivos subidos.\n                - Los e-mails más recientes.\n                - Últimas notificaciones.\n                - Eventos próximos.\n                - Espacio de almacenamiento restante en su cuenta.",
     "Show box" : "Mostrar caja",
     "Wide box" : "Caja ancha",
     "Placement" : "Localización",
