@@ -50,6 +50,10 @@
     margin: 2.5%;
 }
 
+#announcements a {
+    text-decoration: underline;
+}
+
 #announcement-form, #event {
     display: none;
 }
