@@ -1,7 +1,7 @@
 OC.L10N.register(
     "dashboard",
     {
-    "Dashboard" : "Ovládací panel",
+    "Dashboard" : "Nástěnka",
     "Save changes" : "Uložit změny",
     "Create announcement" : "Vytvořit oznámení",
     "Settings have been updated." : "Nastavení byla aktualizována.",
