@@ -5,6 +5,7 @@ OC.L10N.register(
     "Save changes" : "Änderungen speichern ",
     "Create announcement" : "Ankündigung erstellen",
     "Settings have been updated." : "Einstellungen wurden aktualisiert.",
+    "Dashboard app for Nextcloud" : "Dashboard App für Nextcloud",
     "Show box" : "Box anzeigen",
     "Wide box" : "Breite Box",
     "Placement" : "Platzierung",
