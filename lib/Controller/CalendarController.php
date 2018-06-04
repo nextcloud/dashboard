@@ -98,7 +98,8 @@ class CalendarController extends Controller {
 	public function __construct(
 		$appName, IRequest $request, IURLGenerator $urlGenerator, IUserManager $userManager,
 		$userId, Principal $principalBackend, IDBConnection $db,
-		EventDispatcherInterface $dispatcher, SecureRandom $secureRandom,
+		EventDispatcherInterface $dispatcher, SecureRandom $secureRandom
+		,
 		IGroupManager $groupManager,
 		ILogger $logger
 	) {
@@ -184,7 +185,9 @@ class CalendarController extends Controller {
 		$data = [];
 		//parse caldav-events into fullcalendar-syntax
 		foreach ($events as $event) {
-
+			if ($event['component'] !== 'vevent') {
+				continue;
+			}
 			$result = $this->calDavBackend->getCalendarObject($event['calendarid'], $event['uri']);
 			// allDay-Event?
 			$allDay = false;
@@ -217,13 +220,44 @@ class CalendarController extends Controller {
 					date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $lastmodified)));
 			}
 			//Allday-Event = False;
-			if (array_key_exists("DTSTART;TZID=Europe/Berlin", $newEventArray)) {
-				$datestart = $newEventArray["DTSTART;TZID=Europe/Berlin"];
-				$dateend = $newEventArray["DTEND;TZID=Europe/Berlin"];
-				$fixedstart = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $datestart)));
-				$fixedend = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $dateend)));
-			} //Allday-Event = true;
-			else {
+			if (array_key_exists('TZID', $newEventArray)) {
+				// NOTE: there is still a problem if timezone is
+				// different from DTSTART and DTEND
+				$tzid = $newEventArray['TZID'];
+				$fixedstart = "";
+				$fixedend = "";
+				if (isset($newEventArray["DTSTART;TZID=" . $tzid])) {
+					$datestart = $newEventArray[
+						"DTSTART;TZID=" . $tzid
+					];
+					$fixedstart = date(
+						'Y-m-d H:i:s',
+						strtotime(
+							str_replace(
+								'-',
+								'/',
+								$datestart
+							)
+						)
+					);
+				}
+				if (isset($newEventArray["DTEND;TZID=" . $tzid])) {
+					$dateend = $newEventArray[
+						"DTEND;TZID=" . $tzid
+					];
+					$fixedend = date(
+						'Y-m-d H:i:s',
+						strtotime(
+							str_replace(
+								'-',
+								'/',
+								$dateend
+							)
+						)
+					);
+				}
+			//Allday-Event = true;
+			} else {
 				$fixeslastmodified = strtotime(date("Y-m-d H:i:s"));
 				$allDay = true;
 				$fixedstart = "";
