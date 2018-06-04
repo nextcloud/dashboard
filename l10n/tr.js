@@ -5,6 +5,8 @@ OC.L10N.register(
     "Save changes" : "Değişiklikleri kaydet",
     "Create announcement" : "Duyuru ekle",
     "Settings have been updated." : "Ayarlar güncellendi",
+    "Dashboard app for Nextcloud" : "Nextcloud Pano uygulaması",
+    "The Dashboard app allows users to easily keep an eye on their instance, and to retrieve useful information.\n        Here is what they can see:\n\n                - last uploaded files\n                - most recent e-mails\n                - last notifications\n                - upcoming events\n                - remaining storage space in their account" : "Pano uygulaması ile kullanıcılar kullandıkları kopya hakkında kullanışlı bilgiler edinebilir.\n        Şu bilgiler görüntülenir:\n\n                - son yüklenen dosyalar\n                - son e-postalar\n                - son bildirimler\n                - yaklaşan etkinlikler\n                - hesaplarında kalan depolama alanı",
     "Show box" : "Kutuyu görüntüle",
     "Wide box" : "Geniş kutu",
     "Placement" : "Konum",
