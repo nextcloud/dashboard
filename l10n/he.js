@@ -17,6 +17,7 @@ OC.L10N.register(
     "Edit announcement" : "עריכת הכרזה",
     "Delete announcement" : "מחיקת הכרזה",
     "Used space" : "נפח מנוצל",
+    "You have used <strong>%s</strong> of the available <strong>%s</strong>" : "ניצלת <strong>%s</strong> מתוך <strong>%s</strong> הזמינים לרשותך",
     "Title" : "כותרת",
     "Expiration date" : "מועד תפוגה",
     "Content" : "תוכן",
@@ -26,6 +27,8 @@ OC.L10N.register(
     "Password" : "ססמה",
     "File" : "קובץ",
     "Uploaded by" : "הועלה ע״י",
-    "Uploaded at" : "הועלה במועד"
+    "Uploaded at" : "הועלה במועד",
+    "Message" : "הודעה",
+    "Received" : "התקבלה"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;");
