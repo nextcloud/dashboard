@@ -15,29 +15,25 @@ imap.
 
 ## Installation
 
-As long as the changes made by this fork are not merged into
-nextcloud/dashboard master, follow these steps to install this fork.
-
-
 ### Preparation
 
 Disable and remove the previous version of the Dashboard App through the
 admin backend.
 
-There are two ways to install this fork, following described under `Installation
-per git clone` and `Installation per archive download`.
+There are two ways to install the Dashboard App, following described under
+`Installation per git clone` and `Installation per archive download`.
 Choose your preferred method.
 
 
 ### Installation per git clone
 
-Open a terminal and clone the fork with following commands into your
+Open a terminal and clone the Dashboard App with following commands into your
 nextcloud/apps/ folder:
 ```
 cd [path to your webroot]/nextcloud/apps/
 ```
 ```
-git clone https://github.com/tuxedocomputers/dashboard.git
+git clone https://github.com/nextcloud/dashboard.git
 ```
 
 Open a terminal and change the ownership of the whole dashboard directory to
@@ -52,7 +48,7 @@ Finally, enable the Dashboard App through the admin backend.
 ### Installation per archive download
 
 Download the archive from:
-[https://github.com/tuxedocomputers/dashboard/archive/master.zip](https://github.com/tuxedocomputers/dashboard/archive/master.zip)
+[https://github.com/nextcloud/dashboard/archive/master.zip](https://github.com/nextcloud/dashboard/archive/master.zip)
 
 Open a terminal, unzip the archive into your nextcloud/apps/ folder and
 rename the dashboard-master folder to dashboard: 
