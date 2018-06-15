@@ -22,7 +22,7 @@ OC.L10N.register(
     "Title" : "タイトル",
     "Expiration date" : "失効日",
     "Content" : "内容",
-    "Mailserver" : "メールサーバ",
+    "Mailserver" : "メールサーバー",
     "SSL" : "SSL",
     "Username" : "ユーザー名",
     "Password" : "パスワード",
