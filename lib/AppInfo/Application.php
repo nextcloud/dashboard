@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Nextcloud - Dashboard App
  *
@@ -29,9 +28,7 @@
 namespace OCA\Dashboard\AppInfo;
 
 use OCA\Dashboard\Controller\AdminController;
-use OCA\DAV\Connector\Sabre\Principal;
 use OCP\AppFramework\App;
-use OCP\AppFramework\IAppContainer;
 
 class Application extends App {
 
@@ -43,48 +40,6 @@ class Application extends App {
 		$container->registerAlias(
 			'AdminController',
 			AdminController::class
-		);
-		$container->registerService(
-			'OCP\IUserManager',
-			function(IAppContainer $c) {
-				return $c->getServer()->getUserManager();
-			}
-		);
-		$container->registerService(
-			'Symfony\Component\EventDispatcher\EventDispatcherInterface',
-			function(IAppContainer $c) {
-				return $c->getServer()->getEventDispatcher();
-			}
-		);
-		$container->registerService(
-			'OCP\Security\ISecureRandom',
-			function(IAppContainer $c) {
-				return $c->getServer()->getSecureRandom();
-			}
-		);
-		$container->registerService(
-			'CurrentUID',
-			function(IAppContainer $c) {
-				$user = $c->getServer()->getUserSession()->getUser();
-				return ($user) ? $user->getUID() : '';
-			}
-		);
-		$container->registerService(
-			'OCP\IDBConnection',
-			function(IAppContainer $c) {
-				return $c->getServer()->getDatabaseConnection();
-			}
-		);
-		$container->registerService(
-			'OCA\DAV\Connector\Sabre\Principal',
-			function(IAppContainer $c) {
-				return new Principal(
-					$c->getServer()->getUserManager(),
-					$c->getServer()->getGroupManager(),
-					$c->getServer()->getShareManager(),
-					$c->getServer()->getUserSession()
-				);
-			}
 		);
 	}
 
