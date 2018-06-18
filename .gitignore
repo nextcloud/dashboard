@@ -6,3 +6,5 @@ nbactions.xml
 nb-configuration.xml
 .nb-gradle/
 .idea
+vendor/
+components/

@@ -15,7 +15,7 @@
                 - remaining storage space in their account
 ]]>
 	</description>
-	<version>4.0.6</version>
+	<version>5.0.0</version>
 	<licence>agpl</licence>
 	<author>regio iT gesellschaft für informationstechnologie mbh</author>
 	<namespace>Dashboard</namespace>
@@ -26,7 +26,7 @@
 	<screenshot>https://raw.githubusercontent.com/nextcloud/dashboard/master/screenshots/v4.0.5.png</screenshot>
 	<dependencies>
 		<php min-version="5.6" max-version="7"/>
-		<nextcloud min-version="12" max-version="13"/>
+		<nextcloud min-version="12" max-version="14"/>
 	</dependencies>
 	<settings>
 		<admin>OCA\Dashboard\Settings\Admin</admin>
