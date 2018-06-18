@@ -39,15 +39,15 @@ script('dashboard', '../vendor/datatables/datatables/media/js/jquery.dataTables.
 style('dashboard', '../vendor/datatables/datatables/media/css/jquery.dataTables.min');
 
 // fullcalendar (v3.8.2)
-script('dashboard', '../vendor/fullcalendar/fullcalendar.min');
+script('dashboard', '../components/fullcalendar/dist/fullcalendar.min');
 // load language-file depending on language settings of current user
 $ncLangCodeCurrUser = $l->getLanguageCode();
 $langCodeShort = substr($ncLangCodeCurrUser, 0, 2);
 if ($langCodeShort !== 'en') {
-	$langFile = '../vendor/fullcalendar/locale/' . $langCodeShort;
+	$langFile = '../components/fullcalendar/dist/locale/' . $langCodeShort;
 	script('dashboard', $langFile);
 }
-style('dashboard', '../vendor/fullcalendar/fullcalendar.min');
+style('dashboard', '../components/fullcalendar/dist/fullcalendar.min');
 
 // tinymce
 script('dashboard', '../vendor/tinymce/tinymce/tinymce.min');
