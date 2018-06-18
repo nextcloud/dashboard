@@ -9,6 +9,7 @@ package_name=$(app_name)
 cert_dir=$(HOME)/.nextcloud/certificates
 version+=5.0.0
 
+
 all: appstore
 
 release: appstore create-tag
@@ -21,16 +22,29 @@ clean:
 	rm -rf $(build_dir)
 	rm -rf node_modules
 
-appstore: clean
+composer:
+	composer install
+
+test: SHELL:=/bin/bash
+test: composer
+	phpunit --coverage-clover=coverage.xml --configuration=tests/phpunit.xml tests
+	@if [ -f $(codecov_token_dir)/$(app_name) ]; then \
+		bash <(curl -s https://codecov.io/bash) -t @$(codecov_token_dir)/$(app_name) ; \
+	fi
+
+
+appstore: composer clean
 	mkdir -p $(sign_dir)
 	rsync -a \
 	--exclude=/build \
 	--exclude=/docs \
-	--exclude=/translationfiles \
-	--exclude=/.tx \
+	--exclude=/l10n/templates \
+	--exclude=/l10n/.tx \
 	--exclude=/tests \
 	--exclude=/.git \
 	--exclude=/.github \
+	--exclude=/composer.json \
+	--exclude=/composer.lock \
 	--exclude=/l10n/l10n.pl \
 	--exclude=/CONTRIBUTING.md \
 	--exclude=/issue_template.md \
