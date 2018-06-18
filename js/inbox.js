@@ -53,7 +53,7 @@
                     data: 'udate',
                     render: function (data) {
                         //return escapeHTML(data);
-                        return '<td><span class=\"hidden\">'+ moment.unix(data).format('YYYY.MM.DD hh:mm:ss')+'</span>' + moment.unix(data).format('DD.MM.YYYY') + '</td>';
+                        return '<td><span class=\"hidden\">'+ moment.unix(data).format('YYYY.MM.DD hh:mm:ss')+'</span>' + moment.unix(data).format('YYYY-MM-DD') + '</td>';
                     }
                 }
             ]

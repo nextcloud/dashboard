@@ -9,6 +9,7 @@
  * @author regio iT gesellschaft für informationstechnologie mbh
  * @copyright regio iT 2017
  * @license GNU AGPL version 3 or any later version
+ * @contributor tuxedo-rb | TUXEDO Computers GmbH | https://www.tuxedocomputers.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -66,7 +67,9 @@ class InboxController extends Controller {
 		$remoteSystemName = $this->dashboardService->getUserValue('inbox_remote_system_name');
 		$port = $this->dashboardService->getUserValue('inbox_port');
 		$ssl = $this->dashboardService->getUserValue('inbox_ssl');
+		$valCert = $this->dashboardService->getUserValue('inbox_validate_cert');
 		$flags = $ssl ? '/ssl' : '';
+		$flags .= $valCert ? '/validate-cert' : '/novalidate-cert';
 		$username = $this->dashboardService->getUserValue('inbox_username');
 		$password = $this->dashboardService->getUserValueWithCrypto('inbox_password');
 

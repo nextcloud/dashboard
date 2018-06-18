@@ -8,6 +8,7 @@
  * @author regio iT gesellschaft für informationstechnologie mbh
  * @copyright regio iT 2017
  * @license GNU AGPL version 3 or any later version
+ * @contributor tuxedo-rb | TUXEDO Computers GmbH | https://www.tuxedocomputers.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -36,17 +37,20 @@
     <?php print_unescaped($this->inc("section.{$_['panel_3']}")); ?>
 </div>
 
+<?php if($_['show_quota']===1) : ?>
 <div class="row-fluid">
     <section class="dashboard-section">
         <h1><a data-toggle="myCollapse" data-target="#quota"><?php p($l->t('Used space')); ?></a></h1>
 
         <div id="quota" class="myCollapse in">
-            <div style="width: <?php p($_['storage_info']['relative']); ?>%">
-                <p id="quotatext"><?php print_unescaped($l->t('You have used <strong>%s</strong> of the available <strong>%s</strong>', $_['storage_info']['quota'])); ?></p>
-            </div>
+            <div id="quota-used" style="width: <?php p($_['storage_info']['relative']); ?>%"></div>
+            <div id="quota-limit"></div>
+            <p id="quota-text"><?php print_unescaped($l->t('You have used <strong>%s</strong> of the available <strong>%s</strong>', $_['storage_info']['quota'])); ?></p>
         </div>
+        <div style="clear: both;"></div>
     </section>
 </div>
+<?php endif; ?>
 
 <?php if ($_['can_create_announcements'] === true): ?>
     <div id="announcement-form">

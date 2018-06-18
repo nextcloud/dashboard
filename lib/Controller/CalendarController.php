@@ -9,6 +9,7 @@
  * @author regio iT gesellschaft für informationstechnologie mbh
  * @copyright regio iT 2017
  * @license GNU AGPL version 3 or any later version
+ * @contributor tuxedo-rb | TUXEDO Computers GmbH | https://www.tuxedocomputers.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -38,6 +39,8 @@ use OCP\IRequest;
 use OCP\IURLGenerator;
 use OCP\IUserManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use OCP\IGroupManager;
+use OCP\ILogger;
 
 
 /**
@@ -71,6 +74,11 @@ class CalendarController extends Controller {
 	/** @var EventDispatcherInterface */
 	private $dispatcher;
 
+	/** @var IGroupManager */
+	private $groupManager;
+
+	/** @var ILogger */
+	private $logger;
 
 	/**
 	 * CalendarController constructor.
@@ -84,11 +92,16 @@ class CalendarController extends Controller {
 	 * @param IDBConnection $db
 	 * @param EventDispatcherInterface $dispatcher
 	 * @param SecureRandom $secureRandom
+	 * @param IGroupManager $groupManager
+	 * @param ILogger $logger
 	 */
 	public function __construct(
 		$appName, IRequest $request, IURLGenerator $urlGenerator, IUserManager $userManager,
 		$userId, Principal $principalBackend, IDBConnection $db,
 		EventDispatcherInterface $dispatcher, SecureRandom $secureRandom
+		,
+		IGroupManager $groupManager,
+		ILogger $logger
 	) {
 		parent::__construct($appName, $request);
 		$this->urlGenerator = $urlGenerator;
@@ -98,8 +111,15 @@ class CalendarController extends Controller {
 		$this->userId = $userId;
 		$this->secureRandom = $secureRandom;
 		$this->dispatcher = $dispatcher;
+		$this->groupManager = $groupManager;
+		$this->logger = $logger;
 		$this->calDavBackend = new CalDAV\CalDavBackend(
-			$this->db, $this->principalBackend, $this->userManager, $this->secureRandom,
+			$this->db, $this->principalBackend, $this->userManager,
+			// we need a groupmanager-obj here as 4th constructor parameter
+			$this->groupManager,
+			$this->secureRandom,
+			// we need a logger-obj here as 6th constructor parameter
+			$this->logger,
 			$this->dispatcher
 		);
 	}
@@ -165,7 +185,9 @@ class CalendarController extends Controller {
 		$data = [];
 		//parse caldav-events into fullcalendar-syntax
 		foreach ($events as $event) {
-
+			if ($event['component'] !== 'vevent') {
+				continue;
+			}
 			$result = $this->calDavBackend->getCalendarObject($event['calendarid'], $event['uri']);
 			// allDay-Event?
 			$allDay = false;
@@ -175,11 +197,20 @@ class CalendarController extends Controller {
 			$newEventArray = [];
 			//parse Event-Information into Array
 			foreach ($parts as $element) {
-				$part1 = substr($element, 0, strrpos($element, ":"));
-				$part2 = substr(
-					$element, strrpos($element, ":") + 1,
-					strlen($element) - strrpos($element, ":") + 1
-				);
+				// exception for calendar text with containing double-point chars
+				// (at example 'Meeting 10:45')
+				if (substr_count($element, ':') > 1 &&
+				    (strpos($element, 'SUMMARY:') === 0))
+				{
+					$part1 = substr($element, 0, strpos($element, ":"));
+					$part2 = substr($element, strpos($element, ":") +1);
+				} else {
+					$part1 = substr($element, 0, strrpos($element, ":"));
+					$part2 = substr(
+					    $element, strrpos($element, ":") + 1,
+					    strlen($element) - strrpos($element, ":") + 1
+					);
+				}
 				$newEventArray = $newEventArray + [$part1 => $part2];
 			}
 			$fixeslastmodified = strtotime(date("Y-m-d H:i:s"));
@@ -189,13 +220,44 @@ class CalendarController extends Controller {
 					date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $lastmodified)));
 			}
 			//Allday-Event = False;
-			if (array_key_exists("DTSTART;TZID=Europe/Berlin", $newEventArray)) {
-				$datestart = $newEventArray["DTSTART;TZID=Europe/Berlin"];
-				$dateend = $newEventArray["DTEND;TZID=Europe/Berlin"];
-				$fixedstart = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $datestart)));
-				$fixedend = date('Y-m-d H:i:s', strtotime(str_replace('-', '/', $dateend)));
-			} //Allday-Event = true;
-			else {
+			if (array_key_exists('TZID', $newEventArray)) {
+				// NOTE: there is still a problem if timezone is
+				// different from DTSTART and DTEND
+				$tzid = $newEventArray['TZID'];
+				$fixedstart = "";
+				$fixedend = "";
+				if (isset($newEventArray["DTSTART;TZID=" . $tzid])) {
+					$datestart = $newEventArray[
+						"DTSTART;TZID=" . $tzid
+					];
+					$fixedstart = date(
+						'Y-m-d H:i:s',
+						strtotime(
+							str_replace(
+								'-',
+								'/',
+								$datestart
+							)
+						)
+					);
+				}
+				if (isset($newEventArray["DTEND;TZID=" . $tzid])) {
+					$dateend = $newEventArray[
+						"DTEND;TZID=" . $tzid
+					];
+					$fixedend = date(
+						'Y-m-d H:i:s',
+						strtotime(
+							str_replace(
+								'-',
+								'/',
+								$dateend
+							)
+						)
+					);
+				}
+			//Allday-Event = true;
+			} else {
 				$fixeslastmodified = strtotime(date("Y-m-d H:i:s"));
 				$allDay = true;
 				$fixedstart = "";

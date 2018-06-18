@@ -68,7 +68,11 @@
                 },
                 {
                     data: function (row, type) {
-                        return '<td><span class=\"hidden\">'+ moment.unix(row.timestamp).format('YYYY.MM.DD hh:mm:ss')+'</span>' + moment.unix(row.timestamp).format('DD.MM.YYYY') + '</td>';
+                        var sharedWithMe='';
+                        if(row.type==='shared_with_by'){
+                            sharedWithMe='<img src=\"../../../core/img/actions/shared.svg\" alt=\"shared\" title=\"share date\" id=\"shared\" />';
+                        }
+                        return '<td><span class=\"hidden\">' + moment.unix(row.timestamp).format('YYYY.MM.DD hh:mm:ss')+'</span>' + moment.unix(row.timestamp).format('YYYY-MM-DD') + sharedWithMe + '</td>';
                     }
                 }
             ]

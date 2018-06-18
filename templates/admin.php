@@ -8,6 +8,7 @@
  * @author regio iT gesellschaft für informationstechnologie mbh
  * @copyright regio iT 2017
  * @license GNU AGPL version 3 or any later version
+ * @contributor tuxedo-rb | TUXEDO Computers GmbH | https://www.tuxedocomputers.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,6 +40,7 @@ style('dashboard', 'settings');
     <input name="show_activity" type="hidden" value="0"/>
     <input name="show_announcement" type="hidden" value="0"/>
     <input name="show_calendar" type="hidden" value="0"/>
+    <input name="show_quota" type="hidden" value="0" />
     <input name="show_wide_inbox" type="hidden" value="0"/>
     <input name="show_wide_activity" type="hidden" value="0"/>
     <input name="show_wide_announcement" type="hidden" value="0"/>
@@ -158,6 +160,18 @@ style('dashboard', 'settings');
                 </td>
                 <td class="dashboard_select_group" data-select-group="calendar">
                     <?php p($l->t('Calendar')); ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="small">
+                    <input <?php if ($_['show_quota']): ?>checked="checked"<?php endif; ?> type="checkbox" id="show_quota" name="show_quota" value="1" class="checkbox" />
+                    <label for="show_quota">
+                    </label>
+                </td>
+                <td class="small"></td>
+                <td class="small"></td>
+                <td class="dashboard_select_group" data-select-group="quota">
+                    <?php p($l->t('Used space')); ?>
                 </td>
             </tr>
             </tbody>

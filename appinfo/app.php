@@ -9,6 +9,7 @@
  * @author regio iT gesellschaft für informationstechnologie mbh
  * @copyright regio iT 2017
  * @license GNU AGPL version 3 or any later version
+ * @contributor tuxedo-rb | TUXEDO Computers GmbH | https://www.tuxedocomputers.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -44,11 +45,11 @@ $container->getServer()->getNavigationManager()->add(function () use ($container
         'href' => $urlGenerator->linkToRoute('dashboard.page.index'),
         // the icon that will be shown in the navigation
         // this file needs to exist in img/
-        'icon' => $urlGenerator->imagePath('dashboard', 'app.png'),
+        'icon' => $urlGenerator->imagePath('dashboard', 'dashboard.svg'),
         // the title of your application. This will be used in the
         // navigation or on the settings page of your app
         'name' => $l10n->t('Dashboard')
     ];
 });
-App::registerAdmin($container->getAppName(), 'admin');
+//App::registerAdmin($container->getAppName(), 'admin');
 App::registerPersonal($container->getAppName(), 'personal');

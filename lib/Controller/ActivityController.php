@@ -10,6 +10,7 @@
  * @author Maxence Lange <maxence@nextcloud.com>
  * @copyright regio iT 2017
  * @license GNU AGPL version 3 or any later version
+ * @contributor tuxedo-rb | TUXEDO Computers GmbH | https://www.tuxedocomputers.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -75,33 +76,8 @@ class ActivityController extends Controller {
 	 * @return DataResponse
 	 */
 	public function index() {
-
-		$filesDeleted = $this->activityService->getDeletedFilesFromActivity();
-		$filesCreated = $this->activityService->getCreatedFilesFromActivity();
-
-		$newData = [];
-		foreach ($filesCreated as $files) {
-
-			if (in_array($files['object_name'], $filesDeleted)) {
-				continue;
-			}
-
-			$newData[] = [
-				'object_name' => $files['object_name'],
-				'link'        => $files['link'],
-				'type'        => $files['type'],
-				'timestamp'   => $files['timestamp'],
-				'user'        => $files['user']
-			];
-
-			// todo: Admin can configure File-Limit
-			if (sizeof($newData) >= 6) {
-				break;
-			}
-		}
-
-		return new DataResponse(['data' => $newData]);
+		$activityData = $this->activityService->getFilesFromActivity(TRUE);
+		return new DataResponse(['data' => $activityData]);
 	}
-
 
 }
