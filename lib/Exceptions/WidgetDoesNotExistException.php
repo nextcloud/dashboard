@@ -26,7 +26,7 @@
 
 namespace OCA\Dashboard\Exceptions;
 
-class PluginIsNotUniqueException extends \Exception {
+class WidgetDoesNotExistException extends \Exception {
 
 }
 

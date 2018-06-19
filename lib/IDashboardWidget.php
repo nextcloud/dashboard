@@ -4,7 +4,7 @@
 namespace OCA\Dashboard;
 
 
-interface IDashboardPlugin {
+interface IDashboardWidget {
 
 	/**
 	 * @return string
@@ -18,22 +18,17 @@ interface IDashboardPlugin {
 	public function getName();
 
 
-	/**
-	 * @return array
-	 */
-	public function getTemplate();
-
 
 	/**
 	 * @param array $config
 	 */
-	public function loadPlugin($config);
+	public function loadWidget($config);
 
 
 	/**
 	 * @return array
 	 */
-	public function pluginSetup();
+	public function widgetSetup();
 
 
 }

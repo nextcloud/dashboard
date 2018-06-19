@@ -61,8 +61,8 @@ class Application extends App {
 	/**
 	 *
 	 */
-	public function registerPlugins() {
-		Util::addStyle(self::APP_NAME, 'plugins/test');
+	public function registerWidgets() {
+		Util::addStyle(self::APP_NAME, 'widgets/test');
 	}
 
 
@@ -84,7 +84,7 @@ class Application extends App {
 
 		return [
 			'id'    => self::APP_NAME,
-			'order' => 0,
+			'order' => -1,
 			'href'  => $urlGen->linkToRoute('dashboard.Navigation.navigate'),
 			'icon'  => $urlGen->imagePath(self::APP_NAME, 'dashboard.svg'),
 			'name'  => $navName

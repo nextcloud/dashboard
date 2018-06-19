@@ -31,35 +31,41 @@ var nav = {
 	elements: {
 		divSettings: null,
 		iconSettings: null,
-		dashPluginsList: null
+		divWidgetsList: null,
+		divWidgetsListNew: null,
+		divGridStack: null,
+		gridStack: null
 	},
 
 
 	init: function () {
 		nav.initElements();
-		net.getPlugins(nav.onGetPlugins);
+		net.getWidgets(nav.onGetWidgets);
 	},
 
 
 	initElements: function () {
 		nav.elements.divSettings = $('#app-navigation');
 		nav.elements.iconSettings = $('#dashboard-settings');
-		nav.elements.dashPluginsList = $('#dash-plugins-list');
-		nav.elements.dashPluginsListNew = $('#dash-plugins-new');
+		nav.elements.divWidgetsList = $('#dash-widgets-list');
+		nav.elements.divWidgetsListNew = $('#dash-widget-new');
+		nav.elements.divGridStack = $('.grid-stack');
 
 		nav.elements.divSettings.hide();
 		nav.elements.iconSettings.on('click', function () {
 			if (curr.settingsShown) {
 				curr.settingsShown = false;
+				nav.elements.gridStack.setStatic(true);
+				grid.saveGrid();
 				nav.elements.divSettings.hide(150);
 			} else {
 				curr.settingsShown = true;
+				nav.elements.gridStack.setStatic(false);
 				nav.elements.divSettings.show(150);
 			}
 		});
 
-
-		nav.elements.dashPluginsListNew.on('click', function () {
+		nav.elements.divWidgetsListNew.on('click', function () {
 			if ($(this).hasClass('open')) {
 				$(this).removeClass('open');
 			} else {
@@ -69,23 +75,37 @@ var nav = {
 	},
 
 
-	onGetPlugins: function (result) {
-		for (var i = 0; i < result.length; i++) {
-			var item = result[i];
+	onGetWidgets: function (result) {
+		curr.widgets = result;
 
-			console.log(JSON.stringify(item));
+		nav.fillWidgetsList();
+		grid.fillGrid();
+	},
 
-			if (item.template.css !== undefined) {
-				console.log('---' + JSON.stringify(item.template));
-				OC.addStyle(item.template.app, item.template.css);
-			}
 
-			var div = $('<li>').append($('<a>', {
+	fillWidgetsList: function () {
+
+		nav.elements.divWidgetsList.empty();
+		for (var i = 0; i < curr.widgets.length; i++) {
+			var item = curr.widgets[i];
+
+			var div = $('<li>', {
+				'data-id': item.widget.id
+			}).append($('<a>', {
 				href: '#',
-				class: (item.template.icon) ? item.template.icon : 'icon-plugin'
-			}).text(item.plugin.name));
+				class: (item.setup.template.icon) ? item.setup.template.icon : 'icon-widget'
+			}).text(item.widget.name));
 
-			nav.elements.dashPluginsList.append(div);
+			div.on('click', function () {
+				var item = settings.getWidget($(this).attr('data-id'));
+				if (item === null) {
+					return
+				}
+
+				grid.addWidget(item);
+			});
+
+			nav.elements.divWidgetsList.append(div);
 		}
 	}
 

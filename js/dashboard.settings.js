@@ -24,13 +24,25 @@
  */
 
 
-
 var curr = {
-	settingsShown: false
+	settingsShown: false,
+	widgets: []
 };
 
 var settings = {
 
-	options: []
+	options: [],
+
+	getWidget: function (widgetId) {
+		for (var i = 0; i < curr.widgets.length; i++) {
+			var item = curr.widgets[i];
+			if (item.widget.id === widgetId) {
+				return item;
+			}
+		}
+
+		return null;
+	}
+
 
 };

@@ -1,22 +1,21 @@
 <?php
 
-namespace OCA\Dashboard\Plugins;
+namespace OCA\Dashboard\Widgets;
 
 
 use OCA\Dashboard\AppInfo\Application;
-use OCA\Dashboard\IDashboardPlugin;
-use OCP\Util;
+use OCA\Dashboard\IDashboardWidget;
 
-class TestPlugin implements IDashboardPlugin {
+class TestWidget implements IDashboardWidget {
 
-	const TEST_PLUGIN_ID = 'test1';
+	const WIDGET_ID = 'test1';
 
 
 	/**
 	 * @return string
 	 */
 	public function getId() {
-		return self::TEST_PLUGIN_ID;
+		return self::WIDGET_ID;
 	}
 
 
@@ -28,24 +27,23 @@ class TestPlugin implements IDashboardPlugin {
 	}
 
 
-	/**
-	 * @return array
-	 */
-	public function getTemplate() {
-		return [
-			'app'      => Application::APP_NAME,
-			'icon'     => 'icon-test',
-			'navigate' => 'plugins/test'
-		];
-	}
-
 
 	/**
 	 * @return array
 	 */
-	public function pluginSetup() {
+	public function widgetSetup() {
 		return [
-			'options' => [
+			'template' =>
+				[
+					'app'      => Application::APP_NAME,
+					'icon'     => 'icon-test',
+					'navigate' => 'widgets/test'
+				],
+			'size'     => [
+				'width' => 5,
+				'height' => 2
+			],
+			'options'  => [
 				[
 					'name'        => 'test_value_1',
 					'title'       => 'Test Option 1',
@@ -66,7 +64,7 @@ class TestPlugin implements IDashboardPlugin {
 	/**
 	 * @param array $config
 	 */
-	public function loadPlugin($config) {
+	public function loadWidget($config) {
 	}
 
 

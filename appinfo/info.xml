@@ -42,8 +42,8 @@
 	</repair-steps>
 
 	<dashboard>
-		<plugin>OCA\Dashboard\Plugins\TestPlugin</plugin>
-		<plugin>OCA\Dashboard\Plugins\Test2Plugin</plugin>
+		<widget>OCA\Dashboard\Widgets\TestWidget</widget>
+		<widget>OCA\Dashboard\Widgets\Test2Widget</widget>
 	</dashboard>
 
 </info>

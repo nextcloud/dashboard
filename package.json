@@ -1,0 +1,23 @@
+{
+  "name": "dashboard",
+  "version": "5.0.0",
+  "description": "Place this app in **nextcloud/apps/**",
+  "author": {
+    "name": "Maxence Lange",
+    "email": "maxence@artificial-owl.com"
+  },
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nextcloud/dashboard.git"
+  },
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/nextcloud/dashboard/issues"
+  },
+  "homepage": "https://github.com/nextcloud/dashboard#readme",
+  "dependencies": {
+    "gridstack": "^0.3.0"
+  },
+  "devDependencies": {}
+}

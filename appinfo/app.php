@@ -34,7 +34,7 @@ use OCP\AppFramework\QueryException;
 try {
 	$app = new Application();
 	$app->registerNavigation();
-	$app->registerPlugins();
+	$app->registerWidgets();
 	$app->registerPersonalSettings();
 } catch (QueryException $e) {
 	/** we do nothing */

@@ -26,11 +26,12 @@
 
 namespace OCA\Dashboard\Controller;
 
+use Exception;
 use OCA\Dashboard\AppInfo\Application;
-use OCA\Dashboard\Model\PluginFrame;
+use OCA\Dashboard\Model\WidgetFrame;
 use OCA\Dashboard\Service\ConfigService;
 use OCA\Dashboard\Service\MiscService;
-use OCA\Dashboard\Service\PluginsService;
+use OCA\Dashboard\Service\WidgetsService;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IRequest;
@@ -41,8 +42,8 @@ class NavigationController extends Controller {
 	/** @var ConfigService */
 	private $configService;
 
-	/** @var PluginsService */
-	private $pluginsService;
+	/** @var WidgetsService */
+	private $widgetsService;
 
 	/** @var MiscService */
 	private $miscService;
@@ -53,17 +54,17 @@ class NavigationController extends Controller {
 	 *
 	 * @param IRequest $request
 	 * @param ConfigService $configService
-	 * @param PluginsService $pluginsService
+	 * @param WidgetsService $widgetsService
 	 * @param MiscService $miscService
 	 */
 	public function __construct(
-		IRequest $request, ConfigService $configService, PluginsService $pluginsService,
+		IRequest $request, ConfigService $configService, WidgetsService $widgetsService,
 		MiscService $miscService
 	) {
 		parent::__construct(Application::APP_NAME, $request);
 
 		$this->configService = $configService;
-		$this->pluginsService = $pluginsService;
+		$this->widgetsService = $widgetsService;
 		$this->miscService = $miscService;
 	}
 
@@ -84,12 +85,32 @@ class NavigationController extends Controller {
 	 * @NoAdminRequired
 	 * @NoSubAdminRequired
 	 *
-	 * @return PluginFrame[]
+	 * @return WidgetFrame[]
 	 */
-	public function getPlugins() {
-		$pluginFrames = $this->pluginsService->getPluginFrames(false);
+	public function getWidgets() {
+		$widgetFrames = $this->widgetsService->getWidgetFrames(false);
 
-		return $pluginFrames;
+		return $widgetFrames;
+	}
+
+
+	/**
+	 * @NoAdminRequired
+	 * @NoSubAdminRequired
+	 *
+	 * @param string $grid
+	 *
+	 * @return WidgetFrame[]
+	 */
+	public function saveGrid($grid) {
+		try {
+			$grid = json_decode($grid, true);
+			$this->widgetsService->saveGrid($grid);
+
+			return ['result' => 'done'];
+		} catch (Exception $e) {
+			return ['result' => 'fail', 'message' => $e->getMessage()];
+		}
 	}
 
 }

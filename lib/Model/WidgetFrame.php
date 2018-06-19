@@ -27,13 +27,13 @@
 namespace OCA\Dashboard\Model;
 
 
-use OCA\Dashboard\IDashboardPlugin;
+use OCA\Dashboard\IDashboardWidget;
 
-class PluginFrame implements \JsonSerializable {
+class WidgetFrame implements \JsonSerializable {
 
 
-	/** @var IDashboardPlugin */
-	private $plugin;
+	/** @var IDashboardWidget */
+	private $widget;
 
 	/** @var array */
 	private $config = [];
@@ -43,33 +43,33 @@ class PluginFrame implements \JsonSerializable {
 
 
 	/**
-	 * PluginFrame constructor.
+	 * WidgetFrame constructor.
 	 *
-	 * @param IDashboardPlugin $plugin
+	 * @param IDashboardWidget $widget
 	 * @param array $config
 	 * @param array $position
 	 */
-	public function __construct(IDashboardPlugin $plugin, $config, $position) {
-		$this->plugin = $plugin;
+	public function __construct(IDashboardWidget $widget, $config, $position) {
+		$this->widget = $widget;
 		$this->config = $config;
 		$this->position = $position;
 	}
 
 
 	/**
-	 * @return IDashboardPlugin
+	 * @return IDashboardWidget
 	 */
-	public function getPlugin() {
-		return $this->plugin;
+	public function getWidget() {
+		return $this->widget;
 	}
 
 	/**
-	 * @param IDashboardPlugin $plugin
+	 * @param IDashboardWidget $widget
 	 *
 	 * @return $this
 	 */
-	public function setPlugin($plugin) {
-		$this->plugin = $plugin;
+	public function setWidget($widget) {
+		$this->widget = $widget;
 
 		return $this;
 	}
@@ -122,17 +122,17 @@ class PluginFrame implements \JsonSerializable {
 	 * @since 5.4.0
 	 */
 	public function jsonSerialize() {
-		$plugin = $this->getPlugin();
+		$widget = $this->getWidget();
 
 		return [
-			'plugin'   => [
-				'id'   => $plugin->getId(),
-				'name' => $plugin->getName()
+			'widget'   => [
+				'id'   => $widget->getId(),
+				'name' => $widget->getName()
 			],
-			'template' => $plugin->getTemplate(),
-			'setup'    => $plugin->pluginSetup(),
+			'setup'    => $widget->widgetSetup(),
 			'config'   => $this->getConfig(),
-			'position' => $this->getPosition()
+			'position' => $this->getPosition(),
+			'enabled'  => ((array_key_exists('x', $this->getPosition())) ? true : false)
 		];
 	}
 }

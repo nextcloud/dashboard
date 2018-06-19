@@ -24,9 +24,67 @@
  *
  */
 
-namespace OCA\Dashboard\Exceptions;
+namespace OCA\Dashboard\Widgets;
 
-class PluginIsNotCompatibleException extends \Exception {
+
+use OCA\Dashboard\AppInfo\Application;
+use OCA\Dashboard\IDashboardWidget;
+
+class Test2Widget implements IDashboardWidget {
+
+	const WIDGET_ID = 'test2';
+
+
+	/**
+	 * @return string
+	 */
+	public function getId() {
+		return self::WIDGET_ID;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getName() {
+		return 'Test 2';
+	}
+
+
+
+	/**
+	 * @return array
+	 */
+	public function widgetSetup() {
+		return [
+			'template' => [
+				'app'  => Application::APP_NAME,
+				'name' => 'widgets/test'
+			],
+			'options'  => [
+				[
+					'name'        => 'test_value_1',
+					'title'       => 'Test Option 1',
+					'type'        => 'input',
+					'default'     => '',
+					'size'        => 'large',
+					'placeholder' => 'txt'
+				],
+				[
+					'name'    => 'test_value_1',
+					'title'   => 'Test Option 2',
+					'default' => '',
+					'type'    => 'checkbox'
+				]
+			]
+		];
+	}
+
+
+	/**
+	 * @param array $config
+	 */
+	public function loadWidget($config) {
+	}
 
 }
-

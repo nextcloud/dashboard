@@ -1,4 +1,5 @@
-/*
+<?php
+/**
  * Nextcloud - Dashboard App
  *
  * This file is licensed under the Affero General Public License version 3 or
@@ -23,54 +24,9 @@
  *
  */
 
+namespace OCA\Dashboard\Exceptions;
 
-var net = {
+class WidgetIsNotCompatibleException extends \Exception {
 
-	getWidgets: function (callback) {
-		var res = {status: -1};
-
-		$.ajax({
-			method: 'GET',
-			url: OC.generateUrl('/apps/dashboard/widgets')
-		}).done(function (res) {
-			net.onCallback(callback, res);
-		}).fail(function () {
-			// net.failedToAjax();
-			net.onCallback(callback, res);
-		});
-	},
-
-	saveGrid: function (data, callback) {
-		var res = {status: -1};
-
-		$.ajax({
-			method: 'POST',
-			url: OC.generateUrl('/apps/dashboard/widgets/grid'),
-			data: {
-				grid: JSON.stringify(data)
-			}
-		}).done(function (res) {
-			net.onCallback(callback, res);
-		}).fail(function () {
-			// net.failedToAjax();
-			net.onCallback(callback, res);
-		});
-
-	},
-
-	onCallback: function (callback, result) {
-		if (callback && (typeof callback === 'function')) {
-			if (typeof result === 'object') {
-				callback(result);
-			} else {
-				callback({status: -1});
-			}
-
-			return true;
-		}
-
-		return false;
-	}
-};
-
+}
 

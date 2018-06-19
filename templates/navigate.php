@@ -32,6 +32,7 @@ Util::addScript(Application::APP_NAME, 'gridstack.all');
 Util::addScript(Application::APP_NAME, 'dashboard.navigation');
 Util::addScript(Application::APP_NAME, 'dashboard.net');
 Util::addScript(Application::APP_NAME, 'dashboard.settings');
+Util::addScript(Application::APP_NAME, 'dashboard.grid');
 Util::addScript(Application::APP_NAME, 'dashboard');
 
 Util::addStyle(Application::APP_NAME, 'gridstack');
@@ -42,13 +43,13 @@ Util::addStyle(Application::APP_NAME, 'dashboard');
 
 <div id="app-navigation">
 	<ul>
-		<li id="dash-plugins-new" class="collapsible">
+		<li id="dash-widget-new" class="collapsible">
 
 			<!-- This is optional -->
 			<button class="collapse"></button>
 
-			<a href="#" class="icon-dashboard">Add new plugin</a>
-			<ul id="dash-plugins-list">
+			<a href="#" class="icon-dashboard">Add new widget</a>
+			<ul id="dash-widgets-list">
 			</ul>
 		</li>
 
@@ -64,26 +65,7 @@ Util::addStyle(Application::APP_NAME, 'dashboard');
 
 	<div class="container-fluid">
 
-		<!--		<div>-->
-		<!--			<a class="btn btn-default" id="add-new-widget" href="#">Add Widget</a>-->
-		<!--		</div>-->
-		<!-- -->
-		<!--		<br/>-->
-		<!-- -->
-		<!--		<div class="grid-stack">-->
-		<!--		</div>-->
-		<!--	</div>-->
-
 		<div class="grid-stack">
-			<div class="grid-stack-item"
-				 data-gs-x="0" data-gs-y="0"
-				 data-gs-width="4" data-gs-height="2">
-				<div class="grid-stack-item-content">test 1</div>
-			</div>
-			<div class="grid-stack-item"
-				 data-gs-x="4" data-gs-y="0"
-				 data-gs-width="4" data-gs-height="4">
-				<div class="grid-stack-item-content"> test 2</div>
-			</div>
 		</div>
 	</div>
+</div>

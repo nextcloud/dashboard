@@ -37,8 +37,8 @@
 	background-image: url('/apps/dashboard/img/dashboard-dark.svg');
 }
 
-.icon-plugin {
-	background-image: url('/apps/dashboard/img/plugin.svg');
+.icon-widget {
+	background-image: url('/apps/dashboard/img/widget.svg');
 }
 
 .grid-stack {
@@ -50,3 +50,7 @@
 	background-color: #18bc9c;
 }
 
+.ui-state-disabled {
+	opacity: 1 !important;
+	filter: Alpha(Opacity=100) !important;
+}
