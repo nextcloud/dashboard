@@ -33,9 +33,10 @@
  * it's instantiated in there
  */
 return [
-
 	'routes' => [
-		['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
+		['name' => 'Navigation#navigate', 'url' => '/', 'verb' => 'GET'],
+		['name' => 'Navigation#getPlugins', 'url' => '/plugins', 'verb' => 'GET'],
+		//	['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
 		['name' => 'activity#index', 'url' => '/activities', 'verb' => 'GET'],
 		['name' => 'announcement#index', 'url' => '/announcements', 'verb' => 'GET'],
 		['name' => 'announcement#create', 'url' => '/announcements', 'verb' => 'POST'],
@@ -46,7 +47,8 @@ return [
 		]
 		],
 		[
-			'name'         => 'announcement#edit', 'url' => '/announcements/{id}', 'verb' => 'GET',
+			'name'         => 'announcement#edit', 'url' => '/announcements/{id}',
+			'verb'         => 'GET',
 			'requirements' => [
 				'id' => '\d+',
 			]

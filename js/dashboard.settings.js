@@ -1,6 +1,4 @@
-<?php
-
-/**
+/*
  * Nextcloud - Dashboard App
  *
  * This file is licensed under the Affero General Public License version 3 or
@@ -9,7 +7,6 @@
  * @author regio iT gesellschaft für informationstechnologie mbh
  * @copyright regio iT 2017
  * @license GNU AGPL version 3 or any later version
- * @contributor tuxedo-rb | TUXEDO Computers GmbH | https://www.tuxedocomputers.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -26,24 +23,14 @@
  *
  */
 
-namespace OCA\Dashboard\AppInfo;
-
-use OCP\AppFramework\QueryException;
 
 
-try {
-	$app = new Application();
-	$app->registerNavigation();
-	$app->registerPlugins();
-	$app->registerPersonalSettings();
-} catch (QueryException $e) {
-	/** we do nothing */
-}
+var curr = {
+	settingsShown: false
+};
 
+var settings = {
 
+	options: []
 
-
-
-//$app = new Application();
-
-
+};

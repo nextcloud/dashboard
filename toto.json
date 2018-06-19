@@ -1,0 +1,30 @@
+{
+  "plugin": {
+    "id": "test1",
+    "name": "Test 1"
+  },
+  "template": {
+    "app": "dashboard",
+    "icon": "icon-test",
+    "css": "plugin/test",
+    "navigate": "test/plugin"
+  },
+  "setup": {
+    "options": [
+      {
+        "name": "test_value_1",
+        "title": "Test Option 1",
+        "type": "input",
+        "size": "large",
+        "placeholder": "txt"
+      },
+      {
+        "name": "test_value_1",
+        "title": "Test Option 2",
+        "type": "checkbox"
+      }
+    ]
+  },
+  "config": [],
+  "position": []
+}

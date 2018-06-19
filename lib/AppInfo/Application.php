@@ -27,20 +27,91 @@
 
 namespace OCA\Dashboard\AppInfo;
 
-use OCA\Dashboard\Controller\AdminController;
 use OCP\AppFramework\App;
+use OCP\AppFramework\IAppContainer;
+use OCP\AppFramework\QueryException;
+use OCP\Util;
 
 class Application extends App {
 
-	public function __construct(array $urlParams = array()) {
-		parent::__construct('dashboard', $urlParams);
-		$container = $this->getContainer();
+	const APP_NAME = 'dashboard';
 
-		// Aliases for the controllers so we can use the automatic DI
-		$container->registerAlias(
-			'AdminController',
-			AdminController::class
-		);
+	/** @var IAppContainer */
+	private $container;
+
+
+	public function __construct(array $urlParams = array()) {
+		parent::__construct(self::APP_NAME, $urlParams);
+		$this->container = $this->getContainer();
 	}
+
+
+	/**
+	 * Register Navigation Tab
+	 *
+	 * @throws QueryException
+	 */
+	public function registerNavigation() {
+		$this->container->getServer()
+						->getNavigationManager()
+						->add($this->dashboardNavigation());
+	}
+
+
+	/**
+	 *
+	 */
+	public function registerPlugins() {
+		Util::addStyle(self::APP_NAME, 'plugins/test');
+	}
+
+
+	/**
+	 *
+	 */
+	public function registerPersonalSettings() {
+
+	}
+
+
+	/**
+	 * @return array
+	 */
+	private function dashboardNavigation() {
+		$urlGen = \OC::$server->getURLGenerator();
+		$navName = \OC::$server->getL10N(self::APP_NAME)
+							   ->t('Dashboard');
+
+		return [
+			'id'    => self::APP_NAME,
+			'order' => 0,
+			'href'  => $urlGen->linkToRoute('dashboard.Navigation.navigate'),
+			'icon'  => $urlGen->imagePath(self::APP_NAME, 'dashboard.svg'),
+			'name'  => $navName
+		];
+	}
+
+
+//
+//$container->getServer()->getNavigationManager()->add(function () use ($container) {
+//    $urlGenerator = $container->getServer()->getURLGenerator();
+//    $l10n = $container->query('OCP\IL10N');
+//    return [
+//        'id' => 'dashboard',
+//        // sorting weight for the navigation. The higher the number, the higher
+//        // will it be listed in the navigation
+//        'order' => -1,
+//        // the route that will be shown on startup
+//        'href' => $urlGenerator->linkToRoute('dashboard.page.index'),
+//        // the icon that will be shown in the navigation
+//        // this file needs to exist in img/
+//        'icon' => $urlGenerator->imagePath('dashboard', 'dashboard.svg'),
+//        // the title of your application. This will be used in the
+//        // navigation or on the settings page of your app
+//        'name' => $l10n->t('Dashboard')
+//    ];
+//});
+//App::registerAdmin($container->getAppName(), 'admin');
+
 
 }

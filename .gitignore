@@ -8,3 +8,6 @@ nb-configuration.xml
 .idea
 vendor/
 components/
+node_modules/
+js/gridstack.all.js
+css/gridstack.css

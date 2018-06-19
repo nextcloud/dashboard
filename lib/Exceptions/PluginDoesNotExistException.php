@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Nextcloud - Dashboard App
  *
@@ -9,7 +8,6 @@
  * @author regio iT gesellschaft für informationstechnologie mbh
  * @copyright regio iT 2017
  * @license GNU AGPL version 3 or any later version
- * @contributor tuxedo-rb | TUXEDO Computers GmbH | https://www.tuxedocomputers.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -26,24 +24,9 @@
  *
  */
 
-namespace OCA\Dashboard\AppInfo;
+namespace OCA\Dashboard\Exceptions;
 
-use OCP\AppFramework\QueryException;
+class PluginDoesNotExistException extends \Exception {
 
-
-try {
-	$app = new Application();
-	$app->registerNavigation();
-	$app->registerPlugins();
-	$app->registerPersonalSettings();
-} catch (QueryException $e) {
-	/** we do nothing */
 }
-
-
-
-
-
-//$app = new Application();
-
 

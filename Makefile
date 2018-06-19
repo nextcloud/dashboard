@@ -20,10 +20,15 @@ create-tag:
 
 clean:
 	rm -rf $(build_dir)
-	rm -rf node_modules
+	rm -rf node_modules components vendor
 
 composer:
 	composer install
+
+npm:
+    npm install gridstack
+    cp node_modules/gridstack/dist/gridstack.all.js ./js/
+	cp node_modules/gridstack/dist/gridstack.css ./css/
 
 test: SHELL:=/bin/bash
 test: composer
@@ -45,6 +50,7 @@ appstore: composer clean
 	--exclude=/.github \
 	--exclude=/composer.json \
 	--exclude=/composer.lock \
+	--exclude=/node_modules \
 	--exclude=/l10n/l10n.pl \
 	--exclude=/CONTRIBUTING.md \
 	--exclude=/issue_template.md \

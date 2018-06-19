@@ -40,4 +40,10 @@
 			<step>OCA\Dashboard\Migration\DropDashboardTables</step>
 		</uninstall>
 	</repair-steps>
+
+	<dashboard>
+		<plugin>OCA\Dashboard\Plugins\TestPlugin</plugin>
+		<plugin>OCA\Dashboard\Plugins\Test2Plugin</plugin>
+	</dashboard>
+
 </info>
