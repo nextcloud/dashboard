@@ -26,6 +26,7 @@ OC.L10N.register(
     "Content" : "İçerik",
     "Mailserver" : "Posta sunucusu",
     "SSL" : "SSL",
+    "validate Cert" : "Sertifikayı doğrula",
     "Username" : "Kullanıcı Adı",
     "Password" : "Parola",
     "File" : "Dosya",
