@@ -42,17 +42,14 @@ Util::addStyle(Application::APP_NAME, 'dashboard');
 
 
 <div id="app-navigation">
-	<ul>
+	<ul id="dash-settings">
 		<li id="dash-widget-new" class="collapsible">
 
-			<!-- This is optional -->
 			<button class="collapse"></button>
-
 			<a href="#" class="icon-dashboard">Add new widget</a>
 			<ul id="dash-widgets-list">
 			</ul>
 		</li>
-
 	</ul>
 </div>
 
@@ -61,6 +58,7 @@ Util::addStyle(Application::APP_NAME, 'dashboard');
 
 	<div id="dashboard-header">
 		<div id="dashboard-settings" class="icon-settings"></div>
+		<div id="dashboard-settings-first">Click here to add your first widget.</div>
 	</div>
 
 	<div class="container-fluid">

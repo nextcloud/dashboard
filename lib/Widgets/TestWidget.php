@@ -23,9 +23,8 @@ class TestWidget implements IDashboardWidget {
 	 * @return string
 	 */
 	public function getName() {
-		return 'Test 1';
+		return 'Lorem Ipsum';
 	}
-
 
 
 	/**
@@ -33,28 +32,39 @@ class TestWidget implements IDashboardWidget {
 	 */
 	public function widgetSetup() {
 		return [
-			'template' =>
-				[
-					'app'      => Application::APP_NAME,
-					'icon'     => 'icon-test',
-					'navigate' => 'widgets/test'
-				],
+			'template' => [
+				'app'  => Application::APP_NAME,
+				'icon' => 'icon-lorem',
+				'name' => 'widgets/Test'
+			],
 			'size'     => [
-				'width' => 5,
-				'height' => 2
+				'width'  => 6,
+				'height' => 4
 			],
 			'options'  => [
 				[
-					'name'        => 'test_value_1',
-					'title'       => 'Test Option 1',
+					'name'        => 'test_input',
+					'title'       => 'IMAP address',
 					'type'        => 'input',
-					'size'        => 'large',
-					'placeholder' => 'txt'
+					'placeholder' => 'imap.example.net'
 				],
 				[
-					'name'  => 'test_value_1',
-					'title' => 'Test Option 2',
-					'type'  => 'checkbox'
+					'name'        => 'test_input',
+					'title'       => 'Login',
+					'type'        => 'input',
+					'placeholder' => 'username'
+				],
+				[
+					'name'        => 'test_input',
+					'title'       => 'Password',
+					'type'        => 'input',
+					'placeholder' => ''
+				],
+				[
+					'name'    => 'test_long_lorem',
+					'title'   => 'Longer Lorem',
+					'type'    => 'checkbox',
+					'default' => true
 				]
 			]
 		];

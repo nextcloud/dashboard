@@ -1,4 +1,5 @@
-/*
+<?php
+/**
  * Nextcloud - Dashboard App
  *
  * This file is licensed under the Affero General Public License version 3 or
@@ -23,11 +24,18 @@
  *
  */
 
-.icon-disk-space {
-	background-image: url('/apps/dashboard/img/widgets/diskspace.svg');
-}
+?>
 
-.icon-disk-space-white {
-	background-image: url('/apps/dashboard/img/widgets/diskspace-white.svg');
-}
+<div>
+
+	<div id="quota" class="myCollapse in">
+		<div id="quota-used" style="width: 30%"></div>
+		<div id="quota-limit"></div>
+		<p id="quota-text"><strong>313.1 GB</strong> / <strong>1.3 TB</strong></p>
+	</div>
+
+</div>
+
+
+
 

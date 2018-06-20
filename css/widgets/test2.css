@@ -23,11 +23,40 @@
  *
  */
 
-.icon-disk-space {
-	background-image: url('/apps/dashboard/img/widgets/diskspace.svg');
+/*#app * {*/
+/*box-sizing: border-box;*/
+/*}*/
+
+.icon-lorem {
+	background-image: url('/apps/dashboard/img/widgets/lorem.svg');
 }
 
-.icon-disk-space-white {
-	background-image: url('/apps/dashboard/img/widgets/diskspace-white.svg');
+.icon-lorem-white {
+	background-image: url('/apps/dashboard/img/widgets/lorem-white.svg');
+}
+
+#quota {
+	position: relative;
+}
+
+#quota div {
+	height: 1.8em;
+}
+
+#quota-used {
+	float: left;
+	background-color: #727272;
+}
+
+#quota-limit {
+	background-color: #b1b1b1;
+}
+
+#quota-text {
+	position: absolute;
+	top: 0.1em;
+	text-align: center;
+	width: 100%;
+	color: white;
 }
 

@@ -87,6 +87,17 @@ class WidgetsService {
 
 
 	/**
+	 * @param string $widgetId
+	 */
+	public function removeWidget($widgetId) {
+		if ($widgetId === '' || is_null($widgetId)) {
+			return;
+		}
+
+		$this->configService->deleteAppValue('_' . $widgetId . '_pos');
+	}
+
+	/**
 	 * @param array $grid
 	 */
 	public function saveGrid($grid) {

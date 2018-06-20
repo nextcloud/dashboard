@@ -40,6 +40,7 @@ var net = {
 		});
 	},
 
+
 	saveGrid: function (data, callback) {
 		var res = {status: -1};
 
@@ -57,6 +58,23 @@ var net = {
 		});
 
 	},
+
+
+	deleteWidget: function (widgetId) {
+		var res = {status: -1};
+
+		$.ajax({
+			method: 'DELETE',
+			url: OC.generateUrl('/apps/dashboard/widget'),
+			data: {
+				widgetId: widgetId
+			}
+		}).done(function (res) {
+		}).fail(function () {
+			// net.failedToAjax();
+		});
+	},
+
 
 	onCallback: function (callback, result) {
 		if (callback && (typeof callback === 'function')) {

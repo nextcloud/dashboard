@@ -30,7 +30,16 @@
 #dashboard-settings {
 	position: absolute;
 	margin: 12px;
-	opacity: 0.4;
+	opacity: 0.5;
+	cursor: pointer;
+}
+
+#dashboard-settings-first {
+	position: absolute;
+	margin: 10px 12px 12px 40px;
+	cursor: pointer;
+	opacity: 0;
+	filter: Alpha(Opacity=0);
 }
 
 .icon-dashboard {
@@ -41,16 +50,51 @@
 	background-image: url('/apps/dashboard/img/widget.svg');
 }
 
+.widget-header {
+	background-color: #0082c9;
+	color: #fff;
+	text-align: left;
+	padding: 5px 5px 5px 35px;
+}
+
+.widget-close-icon {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	padding: 7px;
+	cursor: pointer;
+}
+
+.widget-header-icon {
+	position: absolute;
+	left: 6px;
+	top: 4px;
+	padding: 3px;
+}
+
+.widget-content {
+	padding: 10px
+}
+
 .grid-stack {
 }
 
 .grid-stack-item-content {
 	color: #2c3e50;
 	text-align: center;
-	background-color: #18bc9c;
+	overflow-y: hidden !important;
+	background-color: #f3f3f3;
 }
 
 .ui-state-disabled {
 	opacity: 1 !important;
 	filter: Alpha(Opacity=100) !important;
+}
+
+.ui-state-disabled .grid-stack-item-content {
+	background-color: #fff;
+}
+
+.app-navigation-entry-bullet {
+	background: #0082c9;
 }

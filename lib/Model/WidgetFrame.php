@@ -28,6 +28,7 @@ namespace OCA\Dashboard\Model;
 
 
 use OCA\Dashboard\IDashboardWidget;
+use OCP\AppFramework\Http\TemplateResponse;
 
 class WidgetFrame implements \JsonSerializable {
 
@@ -124,12 +125,20 @@ class WidgetFrame implements \JsonSerializable {
 	public function jsonSerialize() {
 		$widget = $this->getWidget();
 
+		$html = '';
+		$setup = $widget->widgetSetup();
+		if (array_key_exists('template', $setup)) {
+			$template = $setup['template'];
+			$html = new TemplateResponse($template['app'], $template['name'], [], 'blank');
+		}
+
 		return [
 			'widget'   => [
 				'id'   => $widget->getId(),
 				'name' => $widget->getName()
 			],
-			'setup'    => $widget->widgetSetup(),
+			'setup'    => $setup,
+			'html'     => $html->render(),
 			'config'   => $this->getConfig(),
 			'position' => $this->getPosition(),
 			'enabled'  => ((array_key_exists('x', $this->getPosition())) ? true : false)

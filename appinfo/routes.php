@@ -36,6 +36,7 @@ return [
 	'routes' => [
 		['name' => 'Navigation#navigate', 'url' => '/', 'verb' => 'GET'],
 		['name' => 'Navigation#getWidgets', 'url' => '/widgets', 'verb' => 'GET'],
+		['name' => 'Navigation#deleteWidget', 'url' => '/widget', 'verb' => 'DELETE'],
 		['name' => 'Navigation#saveGrid', 'url' => '/widgets/grid', 'verb' => 'POST'],
 		//	['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
 		['name' => 'activity#index', 'url' => '/activities', 'verb' => 'GET'],

@@ -93,6 +93,16 @@ class NavigationController extends Controller {
 		return $widgetFrames;
 	}
 
+	/**
+	 * @NoAdminRequired
+	 * @NoSubAdminRequired
+	 *
+	 * @param string $widgetId
+	 */
+	public function deleteWidget($widgetId) {
+		$this->widgetsService->removeWidget($widgetId);
+	}
+
 
 	/**
 	 * @NoAdminRequired

@@ -48,6 +48,8 @@ var grid = {
 
 			grid.addWidget(item, false);
 		}
+
+		nav.elements.gridStack.setStatic(true);
 	},
 
 
@@ -57,14 +59,64 @@ var grid = {
 			auto = true;
 		}
 
-		var widgetContent = $('<div>', {class: 'grid-stack-item-content'});
-		//widgetContent.html(widget.template.html());
+		var widgetContent = $('<div>', {
+			class: 'grid-stack-item-content',
+			'data-widget-id': item.widget.id
+		});
 
-		var widget = $('<div>', {'data-widget-id': item.widget.id}).append(widgetContent);
+		widgetContent.append(this.generateWidgetHeader(item));
+		widgetContent.append($('<div>', {class: 'widget-content'}).html(item.html));
+
+		widgetContent.on('mousedown', function () {
+			if (!curr.settingsShown) {
+				return;
+			}
+			settings.displayWidgetSettings($(this).attr('data-widget-id'));
+		});
+
+		var widget = $('<div>', {
+			'data-widget-id': item.widget.id
+		}).append(widgetContent);
 		var position = grid.initPosition(item);
 
 		nav.elements.gridStack.addWidget(widget,
 			position.x, position.y, position.width, position.height, auto);
+	},
+
+
+	removeWidget: function (widgetId) {
+		net.deleteWidget(widgetId);
+
+		var widget = grid.getWidgetFromId(widgetId);
+		if (widget === null) {
+			return;
+		}
+
+		nav.elements.gridStack.removeWidget(widget);
+	},
+
+
+	generateWidgetHeader: function (item) {
+
+		var headerCloseIcon = $('<div>', {class: 'icon-close-white widget-close-icon'});
+		headerCloseIcon.on('mousedown', function (event) {
+			event.stopPropagation();
+			grid.removeWidget(item.widget.id);
+		});
+
+		if (!curr.settingsShown) {
+			headerCloseIcon.hide();
+		}
+
+		var widgetHeader = $('<div>', {class: 'widget-header'}).text(item.widget.name);
+		widgetHeader.append(headerCloseIcon);
+
+		if (item.setup.template.icon !== undefined) {
+			var headerIcon = $('<div>', {class: item.setup.template.icon + '-white widget-header-icon'});
+			widgetHeader.append(headerIcon);
+		}
+
+		return widgetHeader;
 	},
 
 
@@ -113,6 +165,18 @@ var grid = {
 	},
 
 
+	getWidgetFromId: function (widgetId) {
+		var widget = null;
+		nav.elements.divGridStack.children().each(function () {
+			if ($(this).attr('data-widget-id') === widgetId) {
+				widget = $(this);
+			}
+		});
+
+		return widget;
+	},
+
+
 	saveGrid: function () {
 		var currGrid = _.map($('.grid-stack > .grid-stack-item:visible'), function (el) {
 			var node = $(el).data('_gridstack_node');
@@ -126,5 +190,18 @@ var grid = {
 		}, this);
 
 		net.saveGrid(currGrid);
+	},
+
+
+	hideSettings: function () {
+		nav.elements.divGridStack.find('.widget-close-icon').each(function () {
+			$(this).stop().hide(150);
+		});
+	},
+
+	showSettings: function () {
+		nav.elements.divGridStack.find('.widget-close-icon').each(function () {
+			$(this).stop().show(150);
+		});
 	}
 };

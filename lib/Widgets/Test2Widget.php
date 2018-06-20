@@ -47,9 +47,8 @@ class Test2Widget implements IDashboardWidget {
 	 * @return string
 	 */
 	public function getName() {
-		return 'Test 2';
+		return 'Used space';
 	}
-
 
 
 	/**
@@ -59,23 +58,12 @@ class Test2Widget implements IDashboardWidget {
 		return [
 			'template' => [
 				'app'  => Application::APP_NAME,
-				'name' => 'widgets/test'
+				'icon' => 'icon-disk-space',
+				'name' => 'widgets/Test2'
 			],
-			'options'  => [
-				[
-					'name'        => 'test_value_1',
-					'title'       => 'Test Option 1',
-					'type'        => 'input',
-					'default'     => '',
-					'size'        => 'large',
-					'placeholder' => 'txt'
-				],
-				[
-					'name'    => 'test_value_1',
-					'title'   => 'Test Option 2',
-					'default' => '',
-					'type'    => 'checkbox'
-				]
+			'size'     => [
+				'width'  => 4,
+				'height' => 2
 			]
 		];
 	}

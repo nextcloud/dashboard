@@ -30,7 +30,9 @@ var nav = {
 
 	elements: {
 		divSettings: null,
+		divFirstInstall: null,
 		iconSettings: null,
+		divDashSettings: null,
 		divWidgetsList: null,
 		divWidgetsListNew: null,
 		divGridStack: null,
@@ -46,24 +48,16 @@ var nav = {
 
 	initElements: function () {
 		nav.elements.divSettings = $('#app-navigation');
+		nav.elements.divFirstInstall = $('#dashboard-settings-first');
 		nav.elements.iconSettings = $('#dashboard-settings');
+		nav.elements.divDashSettings = $('#dash-settings');
 		nav.elements.divWidgetsList = $('#dash-widgets-list');
 		nav.elements.divWidgetsListNew = $('#dash-widget-new');
 		nav.elements.divGridStack = $('.grid-stack');
 
 		nav.elements.divSettings.hide();
-		nav.elements.iconSettings.on('click', function () {
-			if (curr.settingsShown) {
-				curr.settingsShown = false;
-				nav.elements.gridStack.setStatic(true);
-				grid.saveGrid();
-				nav.elements.divSettings.hide(150);
-			} else {
-				curr.settingsShown = true;
-				nav.elements.gridStack.setStatic(false);
-				nav.elements.divSettings.show(150);
-			}
-		});
+		nav.elements.iconSettings.on('click', nav.switchSettings);
+		nav.elements.divFirstInstall.on('click', nav.switchSettings);
 
 		nav.elements.divWidgetsListNew.on('click', function () {
 			if ($(this).hasClass('open')) {
@@ -75,9 +69,38 @@ var nav = {
 	},
 
 
+	switchSettings: function () {
+		if (curr.settingsShown) {
+			settings.firstInstall();
+			nav.hideSettings();
+		} else {
+			nav.elements.divFirstInstall.stop().fadeTo(150, 0, function () {
+				$(this).hide();
+			});
+			nav.showSettings();
+		}
+	},
+
+	hideSettings: function () {
+		curr.settingsShown = false;
+		nav.elements.gridStack.setStatic(true);
+		nav.elements.divSettings.hide(150);
+		settings.hideWidgetSettings();
+		grid.saveGrid();
+		grid.hideSettings();
+	},
+
+	showSettings: function () {
+		curr.settingsShown = true;
+		nav.elements.gridStack.setStatic(false);
+		nav.elements.divSettings.show(150);
+		grid.showSettings();
+	},
+
 	onGetWidgets: function (result) {
 		curr.widgets = result;
 
+		settings.firstInstall();
 		nav.fillWidgetsList();
 		grid.fillGrid();
 	},

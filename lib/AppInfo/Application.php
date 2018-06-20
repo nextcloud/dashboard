@@ -63,6 +63,7 @@ class Application extends App {
 	 */
 	public function registerWidgets() {
 		Util::addStyle(self::APP_NAME, 'widgets/test');
+		Util::addStyle(self::APP_NAME, 'widgets/test2');
 	}
 
 
