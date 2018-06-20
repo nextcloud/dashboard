@@ -34,6 +34,7 @@ use OCA\Dashboard\Exceptions\WidgetIsNotUniqueException;
 use OCA\Dashboard\IDashboardWidget;
 use OCA\Dashboard\Model\WidgetFrame;
 use OCP\AppFramework\QueryException;
+use OCP\PreConditionNotMetException;
 use OCP\Util;
 
 class WidgetsService {
@@ -94,7 +95,7 @@ class WidgetsService {
 			return;
 		}
 
-		$this->configService->deleteAppValue('_' . $widgetId . '_pos');
+		$this->configService->deleteUserValue('_' . $widgetId . '_pos');
 	}
 
 	/**
@@ -110,7 +111,12 @@ class WidgetsService {
 				'height' => $item['height']
 			];
 
-			$this->configService->setAppValue('_' . $item['widgetId'] . '_pos', json_encode($pos));
+			try {
+				$this->configService->setUserValue(
+					'_' . $item['widgetId'] . '_pos', json_encode($pos)
+				);
+			} catch (PreConditionNotMetException $e) {
+			}
 		}
 	}
 
@@ -144,9 +150,9 @@ class WidgetsService {
 		$settings = MiscService::get($widget->widgetSetup(), 'settings', []);
 
 		$position =
-			json_decode($this->configService->getAppValue('_' . $widget->getId() . '_pos', '[]'));
+			json_decode($this->configService->getUserValue('_' . $widget->getId() . '_pos', '[]'));
 		$config =
-			json_decode($this->configService->getAppValue('_' . $widget->getId() . '_conf', '[]'));
+			json_decode($this->configService->getUserValue('_' . $widget->getId() . '_conf', '[]'));
 
 		foreach ($settings as $item) {
 			if (!array_key_exists($item['name'], $config)) {

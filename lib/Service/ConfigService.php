@@ -139,10 +139,11 @@ class ConfigService {
 	 *
 	 * @param string $key
 	 *
+	 * @param null $defaultValue
+	 *
 	 * @return string
 	 */
-	public function getUserValue($key) {
-		$defaultValue = null;
+	public function getUserValue($key, $defaultValue = null) {
 		if (array_key_exists($key, $this->defaults)) {
 			$defaultValue = $this->defaults[$key];
 		}
@@ -164,6 +165,19 @@ class ConfigService {
 	public function setUserValue($key, $value) {
 		return $this->config->setUserValue($this->userId, Application::APP_NAME, $key, $value);
 	}
+
+
+	/**
+	 * remove a key
+	 *
+	 * @param string $key
+	 *
+	 * @return string
+	 */
+	public function deleteUserValue($key) {
+		return $this->config->deleteUserValue($this->userId, Application::APP_NAME, $key);
+	}
+
 
 	/**
 	 * Get a user value by key and user
