@@ -26,8 +26,8 @@ composer:
 	composer install
 
 npm:
-    npm install gridstack
-    cp node_modules/gridstack/dist/gridstack.all.js ./js/
+	npm install gridstack
+	cp node_modules/gridstack/dist/gridstack.all.js ./js/
 	cp node_modules/gridstack/dist/gridstack.css ./css/
 
 test: SHELL:=/bin/bash
