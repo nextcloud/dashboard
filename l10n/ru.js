@@ -26,6 +26,7 @@ OC.L10N.register(
     "Content" : "Cодержание",
     "Mailserver" : "Почтовый сервер",
     "SSL" : "SSL",
+    "validate Cert" : "подтвердить сертификат",
     "Username" : "Имя пользователя",
     "Password" : "Пароль",
     "File" : "Файл",
