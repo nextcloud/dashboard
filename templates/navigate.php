@@ -58,6 +58,7 @@ Util::addStyle(Application::APP_NAME, 'dashboard');
 
 	<div id="dashboard-header">
 		<div id="dashboard-settings" class="icon-settings"></div>
+		<div id="dashboard-save">Click here to save your grid.</div>
 		<div id="dashboard-settings-first">Click here to add your first widget.</div>
 	</div>
 

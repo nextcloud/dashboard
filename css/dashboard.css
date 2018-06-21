@@ -34,7 +34,7 @@
 	cursor: pointer;
 }
 
-#dashboard-settings-first {
+#dashboard-settings-first, #dashboard-save {
 	position: absolute;
 	margin: 10px 12px 12px 40px;
 	cursor: pointer;

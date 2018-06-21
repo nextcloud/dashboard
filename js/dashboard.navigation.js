@@ -31,6 +31,7 @@ var nav = {
 	elements: {
 		divSettings: null,
 		divFirstInstall: null,
+		divSaveInstruction: null,
 		iconSettings: null,
 		divDashSettings: null,
 		divWidgetsList: null,
@@ -49,6 +50,7 @@ var nav = {
 	initElements: function () {
 		nav.elements.divSettings = $('#app-navigation');
 		nav.elements.divFirstInstall = $('#dashboard-settings-first');
+		nav.elements.divSaveInstruction = $('#dashboard-save')
 		nav.elements.iconSettings = $('#dashboard-settings');
 		nav.elements.divDashSettings = $('#dash-settings');
 		nav.elements.divWidgetsList = $('#dash-widgets-list');
@@ -58,6 +60,7 @@ var nav = {
 		nav.elements.divSettings.hide();
 		nav.elements.iconSettings.on('click', nav.switchSettings);
 		nav.elements.divFirstInstall.on('click', nav.switchSettings);
+		nav.elements.divSaveInstruction.on('click', nav.switchSettings);
 
 		nav.elements.divWidgetsListNew.on('click', function () {
 			if ($(this).hasClass('open')) {
@@ -71,12 +74,8 @@ var nav = {
 
 	switchSettings: function () {
 		if (curr.settingsShown) {
-			settings.firstInstall();
 			nav.hideSettings();
 		} else {
-			nav.elements.divFirstInstall.stop().fadeTo(150, 0, function () {
-				$(this).hide();
-			});
 			nav.showSettings();
 		}
 	},
@@ -86,15 +85,23 @@ var nav = {
 		nav.elements.gridStack.setStatic(true);
 		nav.elements.divSettings.hide(150);
 		settings.hideWidgetSettings();
+		settings.firstInstall();
 		grid.saveGrid();
 		grid.hideSettings();
+		nav.elements.divSaveInstruction.stop().show().fadeTo(150, 0, function () {
+			$(this).hide()
+		});
 	},
 
 	showSettings: function () {
 		curr.settingsShown = true;
 		nav.elements.gridStack.setStatic(false);
 		nav.elements.divSettings.show(150);
+		nav.elements.divSaveInstruction.stop().show().fadeTo(150, 0.6);
 		grid.showSettings();
+		nav.elements.divFirstInstall.stop().fadeTo(150, 0, function () {
+			$(this).hide();
+		});
 	},
 
 	onGetWidgets: function (result) {
