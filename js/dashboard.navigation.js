@@ -29,13 +29,13 @@
 var nav = {
 
 	elements: {
-		divSettings: null,
+		divSettingsOpen: null,
+		divSettingsClose: null,
 		divFirstInstall: null,
-		divSaveInstruction: null,
+		divMenuWidgets: null,
 		iconSettings: null,
-		divDashSettings: null,
-		divWidgetsList: null,
-		divWidgetsListNew: null,
+		iconAdd: null,
+		iconSave: null,
 		divGridStack: null,
 		gridStack: null
 	},
@@ -48,94 +48,140 @@ var nav = {
 
 
 	initElements: function () {
-		nav.elements.divSettings = $('#app-navigation');
+		nav.elements.divSettingsOpen = $('#dashboard-settings-open');
+		nav.elements.divSettingsClose = $('#dashboard-settings-close');
 		nav.elements.divFirstInstall = $('#dashboard-settings-first');
-		nav.elements.divSaveInstruction = $('#dashboard-save')
-		nav.elements.iconSettings = $('#dashboard-settings');
-		nav.elements.divDashSettings = $('#dash-settings');
-		nav.elements.divWidgetsList = $('#dash-widgets-list');
-		nav.elements.divWidgetsListNew = $('#dash-widget-new');
+		nav.elements.divMenuWidgets = $('#dashboard-menu-widgets')
+		nav.elements.iconSettings = $('#dashboard-action-settings');
+		nav.elements.iconAdd = $('#dashboard-action-add');
+		nav.elements.iconSave = $('#dashboard-action-save');
 		nav.elements.divGridStack = $('.grid-stack');
 
-		nav.elements.divSettings.hide();
-		nav.elements.iconSettings.on('click', nav.switchSettings);
-		nav.elements.divFirstInstall.on('click', nav.switchSettings);
-		nav.elements.divSaveInstruction.on('click', nav.switchSettings);
+		nav.elements.divSettingsOpen.fadeOut(0);
+		nav.elements.iconSettings.on('click', nav.showSettings);
+		nav.elements.divFirstInstall.on('click', function () {
+			nav.showSettings(true);
+		});
+		nav.elements.iconSave.on('click', nav.hideSettings);
+		nav.elements.iconAdd.on('click', function (event) {
+			event.stopPropagation();
+			nav.showWidgetsList();
+		});
 
-		nav.elements.divWidgetsListNew.on('click', function () {
-			if ($(this).hasClass('open')) {
-				$(this).removeClass('open');
-			} else {
-				$(this).addClass('open');
-			}
+		$(window).click(function () {
+			nav.hideWidgetsList();
 		});
 	},
 
 
-	switchSettings: function () {
-		if (curr.settingsShown) {
-			nav.hideSettings();
-		} else {
-			nav.showSettings();
+	showSettings: function (showWidgetsList) {
+		curr.settingsShown = true;
+		nav.elements.divSettingsClose.stop().fadeOut(150, function () {
+			nav.elements.divSettingsOpen.stop().fadeIn(150);
+		});
+
+		grid.showSettings();
+		nav.elements.divFirstInstall.stop().fadeOut(150);
+
+		if (showWidgetsList === true) {
+			nav.showWidgetsList();
 		}
 	},
 
 	hideSettings: function () {
 		curr.settingsShown = false;
-		nav.elements.gridStack.setStatic(true);
-		nav.elements.divSettings.hide(150);
-		settings.hideWidgetSettings();
+		nav.elements.divSettingsOpen.stop().fadeOut(150, function () {
+			nav.elements.divSettingsClose.stop().fadeIn(150);
+		});
+
+		nav.hideWidgetsList();
 		settings.firstInstall();
 		grid.saveGrid();
 		grid.hideSettings();
-		nav.elements.divSaveInstruction.stop().show().fadeTo(150, 0, function () {
-			$(this).hide()
-		});
 	},
 
-	showSettings: function () {
-		curr.settingsShown = true;
-		nav.elements.gridStack.setStatic(false);
-		nav.elements.divSettings.show(150);
-		nav.elements.divSaveInstruction.stop().show().fadeTo(150, 0.6);
-		grid.showSettings();
-		nav.elements.divFirstInstall.stop().fadeTo(150, 0, function () {
-			$(this).hide();
-		});
+
+	showWidgetsList: function () {
+		nav.fillWidgetsList();
+
+		curr.widgetsShown = true;
+		nav.elements.divMenuWidgets.stop().fadeIn(150);
 	},
+
+	hideWidgetsList: function () {
+		curr.widgetsShown = false;
+		nav.elements.divMenuWidgets.stop().fadeOut(150);
+	},
+
 
 	onGetWidgets: function (result) {
 		curr.widgets = result;
 
 		settings.firstInstall();
-		nav.fillWidgetsList();
+		nav.updateAddWidgetsIcon();
 		grid.fillGrid();
+	},
+
+
+	updateAddWidgetsIcon: function () {
+		var count = 0;
+		for (var i = 0; i < curr.widgets.length; i++) {
+			var item = curr.widgets[i];
+
+			if (item.enabled) {
+				continue;
+			}
+			count++;
+		}
+
+		if (count === 0) {
+			nav.elements.iconAdd.fadeTo(150, 0.2);
+		} else {
+			nav.elements.iconAdd.fadeTo(150, 0.7);
+		}
+
 	},
 
 
 	fillWidgetsList: function () {
 
-		nav.elements.divWidgetsList.empty();
+		var menuUl = nav.elements.divMenuWidgets.children('ul');
+		menuUl.empty();
+
+		var count = 0;
 		for (var i = 0; i < curr.widgets.length; i++) {
 			var item = curr.widgets[i];
 
+			if (item.enabled) {
+				continue;
+			}
+
 			var div = $('<li>', {
-				'data-id': item.widget.id
+				'data-widget-id': item.widget.id
 			}).append($('<a>', {
 				href: '#',
 				class: (item.setup.template.icon) ? item.setup.template.icon : 'icon-widget'
-			}).text(item.widget.name));
+			}).append($('<span>').text(item.widget.name)));
 
 			div.on('click', function () {
-				var item = settings.getWidget($(this).attr('data-id'));
-				if (item === null) {
+				var item = settings.getWidget($(this).attr('data-widget-id'));
+				if (item === null || item.enabled) {
 					return
 				}
 
 				grid.addWidget(item);
 			});
 
-			nav.elements.divWidgetsList.append(div);
+			menuUl.append(div);
+			count++;
+		}
+
+		if (count === 0) {
+			var divNoWidget = $('<li>').append($('<a>', {
+				href: '#',
+				class: 'icon-info'
+			}).append($('<span>').text('All available widget are already on your dashboard')));
+			menuUl.append(divNoWidget);
 		}
 	}
 

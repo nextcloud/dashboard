@@ -26,7 +26,7 @@
 
 ?>
 
-<div>
+<div class="widget-test2">
 
 	<div id="quota" class="myCollapse in">
 		<div id="quota-used" style="width: 30%"></div>

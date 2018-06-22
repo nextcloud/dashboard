@@ -35,7 +35,6 @@ use OCA\Dashboard\IDashboardWidget;
 use OCA\Dashboard\Model\WidgetFrame;
 use OCP\AppFramework\QueryException;
 use OCP\PreConditionNotMetException;
-use OCP\Util;
 
 class WidgetsService {
 

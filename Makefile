@@ -29,6 +29,8 @@ npm:
 	npm install gridstack
 	cp node_modules/gridstack/dist/gridstack.all.js ./js/
 	cp node_modules/gridstack/dist/gridstack.css ./css/
+	npm install nnattawat/flip
+	cp node_modules/flip/dist/jquery.flip.js ./js/
 
 test: SHELL:=/bin/bash
 test: composer
@@ -37,8 +39,7 @@ test: composer
 		bash <(curl -s https://codecov.io/bash) -t @$(codecov_token_dir)/$(app_name) ; \
 	fi
 
-
-appstore: composer clean
+appstore: composer npm clean
 	mkdir -p $(sign_dir)
 	rsync -a \
 	--exclude=/build \

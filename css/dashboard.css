@@ -23,31 +23,64 @@
  *
  */
 
-#dashboard-header {
-	height: 42px;
+#dashboard-footer {
+	position: fixed;
+	bottom: 50px;
+	width: 100%;
 }
 
-#dashboard-settings {
+#dashboard-action-save, #dashboard-action-add, #dashboard-action-settings {
 	position: absolute;
-	margin: 12px;
-	opacity: 0.5;
 	cursor: pointer;
+	padding: 14px;
+	background-size: 24px;
 }
 
-#dashboard-settings-first, #dashboard-save {
+#dashboard-action-settings, #dashboard-action-save {
+	right: 20px;
+}
+
+#dashboard-action-add {
+	right: 64px;
+}
+
+#dashboard-settings-open, #dashboard-settings-close {
+	margin: 10px 20px 10px 10px;
+	position: unset !important;
+	perspective: unset !important;
+}
+
+#dashboard-menu-widgets {
 	position: absolute;
-	margin: 10px 12px 12px 40px;
-	cursor: pointer;
-	opacity: 0;
-	filter: Alpha(Opacity=0);
+	right: 63px;
+	bottom: -1px;
+}
+
+#dashboard-settings-first {
+	position: absolute;
+	right: 19px;
+	bottom: -1px;
+}
+
+/* Hack from skjnldsv */
+.bubble:after, .app-navigation-entry-menu:after, .popovermenu:after {
+	border-bottom-color: #0000;
+	/*border-top-color: var(--color-main-background);*/
+	border-top-color: #fff;
+	top: 100%;
+	bottom: unset;
 }
 
 .icon-dashboard {
-	background-image: url('/apps/dashboard/img/dashboard-dark.svg');
+	background-image: url('../img/dashboard-dark.svg');
 }
 
 .icon-widget {
-	background-image: url('/apps/dashboard/img/widget.svg');
+	background-image: url('../img/widget.svg');
+}
+
+.icon-save {
+	background-image: url('../img/save.svg');
 }
 
 .widget-header {
@@ -57,12 +90,17 @@
 	padding: 5px 5px 5px 35px;
 }
 
-.widget-close-icon {
+.widget-right-icons {
 	position: absolute;
 	right: 0px;
 	top: 0px;
 	padding: 7px;
+}
+
+.widget-right-icons * {
+	float: right;
 	cursor: pointer;
+	padding-left: 5px;
 }
 
 .widget-header-icon {
@@ -73,10 +111,11 @@
 }
 
 .widget-content {
-	padding: 10px
+	height: 100%;
 }
 
 .grid-stack {
+	margin-top: 10px
 }
 
 .grid-stack-item-content {
@@ -84,6 +123,9 @@
 	text-align: center;
 	overflow-y: hidden !important;
 	background-color: #f3f3f3;
+	-webkit-transition: background-color 150ms linear;
+	-ms-transition: background-color 150ms linear;
+	transition: background-color 150ms linear;
 }
 
 .ui-state-disabled {
@@ -95,6 +137,14 @@
 	background-color: #fff;
 }
 
-.app-navigation-entry-bullet {
-	background: #0082c9;
+.back {
+	background: #666;
+}
+
+.widget-test {
+	margin:10px;
+}
+
+.widget-test2 {
+	margin:10px;
 }

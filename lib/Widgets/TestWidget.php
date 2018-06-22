@@ -38,10 +38,20 @@ class TestWidget implements IDashboardWidget {
 				'name' => 'widgets/Test'
 			],
 			'size'     => [
-				'width'  => 6,
-				'height' => 4
+				'min'     => [
+					'width'  => 4,
+					'height' => 3
+				],
+				'default' => [
+					'width'  => 6,
+					'height' => 4
+				],
+				'max'     => [
+					'width'  => 10,
+					'height' => 6
+				]
 			],
-			'options'  => [
+			'settings'  => [
 				[
 					'name'        => 'test_input',
 					'title'       => 'IMAP address',

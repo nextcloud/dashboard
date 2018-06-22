@@ -55,32 +55,41 @@ var grid = {
 
 	addWidget: function (item, auto) {
 
+		settings.updateWidgetEnabledStatus(item.widget.id, true);
+
 		if (auto === undefined) {
 			auto = true;
 		}
 
-		var widgetContent = $('<div>', {
+		var widgetDiv = $('<div>', {
 			class: 'grid-stack-item-content',
 			'data-widget-id': item.widget.id
 		});
 
-		widgetContent.append(this.generateWidgetHeader(item));
-		widgetContent.append($('<div>', {class: 'widget-content'}).html(item.html));
+		widgetDiv.append(this.generateWidgetHeader(item));
+		var widgetContent = $('<div>', {class: 'widget-content'});
+		widgetDiv.append(widgetContent);
 
-		widgetContent.on('mousedown', function () {
-			if (!curr.settingsShown) {
-				return;
-			}
-			settings.displayWidgetSettings($(this).attr('data-widget-id'));
-		});
+		var widgetContentFront = $('<div>', {class: 'front'}).html(item.html);
+		widgetContent.append(widgetContentFront)
+
+		if (item.setup.settings !== undefined) {
+			var widgetContentBack = $('<div>', {class: 'back'}).html(settings.generateSettingsPanel(item));
+			widgetContent.append(widgetContentBack)
+			widgetContent.flip();
+		}
 
 		var widget = $('<div>', {
 			'data-widget-id': item.widget.id
-		}).append(widgetContent);
+		}).append(widgetDiv);
+
 		var position = grid.initPosition(item);
 
 		nav.elements.gridStack.addWidget(widget,
-			position.x, position.y, position.width, position.height, auto);
+			position.x, position.y, position.width, position.height, auto,
+			position.minWidth, position.maxWidth, position.minHeight, position.maxHeight);
+
+		nav.updateAddWidgetsIcon();
 	},
 
 
@@ -93,28 +102,54 @@ var grid = {
 		}
 
 		nav.elements.gridStack.removeWidget(widget);
+		settings.updateWidgetEnabledStatus(widgetId, false);
+
+		nav.updateAddWidgetsIcon();
 	},
 
 
+	configureWidget: function (widgetId) {
+		var widget = grid.getWidgetFromId(widgetId);
+		if (widget === null) {
+			return;
+		}
+
+		widget.flip();
+	},
+
 	generateWidgetHeader: function (item) {
 
-		var headerCloseIcon = $('<div>', {class: 'icon-close-white widget-close-icon'});
+		var headerIcons = $('<div>', {class: 'widget-right-icons'});
+		if (!curr.settingsShown) {
+			headerIcons.hide();
+		}
+
+		var headerCloseIcon = $('<div>', {class: 'icon-close-white'});
 		headerCloseIcon.on('mousedown', function (event) {
 			event.stopPropagation();
+			nav.hideWidgetsList();
 			grid.removeWidget(item.widget.id);
 		});
+		headerIcons.append(headerCloseIcon);
 
-		if (!curr.settingsShown) {
-			headerCloseIcon.hide();
+		if (item.setup.settings !== undefined) {
+			var headerSettingsIcon = $('<div>', {class: 'icon-settings-white'});
+			headerSettingsIcon.on('mousedown', function (event) {
+				event.stopPropagation();
+				nav.hideWidgetsList();
+				grid.configureWidget(item.widget.id);
+			});
+			headerIcons.append(headerSettingsIcon);
 		}
 
 		var widgetHeader = $('<div>', {class: 'widget-header'}).text(item.widget.name);
-		widgetHeader.append(headerCloseIcon);
+		widgetHeader.append(headerIcons);
 
 		if (item.setup.template.icon !== undefined) {
-			var headerIcon = $('<div>', {class: item.setup.template.icon + '-white widget-header-icon'});
-			widgetHeader.append(headerIcon);
+			var widgetIcon = $('<div>', {class: item.setup.template.icon + '-white widget-header-icon'});
+			widgetHeader.append(widgetIcon);
 		}
+		headerIcons.fadeOut(0);
 
 		return widgetHeader;
 	},
@@ -123,7 +158,7 @@ var grid = {
 	initPosition: function (item) {
 		var position = {};
 		if (item.setup.size !== undefined) {
-			position = item.setup.size;
+			position = this.defaultPosition(item.setup.size);
 		}
 
 		if (item.position.x !== undefined) {
@@ -148,6 +183,34 @@ var grid = {
 	},
 
 
+	defaultPosition: function (size) {
+		var position = {};
+		if (size.default !== undefined) {
+			position = size.default;
+		}
+
+		if (size.min !== undefined) {
+			if (size.min.width !== undefined) {
+				position.minWidth = size.min.width;
+			}
+			if (size.min.height !== undefined) {
+				position.minHeight = size.min.height;
+			}
+		}
+
+		if (size.max !== undefined) {
+			if (size.max.width !== undefined) {
+				position.maxWidth = size.max.width;
+			}
+			if (size.max.height !== undefined) {
+				position.maxHeight = size.max.height;
+			}
+		}
+
+		return position;
+	},
+
+
 	fixPosition: function (position) {
 		if (position === undefined) {
 			position = {};
@@ -159,6 +222,14 @@ var grid = {
 
 		if (position.height === undefined) {
 			position.height = 2;
+		}
+
+		if (position.minHeight === undefined) {
+			position.minHeight = 2;
+		}
+
+		if (position.minWidth === undefined) {
+			position.minWidth = 2;
 		}
 
 		return position;
@@ -194,14 +265,23 @@ var grid = {
 
 
 	hideSettings: function () {
-		nav.elements.divGridStack.find('.widget-close-icon').each(function () {
-			$(this).stop().hide(150);
+		nav.elements.gridStack.setStatic(true);
+		nav.elements.divGridStack.find('.widget-right-icons').each(function () {
+			$(this).stop().fadeOut(150);
+		});
+
+		nav.elements.divGridStack.children().each(function () {
+			var widgetId = $(this).attr('data-widget-id');
+			if (widgetId !== 'undefined' && $(this).data('flip-model')) {
+				$(this).flip(false);
+			}
 		});
 	},
 
 	showSettings: function () {
-		nav.elements.divGridStack.find('.widget-close-icon').each(function () {
-			$(this).stop().show(150);
+		nav.elements.gridStack.setStatic(false);
+		nav.elements.divGridStack.find('.widget-right-icons').each(function () {
+			$(this).stop().fadeIn(150);
 		});
 	}
 };

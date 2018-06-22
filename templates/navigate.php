@@ -28,6 +28,7 @@ use OCA\Dashboard\AppInfo\Application;
 use OCP\Util;
 
 Util::addScript(Application::APP_NAME, 'gridstack.all');
+Util::addScript(Application::APP_NAME, 'jquery.flip');
 
 Util::addScript(Application::APP_NAME, 'dashboard.navigation');
 Util::addScript(Application::APP_NAME, 'dashboard.net');
@@ -41,30 +42,77 @@ Util::addStyle(Application::APP_NAME, 'dashboard');
 ?>
 
 
-<div id="app-navigation">
-	<ul id="dash-settings">
-		<li id="dash-widget-new" class="collapsible">
-
-			<button class="collapse"></button>
-			<a href="#" class="icon-dashboard">Add new widget</a>
-			<ul id="dash-widgets-list">
-			</ul>
-		</li>
-	</ul>
-</div>
-
-
 <div id="app-content">
 
-	<div id="dashboard-header">
-		<div id="dashboard-settings" class="icon-settings"></div>
-		<div id="dashboard-save">Click here to save your grid.</div>
-		<div id="dashboard-settings-first">Click here to add your first widget.</div>
+	<div class="container-fluid">
+		<div class="grid-stack">
+		</div>
 	</div>
 
-	<div class="container-fluid">
-
-		<div class="grid-stack">
+	<div id="dashboard-footer">
+		<div id="dashboard-settings-open">
+			<div id="dashboard-action-save" class="icon-save"></div>
+			<div id="dashboard-action-add" class="icon-add"></div>
+			<div id="dashboard-menu-widgets" class="popovermenu">
+				<ul>
+					<li>
+						<a href="#" class="icon-details">
+							<span>Details</span>
+						</a>
+					</li>
+					<li>
+						<button class="icon-details">
+							<span>Details</span>
+						</button>
+					</li>
+					<li>
+						<button>
+							<span class="icon-details"></span>
+							<span>Details</span>
+						</button>
+					</li>
+					<li>
+						<a>
+							<span class="icon-details"></span>
+							<span>Details</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="icon-details">
+							<span>Details</span>
+						</a>
+					</li>
+					<li>
+						<button class="icon-details">
+							<span>Details</span>
+						</button>
+					</li>
+					<li>
+						<button>
+							<span class="icon-details"></span>
+							<span>Details</span>
+						</button>
+					</li>
+					<li>
+						<a>
+							<span class="icon-details"></span>
+							<span>Details</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div id="dashboard-settings-close">
+			<div id="dashboard-action-settings" class="icon-settings"></div>
+			<div id="dashboard-settings-first" class="popovermenu">
+				<ul>
+					<li>
+						<a href="#" class="icon-info">
+							<span>Click here to add your first widget</span>
+						</a>
+					</li>
+				</ul>
+			</div>
 		</div>
 	</div>
 </div>
