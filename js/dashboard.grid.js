@@ -74,9 +74,13 @@ var grid = {
 		widgetContent.append(widgetContentFront)
 
 		if (item.setup.settings !== undefined) {
-			var widgetContentBack = $('<div>', {class: 'back'}).html(settings.generateSettingsPanel(item));
+			var widgetContentBack = $('<div>', {class: 'back'}).html(
+				settings.generateSettingsPanel(item));
 			widgetContent.append(widgetContentBack)
-			widgetContent.flip();
+			widgetContent.flip({
+				trigger: 'manual',
+				axis: 'y'
+			});
 		}
 
 		var widget = $('<div>', {
@@ -114,7 +118,7 @@ var grid = {
 			return;
 		}
 
-		widget.flip();
+		widget.find('.widget-content').flip('toggle');
 	},
 
 	generateWidgetHeader: function (item) {
@@ -270,9 +274,8 @@ var grid = {
 			$(this).stop().fadeOut(150);
 		});
 
-		nav.elements.divGridStack.children().each(function () {
-			var widgetId = $(this).attr('data-widget-id');
-			if (widgetId !== 'undefined' && $(this).data('flip-model')) {
+		nav.elements.divGridStack.find('.widget-content').each(function () {
+			if ($(this).data('flip-model')) {
 				$(this).flip(false);
 			}
 		});
