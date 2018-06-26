@@ -46,28 +46,4 @@ namespace OCA\Dashboard;
 	<div class="popovermenu">
 		<ul></ul>
 	</div>
-
-	<!--	<div id="dashboard-footer">-->
-	<!--		<div id="dashboard-settings-open">-->
-	<!--			<div id="dashboard-action-save" class="icon-save"></div>-->
-	<!--			<div id="dashboard-action-add" class="icon-add"></div>-->
-	<!--			<div id="dashboard-menu-widgets" class="popovermenu">-->
-	<!--				<ul>-->
-	<!---->
-	<!--				</ul>-->
-	<!--			</div>-->
-	<!--		</div>-->
-	<!--		<div id="dashboard-settings-close">-->
-	<!--			<div id="dashboard-action-settings" class="icon-settings"></div>-->
-	<!--			<div id="dashboard-settings-first" class="popovermenu">-->
-	<!--				<ul>-->
-	<!--					<li>-->
-	<!--						<a href="#" class="icon-info">-->
-	<!--							<span>Click here to add your first widget</span>-->
-	<!--						</a>-->
-	<!--					</li>-->
-	<!--				</ul>-->
-	<!--			</div>-->
-	<!--		</div>-->
-	<!--	</div>-->
 </div>

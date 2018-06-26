@@ -28,7 +28,8 @@ var curr = {
 	settingsShown: false,
 	widgetsShown: false,
 	settingsWidget: '',
-	widgets: []
+	widgets: [],
+	jobs: []
 };
 
 var settings = {
@@ -122,11 +123,11 @@ var settings = {
 			}
 		}
 
-		if (item.setup.options !== undefined) {
+		if (item.setup.settings !== undefined) {
 			var liSettings = $('<li>').append($('<a>', {
 				href: '#',
 				class: 'icon-settings'
-			}).append($('<span>').text('Add a widget')));
+			}).append($('<span>').text('Configure this widget')));
 			liSettings.on('click', function () {
 				//nav.showWidgetsList();
 			}).on('mousedown mouseup', function (event) {

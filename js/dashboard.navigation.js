@@ -29,15 +29,9 @@
 var nav = {
 
 	elements: {
-		// divSettingsOpen: null,
-		// divSettingsClose: null,
 		divNoWidget: null,
 		buttonNewWidget: null,
 		elWidgetList: null,
-		// divMenuWidgets: null,
-		// iconSettings: null,
-		// iconAdd: null,
-		// iconSave: null,
 		divGridStack: null,
 		gridStack: null
 	},
@@ -50,26 +44,9 @@ var nav = {
 
 
 	initElements: function () {
-		// nav.elements.divSettingsOpen = $('#dashboard-settings-open');
-		// nav.elements.divSettingsClose = $('#dashboard-settings-close');
 		nav.elements.divNoWidget = $('#dashboard-nowidget');
 		nav.elements.buttonNewWidget = $('#dashboard-newwidget');
-		// nav.elements.divMenuWidgets = $('#dashboard-menu-widgets')
-		// nav.elements.iconSettings = $('#dashboard-action-settings');
-		// nav.elements.iconAdd = $('#dashboard-action-add');
-		// nav.elements.iconSave = $('#dashboard-action-save');
 		nav.elements.divGridStack = $('.grid-stack');
-
-		// nav.elements.divSettingsOpen.fadeOut(0);
-		// nav.elements.iconSettings.on('click', nav.showSettings);
-		// nav.elements.divFirstInstall.on('click', function () {
-		// 	nav.showSettings(true);
-		// });
-		// nav.elements.iconSave.on('click', nav.hideSettings);
-		// nav.elements.iconAdd.on('click', function (event) {
-		// 	event.stopPropagation();
-		// 	nav.showWidgetsList();
-		// });
 
 		nav.elements.buttonNewWidget.on('click', nav.showWidgetsList);
 
@@ -77,44 +54,7 @@ var nav = {
 			settings.hideWidgetMenu();
 		});
 
-		// .on('mouseup', function () {
-		// 	if (!curr.gridEdit) {
-		// 		return;
-		// 	}
-		// 	curr.gridEdit = false;
-		// 	nav.elements.gridStack.setStatic(true);
-		// 	grid.saveGrid();
-		// });
-
 	},
-
-	//
-	// showSettings: function (showWidgetsList) {
-	// 	curr.settingsShown = true;
-	// 	nav.elements.divSettingsClose.stop().fadeOut(150, function () {
-	// 		nav.elements.divSettingsOpen.stop().fadeIn(150);
-	// 	});
-	//
-	// 	grid.showSettings();
-	// 	nav.elements.divFirstInstall.stop().fadeOut(150);
-	//
-	// 	if (showWidgetsList === true) {
-	// 		nav.showWidgetsList();
-	// 	}
-	// },
-	//
-	// hideSettings: function () {
-	// 	curr.settingsShown = false;
-	// 	nav.elements.divSettingsOpen.stop().fadeOut(150, function () {
-	// 		nav.elements.divSettingsClose.stop().fadeIn(150);
-	// 	});
-	//
-	// 	nav.hideWidgetsList();
-	// 	settings.firstInstall();
-	// 	grid.saveGrid();
-	// 	grid.hideSettings();
-	// },
-
 
 	showWidgetsList: function () {
 		nav.generateWidgetsList();
@@ -181,17 +121,6 @@ var nav = {
 			nav.elements.elWidgetList.append(div);
 			count++;
 		}
-
-		if (count === 0) {
-			// var divNoWidget = $('<li>').append($('<a>', {
-			// 	href: '#',
-			// 	class: 'icon-info'
-			// }).append($('<span>').text('All available widget are already on your dashboard')));
-			// menuUl.append(divNoWidget);
-		}
-
-//		nav.elements.elWidgetList = divWidgets;
-		// return divWidgets;
 	},
 
 
