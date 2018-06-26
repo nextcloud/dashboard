@@ -35,37 +35,32 @@
 	background-image: url('../img/widget.svg');
 }
 
+/* WIDGET HEADER */
 .widget-header {
-	background-color: #0082c9;
-	color: #fff;
-	text-align: left;
-	padding: 5px;
+	background-color: var(--color-primary);
+	color: var(--color-primary-text);
+	height: 44px;
+	display: flex;
+	position: relative;
+	align-items: center;
+	.widget-header-icon {
+		margin: 3px;
+		width: 44px;
+		height: 44px;
+		background-size: 22px;
+	}
+	.widget-right-icon {
+		margin-left: auto;
+		width: 44px;
+		height: 44px;
+		cursor: pointer;
+	}
+	.popovermenu {
+		top: 44px;
+	}
 }
 
-.widget-header-icon {
-	/*position: absolute;*/
-	/*left: 6px;*/
-	/*top: 4px;*/
-	/*padding: 3px;*/
-	padding: 3px;
-	float: left;
-}
-
-.widget-header-name {
-	margin-left: 25px;
-}
-
-.widget-right-icon {
-	position: absolute;
-	right: 6px;
-	top: 0px;
-	padding: 7px 18px 7px 7px;
-}
-
-.popovermenu {
-	margin: 10px 9px 0px;
-}
-
+/* WIDGET LISTS */
 .widget-list-row {
 	height: 50px;
 	margin-top: 15px;
@@ -85,20 +80,17 @@
 
 .widget-list-name {
 	font-size: 14px;
-	color: #111;
+	color: var(--color-text-light);
 }
 
 .widget-list-desc {
 	font-size: 12px;
-	color: #666;
+	color: var(--color-text-lighter);
 	margin-right: 10px;
 }
 
-.widget-content {
-	height: inherit;
-	overflow: hidden;
-}
 
+/* GRID */
 .grid-stack {
 	margin-top: 10px
 }
@@ -106,8 +98,7 @@
 .grid-stack-item-content {
 	color: #2c3e50;
 	text-align: center;
-	overflow-y: hidden !important;
-	filter: drop-shadow(0 1px 10px var(--color-box-shadow));
+	filter: drop-shadow(0 1px 3px var(--color-box-shadow));
 }
 
 .ui-state-disabled {
@@ -118,15 +109,21 @@
 	transition: background-color 200ms linear;
 }
 
-.widget-content {
+/* GRID STACK PLACEHOLDER */
+.grid-stack .grid-stack-placeholder > .placeholder-content {
+	border-color: var(--color-background-darker);
 }
 
-.ui-state-disabled .widget-content {
-	background: #fff;
-}
 
+/* WIDGET BACK */
 .back {
-	background: #666;
+	background: var(--color-background-darker);
+}
+
+/* WIDGET CONTENT */
+.widget-content {
+	height: calc(100% - 44px);
+	overflow: hidden !important;
 }
 
 .grid-stack > .grid-stack-item > .grid-stack-item-content {
@@ -141,4 +138,5 @@
 	overflow-x: unset;
 	overflow-y: unset;
 	height: inherit;
+	background-color: var(--color-main-background);
 }
