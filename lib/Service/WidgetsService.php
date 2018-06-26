@@ -29,10 +29,12 @@ namespace OCA\Dashboard\Service;
 use Exception;
 use OC\App\AppManager;
 use OC_App;
+use OCA\Dashboard\Exceptions\WidgetDoesNotExistException;
 use OCA\Dashboard\Exceptions\WidgetIsNotCompatibleException;
 use OCA\Dashboard\Exceptions\WidgetIsNotUniqueException;
 use OCA\Dashboard\IDashboardWidget;
 use OCA\Dashboard\Model\WidgetFrame;
+use OCA\Dashboard\Model\WidgetRequest;
 use OCP\AppFramework\QueryException;
 use OCP\PreConditionNotMetException;
 
@@ -117,6 +119,46 @@ class WidgetsService {
 			} catch (PreConditionNotMetException $e) {
 			}
 		}
+	}
+
+
+	/**
+	 * @param $widgetId
+	 *
+	 * @return IDashboardWidget
+	 * @throws WidgetDoesNotExistException
+	 */
+	public function getWidget($widgetId) {
+		$widgetFrames = $this->getWidgetFrames();
+		foreach ($widgetFrames as $frame) {
+			$widget = $frame->getWidget();
+			if ($widget->getId() === $widgetId) {
+				return $widget;
+			}
+		}
+
+		throw new WidgetDoesNotExistException('Widget does not exist');
+	}
+
+
+	/**
+	 * @param WidgetRequest $widgetRequest
+	 *
+	 * @throws WidgetDoesNotExistException
+	 */
+	public function initWidgetRequest(WidgetRequest $widgetRequest) {
+		$widgetId = $widgetRequest->getWidgetId();
+
+		$widgetRequest->setWidget($this->getWidget($widgetId));
+	}
+
+
+	/**
+	 * @param WidgetRequest $widgetRequest
+	 */
+	public function requestWidget(WidgetRequest $widgetRequest) {
+		$widget = $widgetRequest->getWidget();
+		$widget->requestWidget($widgetRequest);
 	}
 
 

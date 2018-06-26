@@ -5,8 +5,9 @@ namespace OCA\Dashboard\Widgets;
 
 use OCA\Dashboard\AppInfo\Application;
 use OCA\Dashboard\IDashboardWidget;
+use OCA\Dashboard\Model\WidgetRequest;
 
-class TestWidget implements IDashboardWidget {
+class Test1Widget implements IDashboardWidget {
 
 	const WIDGET_ID = 'test1';
 
@@ -28,15 +29,32 @@ class TestWidget implements IDashboardWidget {
 
 
 	/**
+	 * @return string
+	 */
+	public function getDescription() {
+		return 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor '
+			   . ' incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam';
+	}
+
+
+	/**
+	 * @return array
+	 */
+	public function getTemplate() {
+		return [
+			'app'     => Application::APP_NAME,
+			'icon'    => 'icon-lorem',
+			'css'     => 'widgets/test1',
+			'content' => 'widgets/Test1'
+		];
+	}
+
+
+	/**
 	 * @return array
 	 */
 	public function widgetSetup() {
 		return [
-			'template' => [
-				'app'  => Application::APP_NAME,
-				'icon' => 'icon-lorem',
-				'name' => 'widgets/Test'
-			],
 			'size'     => [
 				'min'     => [
 					'width'  => 4,
@@ -51,7 +69,7 @@ class TestWidget implements IDashboardWidget {
 					'height' => 6
 				]
 			],
-			'settings'  => [
+			'settings' => [
 				[
 					'name'        => 'test_input',
 					'title'       => 'IMAP address',
@@ -87,5 +105,11 @@ class TestWidget implements IDashboardWidget {
 	public function loadWidget($config) {
 	}
 
+
+	/**
+	 * @param WidgetRequest $request
+	 */
+	public function requestWidget(WidgetRequest $request) {
+	}
 
 }

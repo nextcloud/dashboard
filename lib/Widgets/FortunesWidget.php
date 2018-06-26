@@ -30,10 +30,16 @@ namespace OCA\Dashboard\Widgets;
 use OCA\Dashboard\AppInfo\Application;
 use OCA\Dashboard\IDashboardWidget;
 use OCA\Dashboard\Model\WidgetRequest;
+use OCA\Dashboard\Service\Widgets\Fortunes\FortunesService;
+use OCP\AppFramework\QueryException;
 
-class Test2Widget implements IDashboardWidget {
+class FortunesWidget implements IDashboardWidget {
 
-	const WIDGET_ID = 'test2';
+	const WIDGET_ID = 'fortunes';
+
+
+	/** @var FortunesService */
+	private $fortunesService;
 
 
 	/**
@@ -48,7 +54,7 @@ class Test2Widget implements IDashboardWidget {
 	 * @return string
 	 */
 	public function getName() {
-		return 'Used space';
+		return 'Fortune Quotes';
 	}
 
 
@@ -56,7 +62,7 @@ class Test2Widget implements IDashboardWidget {
 	 * @return string
 	 */
 	public function getDescription() {
-		return 'Display the current use of your available disk space';
+		return 'Get a random fortune quote';
 	}
 
 
@@ -65,10 +71,12 @@ class Test2Widget implements IDashboardWidget {
 	 */
 	public function getTemplate() {
 		return [
-			'app'     => Application::APP_NAME,
-			'icon'    => 'icon-disk-space',
-			'css'     => 'widgets/test2',
-			'content' => 'widgets/Test2'
+			'app'      => Application::APP_NAME,
+			'icon'     => 'icon-fortunes',
+			'css'      => 'widgets/fortunes',
+			'js'       => 'widgets/fortunes',
+			'content'  => 'widgets/Fortunes',
+			'function' => 'OCA.DashBoard.fortunes.init'
 		];
 	}
 
@@ -81,6 +89,13 @@ class Test2Widget implements IDashboardWidget {
 			'size' => [
 				'width'  => 4,
 				'height' => 2
+			],
+			'menu' => [
+				[
+					'icon'     => 'icon-fortunes',
+					'text'     => 'New fortune',
+					'function' => 'OCA.DashBoard.fortunes.getFortune'
+				]
 			]
 		];
 	}
@@ -97,6 +112,17 @@ class Test2Widget implements IDashboardWidget {
 	 * @param WidgetRequest $request
 	 */
 	public function requestWidget(WidgetRequest $request) {
+		$app = new Application();
+
+		$container = $app->getContainer();
+		try {
+			$this->fortunesService = $container->query(FortunesService::class);
+		} catch (QueryException $e) {
+			return;
+		}
+
+		$request->addResult('fortune', $this->fortunesService->getRandomFortune());
 	}
+
 
 }

@@ -29,13 +29,15 @@
 var nav = {
 
 	elements: {
-		divSettingsOpen: null,
-		divSettingsClose: null,
-		divFirstInstall: null,
-		divMenuWidgets: null,
-		iconSettings: null,
-		iconAdd: null,
-		iconSave: null,
+		// divSettingsOpen: null,
+		// divSettingsClose: null,
+		divNoWidget: null,
+		buttonNewWidget: null,
+		elWidgetList: null,
+		// divMenuWidgets: null,
+		// iconSettings: null,
+		// iconAdd: null,
+		// iconSave: null,
 		divGridStack: null,
 		gridStack: null
 	},
@@ -48,69 +50,74 @@ var nav = {
 
 
 	initElements: function () {
-		nav.elements.divSettingsOpen = $('#dashboard-settings-open');
-		nav.elements.divSettingsClose = $('#dashboard-settings-close');
-		nav.elements.divFirstInstall = $('#dashboard-settings-first');
-		nav.elements.divMenuWidgets = $('#dashboard-menu-widgets')
-		nav.elements.iconSettings = $('#dashboard-action-settings');
-		nav.elements.iconAdd = $('#dashboard-action-add');
-		nav.elements.iconSave = $('#dashboard-action-save');
+		// nav.elements.divSettingsOpen = $('#dashboard-settings-open');
+		// nav.elements.divSettingsClose = $('#dashboard-settings-close');
+		nav.elements.divNoWidget = $('#dashboard-nowidget');
+		nav.elements.buttonNewWidget = $('#dashboard-newwidget');
+		// nav.elements.divMenuWidgets = $('#dashboard-menu-widgets')
+		// nav.elements.iconSettings = $('#dashboard-action-settings');
+		// nav.elements.iconAdd = $('#dashboard-action-add');
+		// nav.elements.iconSave = $('#dashboard-action-save');
 		nav.elements.divGridStack = $('.grid-stack');
 
-		nav.elements.divSettingsOpen.fadeOut(0);
-		nav.elements.iconSettings.on('click', nav.showSettings);
-		nav.elements.divFirstInstall.on('click', function () {
-			nav.showSettings(true);
-		});
-		nav.elements.iconSave.on('click', nav.hideSettings);
-		nav.elements.iconAdd.on('click', function (event) {
-			event.stopPropagation();
-			nav.showWidgetsList();
-		});
+		// nav.elements.divSettingsOpen.fadeOut(0);
+		// nav.elements.iconSettings.on('click', nav.showSettings);
+		// nav.elements.divFirstInstall.on('click', function () {
+		// 	nav.showSettings(true);
+		// });
+		// nav.elements.iconSave.on('click', nav.hideSettings);
+		// nav.elements.iconAdd.on('click', function (event) {
+		// 	event.stopPropagation();
+		// 	nav.showWidgetsList();
+		// });
+
+		nav.elements.buttonNewWidget.on('click', nav.showWidgetsList);
 
 		$(window).click(function () {
-			nav.hideWidgetsList();
+			settings.hideWidgetMenu();
 		});
 	},
 
-
-	showSettings: function (showWidgetsList) {
-		curr.settingsShown = true;
-		nav.elements.divSettingsClose.stop().fadeOut(150, function () {
-			nav.elements.divSettingsOpen.stop().fadeIn(150);
-		});
-
-		grid.showSettings();
-		nav.elements.divFirstInstall.stop().fadeOut(150);
-
-		if (showWidgetsList === true) {
-			nav.showWidgetsList();
-		}
-	},
-
-	hideSettings: function () {
-		curr.settingsShown = false;
-		nav.elements.divSettingsOpen.stop().fadeOut(150, function () {
-			nav.elements.divSettingsClose.stop().fadeIn(150);
-		});
-
-		nav.hideWidgetsList();
-		settings.firstInstall();
-		grid.saveGrid();
-		grid.hideSettings();
-	},
+	//
+	// showSettings: function (showWidgetsList) {
+	// 	curr.settingsShown = true;
+	// 	nav.elements.divSettingsClose.stop().fadeOut(150, function () {
+	// 		nav.elements.divSettingsOpen.stop().fadeIn(150);
+	// 	});
+	//
+	// 	grid.showSettings();
+	// 	nav.elements.divFirstInstall.stop().fadeOut(150);
+	//
+	// 	if (showWidgetsList === true) {
+	// 		nav.showWidgetsList();
+	// 	}
+	// },
+	//
+	// hideSettings: function () {
+	// 	curr.settingsShown = false;
+	// 	nav.elements.divSettingsOpen.stop().fadeOut(150, function () {
+	// 		nav.elements.divSettingsClose.stop().fadeIn(150);
+	// 	});
+	//
+	// 	nav.hideWidgetsList();
+	// 	settings.firstInstall();
+	// 	grid.saveGrid();
+	// 	grid.hideSettings();
+	// },
 
 
 	showWidgetsList: function () {
-		nav.fillWidgetsList();
+		nav.generateWidgetsList();
 
-		curr.widgetsShown = true;
-		nav.elements.divMenuWidgets.stop().fadeIn(150);
-	},
-
-	hideWidgetsList: function () {
-		curr.widgetsShown = false;
-		nav.elements.divMenuWidgets.stop().fadeOut(150);
+		$('#app-content').append(nav.elements.elWidgetList);
+		nav.elements.elWidgetList.ocdialog({
+			closeOnEscape: true,
+			modal: true,
+			width: 600,
+			height: 500,
+			title: 'Add a new widget',
+			buttons: {}
+		});
 	},
 
 
@@ -118,50 +125,38 @@ var nav = {
 		curr.widgets = result;
 
 		settings.firstInstall();
-		nav.updateAddWidgetsIcon();
 		grid.fillGrid();
 	},
 
 
-	updateAddWidgetsIcon: function () {
-		var count = 0;
-		for (var i = 0; i < curr.widgets.length; i++) {
-			var item = curr.widgets[i];
+	generateWidgetsList: function () {
 
-			if (item.enabled) {
-				continue;
-			}
-			count++;
-		}
-
-		if (count === 0) {
-			nav.elements.iconAdd.fadeTo(150, 0.2);
-		} else {
-			nav.elements.iconAdd.fadeTo(150, 0.7);
-		}
-
-	},
-
-
-	fillWidgetsList: function () {
-
-		var menuUl = nav.elements.divMenuWidgets.children('ul');
-		menuUl.empty();
+		nav.elements.elWidgetList = $('<div>');
 
 		var count = 0;
 		for (var i = 0; i < curr.widgets.length; i++) {
 			var item = curr.widgets[i];
-
 			if (item.enabled) {
 				continue;
 			}
 
-			var div = $('<li>', {
+			var div = $('<div>', {
+				class: 'widget-list-row',
 				'data-widget-id': item.widget.id
-			}).append($('<a>', {
+			}).append($('<div>', {
 				href: '#',
-				class: (item.setup.template.icon) ? item.setup.template.icon : 'icon-widget'
-			}).append($('<span>').text(item.widget.name)));
+				class: 'widget-list-icon ' + ((item.template.icon) ? item.template.icon : 'icon-widget')
+			})).append($('<div>', {class: 'widget-list-text'})
+				.append($('<div>', {class: 'widget-list-name'}).text(item.widget.name))
+				.append($('<div>', {class: 'widget-list-desc'}).text(item.widget.description))
+			);
+
+			div.fadeTo(0, 0.65);
+			div.on('mouseover', function () {
+				$(this).stop().fadeTo(150, 1);
+			}).on('mouseout', function () {
+				$(this).stop().fadeTo(150, 0.65);
+			});
 
 			div.on('click', function () {
 				var item = settings.getWidget($(this).attr('data-widget-id'));
@@ -170,19 +165,34 @@ var nav = {
 				}
 
 				grid.addWidget(item);
+				nav.elements.elWidgetList.ocdialog('close');
 			});
 
-			menuUl.append(div);
+			nav.elements.elWidgetList.append(div);
 			count++;
 		}
 
 		if (count === 0) {
-			var divNoWidget = $('<li>').append($('<a>', {
-				href: '#',
-				class: 'icon-info'
-			}).append($('<span>').text('All available widget are already on your dashboard')));
-			menuUl.append(divNoWidget);
+			// var divNoWidget = $('<li>').append($('<a>', {
+			// 	href: '#',
+			// 	class: 'icon-info'
+			// }).append($('<span>').text('All available widget are already on your dashboard')));
+			// menuUl.append(divNoWidget);
 		}
+
+//		nav.elements.elWidgetList = divWidgets;
+		// return divWidgets;
+	},
+
+
+	executeFunction: function (functionName, context) {
+		var args = Array.prototype.slice.call(arguments, 2);
+		var namespaces = functionName.split(".");
+		var func = namespaces.pop();
+		for (var i = 0; i < namespaces.length; i++) {
+			context = context[namespaces[i]];
+		}
+		return context[func].apply(context, args);
 	}
 
 

@@ -24,20 +24,8 @@
  *
  */
 
-use OCA\Dashboard\AppInfo\Application;
-use OCP\Util;
+namespace OCA\Dashboard;
 
-Util::addScript(Application::APP_NAME, 'gridstack.all');
-Util::addScript(Application::APP_NAME, 'jquery.flip');
-
-Util::addScript(Application::APP_NAME, 'dashboard.navigation');
-Util::addScript(Application::APP_NAME, 'dashboard.net');
-Util::addScript(Application::APP_NAME, 'dashboard.settings');
-Util::addScript(Application::APP_NAME, 'dashboard.grid');
-Util::addScript(Application::APP_NAME, 'dashboard');
-
-Util::addStyle(Application::APP_NAME, 'gridstack');
-Util::addStyle(Application::APP_NAME, 'dashboard');
 
 ?>
 
@@ -49,70 +37,37 @@ Util::addStyle(Application::APP_NAME, 'dashboard');
 		</div>
 	</div>
 
-	<div id="dashboard-footer">
-		<div id="dashboard-settings-open">
-			<div id="dashboard-action-save" class="icon-save"></div>
-			<div id="dashboard-action-add" class="icon-add"></div>
-			<div id="dashboard-menu-widgets" class="popovermenu">
-				<ul>
-					<li>
-						<a href="#" class="icon-details">
-							<span>Details</span>
-						</a>
-					</li>
-					<li>
-						<button class="icon-details">
-							<span>Details</span>
-						</button>
-					</li>
-					<li>
-						<button>
-							<span class="icon-details"></span>
-							<span>Details</span>
-						</button>
-					</li>
-					<li>
-						<a>
-							<span class="icon-details"></span>
-							<span>Details</span>
-						</a>
-					</li>
-					<li>
-						<a href="#" class="icon-details">
-							<span>Details</span>
-						</a>
-					</li>
-					<li>
-						<button class="icon-details">
-							<span>Details</span>
-						</button>
-					</li>
-					<li>
-						<button>
-							<span class="icon-details"></span>
-							<span>Details</span>
-						</button>
-					</li>
-					<li>
-						<a>
-							<span class="icon-details"></span>
-							<span>Details</span>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-		<div id="dashboard-settings-close">
-			<div id="dashboard-action-settings" class="icon-settings"></div>
-			<div id="dashboard-settings-first" class="popovermenu">
-				<ul>
-					<li>
-						<a href="#" class="icon-info">
-							<span>Click here to add your first widget</span>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
+	<div id="dashboard-nowidget" class="emptycontent">
+		<div class="icon-dashboard"></div>
+		<h2>No widgets yet</h2>
+		<button id="dashboard-newwidget">Add your first widget!</button>
 	</div>
+
+	<div class="popovermenu">
+		<ul></ul>
+	</div>
+
+	<!--	<div id="dashboard-footer">-->
+	<!--		<div id="dashboard-settings-open">-->
+	<!--			<div id="dashboard-action-save" class="icon-save"></div>-->
+	<!--			<div id="dashboard-action-add" class="icon-add"></div>-->
+	<!--			<div id="dashboard-menu-widgets" class="popovermenu">-->
+	<!--				<ul>-->
+	<!---->
+	<!--				</ul>-->
+	<!--			</div>-->
+	<!--		</div>-->
+	<!--		<div id="dashboard-settings-close">-->
+	<!--			<div id="dashboard-action-settings" class="icon-settings"></div>-->
+	<!--			<div id="dashboard-settings-first" class="popovermenu">-->
+	<!--				<ul>-->
+	<!--					<li>-->
+	<!--						<a href="#" class="icon-info">-->
+	<!--							<span>Click here to add your first widget</span>-->
+	<!--						</a>-->
+	<!--					</li>-->
+	<!--				</ul>-->
+	<!--			</div>-->
+	<!--		</div>-->
+	<!--	</div>-->
 </div>

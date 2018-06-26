@@ -48,22 +48,11 @@ class Application extends App {
 
 	/**
 	 * Register Navigation Tab
-	 *
-	 * @throws QueryException
 	 */
 	public function registerNavigation() {
 		$this->container->getServer()
 						->getNavigationManager()
 						->add($this->dashboardNavigation());
-	}
-
-
-	/**
-	 *
-	 */
-	public function registerWidgets() {
-		Util::addStyle(self::APP_NAME, 'widgets/test');
-		Util::addStyle(self::APP_NAME, 'widgets/test2');
 	}
 
 

@@ -23,52 +23,8 @@
  *
  */
 
-#dashboard-footer {
-	position: fixed;
-	bottom: 50px;
-	width: 100%;
-}
-
-#dashboard-action-save, #dashboard-action-add, #dashboard-action-settings {
-	position: absolute;
-	cursor: pointer;
-	padding: 14px;
-	background-size: 24px;
-}
-
-#dashboard-action-settings, #dashboard-action-save {
-	right: 20px;
-}
-
-#dashboard-action-add {
-	right: 64px;
-}
-
-#dashboard-settings-open, #dashboard-settings-close {
-	margin: 10px 20px 10px 10px;
-	position: unset !important;
-	perspective: unset !important;
-}
-
-#dashboard-menu-widgets {
-	position: absolute;
-	right: 63px;
-	bottom: -1px;
-}
-
-#dashboard-settings-first {
-	position: absolute;
-	right: 19px;
-	bottom: -1px;
-}
-
-/* Hack from skjnldsv */
-.bubble:after, .app-navigation-entry-menu:after, .popovermenu:after {
-	border-bottom-color: #0000;
-	/*border-top-color: var(--color-main-background);*/
-	border-top-color: #fff;
-	top: 100%;
-	bottom: unset;
+#dashboard-nowidget {
+	display: none;
 }
 
 .icon-dashboard {
@@ -79,10 +35,6 @@
 	background-image: url('../img/widget.svg');
 }
 
-.icon-save {
-	background-image: url('../img/save.svg');
-}
-
 .widget-header {
 	background-color: #0082c9;
 	color: #fff;
@@ -90,17 +42,42 @@
 	padding: 5px 5px 5px 35px;
 }
 
-.widget-right-icons {
+.widget-right-icon {
 	position: absolute;
-	right: 0px;
+	right: 6px;
 	top: 0px;
 	padding: 7px;
 }
 
-.widget-right-icons * {
-	float: right;
-	cursor: pointer;
-	padding-left: 5px;
+.popovermenu {
+	margin: 10px 3px 0px;
+}
+
+.widget-list-row {
+	height: 50px;
+	margin-top:15px;
+}
+
+.widget-list-icon {
+	width: 32px;
+	height: 32px;
+	position: absolute;
+	margin: 10px;
+}
+
+.widget-list-text {
+	position: absolute;
+	left: 80px;
+}
+
+.widget-list-name {
+	font-size:14px;
+	color: #111;
+}
+
+.widget-list-desc {
+	font-size:12px;
+	color: #666;
 }
 
 .widget-header-icon {
@@ -122,29 +99,22 @@
 	color: #2c3e50;
 	text-align: center;
 	overflow-y: hidden !important;
-	background-color: #f3f3f3;
-	-webkit-transition: background-color 150ms linear;
-	-ms-transition: background-color 150ms linear;
-	transition: background-color 150ms linear;
 }
 
 .ui-state-disabled {
 	opacity: 1 !important;
 	filter: Alpha(Opacity=100) !important;
+	background: #ffffff;
 }
 
-.ui-state-disabled .grid-stack-item-content {
-	background-color: #fff;
+.widget-content {
+	background: #eaeaea;
+}
+
+.ui-state-disabled .widget-content {
+	background: #fff;
 }
 
 .back {
 	background: #666;
-}
-
-.widget-test {
-	margin:10px;
-}
-
-.widget-test2 {
-	margin:10px;
 }

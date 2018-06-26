@@ -23,16 +23,13 @@
  *
  */
 
-/*#app * {*/
-/*box-sizing: border-box;*/
-/*}*/
 
-.icon-lorem {
-	background-image: url('/apps/dashboard/img/widgets/lorem.svg');
+.icon-disk-space {
+	background-image: url('/apps/dashboard/img/widgets/diskspace.svg');
 }
 
-.icon-lorem-white {
-	background-image: url('/apps/dashboard/img/widgets/lorem-white.svg');
+.icon-disk-space-white {
+	background-image: url('/apps/dashboard/img/widgets/diskspace-white.svg');
 }
 
 #quota {
@@ -58,5 +55,9 @@
 	text-align: center;
 	width: 100%;
 	color: white;
+}
+
+.widget-test2 {
+	padding: 10px;
 }
 

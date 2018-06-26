@@ -76,6 +76,24 @@ var net = {
 	},
 
 
+	requestWidget: function (request, callback) {
+
+		var res = {status: -1};
+		$.ajax({
+			method: 'GET',
+			url: OC.generateUrl('/apps/dashboard/widget/request'),
+			data: {
+				json: JSON.stringify(request)
+			}
+		}).done(function (res) {
+			net.onCallback(callback, res);
+		}).fail(function () {
+			// net.failedToAjax();
+			net.onCallback(callback, res);
+		});
+	},
+
+
 	onCallback: function (callback, result) {
 		if (callback && (typeof callback === 'function')) {
 			if (typeof result === 'object') {

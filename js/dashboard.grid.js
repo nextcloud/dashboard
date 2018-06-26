@@ -1,4 +1,5 @@
 /*
+/*
  * Nextcloud - Dashboard App
  *
  * This file is licensed under the Affero General Public License version 3 or
@@ -39,6 +40,8 @@ var grid = {
 
 
 	fillGrid: function () {
+		nav.elements.gridStack.setStatic(false);
+
 		nav.elements.gridStack.removeAll();
 		for (var i = 0; i < curr.widgets.length; i++) {
 			var item = curr.widgets[i];
@@ -76,7 +79,7 @@ var grid = {
 		if (item.setup.settings !== undefined) {
 			var widgetContentBack = $('<div>', {class: 'back'}).html(
 				settings.generateSettingsPanel(item));
-			widgetContent.append(widgetContentBack)
+			widgetContent.append(widgetContentBack);
 			widgetContent.flip({
 				trigger: 'manual',
 				axis: 'y'
@@ -93,7 +96,28 @@ var grid = {
 			position.x, position.y, position.width, position.height, auto,
 			position.minWidth, position.maxWidth, position.minHeight, position.maxHeight);
 
-		nav.updateAddWidgetsIcon();
+		widget.on('mouseover', function () {
+			widget.find('.ui-resizable-handle').stop().fadeIn(150);
+		}).on('mouseout', function () {
+			widget.find('.ui-resizable-handle').stop().fadeOut(150);
+		});
+
+		widget.find('.ui-resizable-handle').on('mousedown', function () {
+			nav.elements.gridStack.setStatic(false);
+		}).on('mouseup', function () {
+			nav.elements.gridStack.setStatic(true);
+			grid.saveGrid();
+		});
+
+		if (auto) {
+			grid.saveGrid();
+		}
+
+		nav.elements.gridStack.setStatic(true);
+
+		if (item.template.function !== undefined) {
+			nav.executeFunction(item.template.function, window);
+		}
 	},
 
 
@@ -107,8 +131,6 @@ var grid = {
 
 		nav.elements.gridStack.removeWidget(widget);
 		settings.updateWidgetEnabledStatus(widgetId, false);
-
-		nav.updateAddWidgetsIcon();
 	},
 
 
@@ -123,37 +145,55 @@ var grid = {
 
 	generateWidgetHeader: function (item) {
 
-		var headerIcons = $('<div>', {class: 'widget-right-icons'});
-		if (!curr.settingsShown) {
-			headerIcons.hide();
-		}
-
-		var headerCloseIcon = $('<div>', {class: 'icon-close-white'});
-		headerCloseIcon.on('mousedown', function (event) {
+		var headerRightMenu = $('<div>', {class: 'popovermenu'}).append($('<ul>'));
+		var headerRightIcon = $('<div>', {class: 'widget-right-icon icon-more-white'});
+		headerRightIcon.on('click', function (event) {
 			event.stopPropagation();
-			nav.hideWidgetsList();
-			grid.removeWidget(item.widget.id);
+			settings.displayWidgetMenu(headerRightMenu, item);
+		}).on('mousedown mouseup', function (event) {
+			event.stopPropagation();
 		});
-		headerIcons.append(headerCloseIcon);
 
-		if (item.setup.settings !== undefined) {
-			var headerSettingsIcon = $('<div>', {class: 'icon-settings-white'});
-			headerSettingsIcon.on('mousedown', function (event) {
-				event.stopPropagation();
-				nav.hideWidgetsList();
-				grid.configureWidget(item.widget.id);
-			});
-			headerIcons.append(headerSettingsIcon);
-		}
+		// if (!curr.settingsShown) {
+		// 	headerIcons.hide();
+		// }
+
+		// var headerCloseIcon = $('<div>', {class: 'icon-close-white'});
+		// headerCloseIcon.on('mousedown', function (event) {
+		// 	event.stopPropagation();
+		// 	nav.hideWidgetsList();
+		// 	grid.removeWidget(item.widget.id);
+		// });
+		// headerIcons.append(headerCloseIcon);
+		//
+		// if (item.setup.settings !== undefined) {
+		// 	var headerSettingsIcon = $('<div>', {class: 'icon-settings-white'});
+		// 	headerSettingsIcon.on('mousedown', function (event) {
+		// 		event.stopPropagation();
+		// 		nav.hideWidgetsList();
+		// 		grid.configureWidget(item.widget.id);
+		// 	});
+		// 	headerIcons.append(headerSettingsIcon);
+		// }
 
 		var widgetHeader = $('<div>', {class: 'widget-header'}).text(item.widget.name);
-		widgetHeader.append(headerIcons);
+		widgetHeader.on('mousedown', function () {
+			nav.elements.gridStack.setStatic(false);
+		}).on('mouseup', function () {
+			nav.elements.gridStack.setStatic(true);
+			grid.saveGrid();
+		});
 
-		if (item.setup.template.icon !== undefined) {
-			var widgetIcon = $('<div>', {class: item.setup.template.icon + '-white widget-header-icon'});
+
+		widgetHeader.append(headerRightIcon);
+		widgetHeader.append(headerRightMenu);
+
+
+		if (item.template.icon !== undefined) {
+			var widgetIcon = $('<div>', {class: item.template.icon + '-white widget-header-icon'});
 			widgetHeader.append(widgetIcon);
 		}
-		headerIcons.fadeOut(0);
+//		headerIcons.fadeOut(0);
 
 		return widgetHeader;
 	},
@@ -253,18 +293,25 @@ var grid = {
 
 
 	saveGrid: function () {
-		var currGrid = _.map($('.grid-stack > .grid-stack-item:visible'), function (el) {
-			var node = $(el).data('_gridstack_node');
-			return {
-				x: node.x,
-				y: node.y,
-				width: node.width,
-				height: node.height,
-				widgetId: $(el).attr('data-widget-id')
-			};
-		}, this);
 
-		net.saveGrid(currGrid);
+		setTimeout(function () {
+			var currGrid = [];
+			nav.elements.divGridStack.children('.grid-stack-item').each(function () {
+				// var node = $(this).data('_gridstack_node');
+				currGrid.push({
+					x: $(this).attr('data-gs-x'),
+					y: $(this).attr('data-gs-y'),
+					width: $(this).attr('data-gs-width'),
+					height: $(this).attr('data-gs-height'),
+					widgetId: $(this).attr('data-widget-id')
+				});
+			});
+			// var currGrid.push() _.map($('.grid-stack .grid-stack-item:visible'), function (el) {
+			//
+			// 	return ;
+			// }, this);
+			net.saveGrid(currGrid);
+		}, 150);
 	},
 
 

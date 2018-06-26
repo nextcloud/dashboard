@@ -1,6 +1,4 @@
-<?php
-
-/**
+/*
  * Nextcloud - Dashboard App
  *
  * This file is licensed under the Affero General Public License version 3 or
@@ -9,7 +7,6 @@
  * @author regio iT gesellschaft für informationstechnologie mbh
  * @copyright regio iT 2017
  * @license GNU AGPL version 3 or any later version
- * @contributor tuxedo-rb | TUXEDO Computers GmbH | https://www.tuxedocomputers.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -26,8 +23,19 @@
  *
  */
 
-namespace OCA\Dashboard\AppInfo;
+.icon-fortunes {
+	background-image: url('/apps/dashboard/img/widgets/fortunes.svg');
+}
 
-$app = new Application();
-$app->registerNavigation();
+.icon-fortunes-white {
+	background-image: url('/apps/dashboard/img/widgets/fortunes-white.svg');
+}
+
+.widget-fortunes {
+	padding: 10px;
+	white-space: pre;
+	white-space: pre-line;
+	text-align: left;
+	font-style: italic;
+}
 

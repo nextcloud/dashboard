@@ -1,6 +1,4 @@
-<?php
-
-/**
+/*
  * Nextcloud - Dashboard App
  *
  * This file is licensed under the Affero General Public License version 3 or
@@ -9,7 +7,6 @@
  * @author regio iT gesellschaft für informationstechnologie mbh
  * @copyright regio iT 2017
  * @license GNU AGPL version 3 or any later version
- * @contributor tuxedo-rb | TUXEDO Computers GmbH | https://www.tuxedocomputers.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -26,8 +23,55 @@
  *
  */
 
-namespace OCA\Dashboard\AppInfo;
+/** global: OCA */
+/** global: net */
 
-$app = new Application();
-$app->registerNavigation();
+
+(function () {
+
+	/**
+	 * @constructs DashBoard
+	 */
+	var Fortunes = function () {
+
+		var fortunes = {
+
+			divFortunes: $('#widget-fortunes'),
+
+			init: function () {
+				fortunes.getFortune();
+			},
+
+
+			getFortune: function () {
+				var request = {
+					widget: 'fortunes',
+					request: 'getFortune'
+				};
+
+				net.requestWidget(request, fortunes.displayFortune);
+			},
+
+
+			displayFortune: function (result) {
+				if (result.result === 'fail') {
+					return;
+				}
+
+				var fortune = result.value.fortune;
+				$('#widget-fortunes').fadeOut(150, function () {
+					$(this).text(fortune).fadeIn(150);
+				});
+			}
+
+		};
+
+		$.extend(Fortunes.prototype, fortunes);
+	};
+
+	OCA.DashBoard.Fortunes = Fortunes;
+	OCA.DashBoard.fortunes = new Fortunes();
+
+})();
+
 

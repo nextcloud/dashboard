@@ -43,13 +43,18 @@ var settings = {
 			}
 		}
 
-		setTimeout(
-			function () {
-				if (curr.settingsShown) {
-					return;
-				}
-				nav.elements.divFirstInstall.fadeOut(0).show().fadeIn(150);
-			}, 1500);
+		nav.elements.divNoWidget.fadeIn(300);
+	},
+
+
+	moreWidgetToInstall: function () {
+		for (var i = 0; i < curr.widgets.length; i++) {
+			var item = curr.widgets[i];
+			if (!item.enabled) {
+				return true;
+			}
+		}
+		return false;
 	},
 
 
@@ -85,7 +90,88 @@ var settings = {
 			'<label for="test4">Hovered</label><br>';
 
 		return html;
+	},
+
+
+	displayWidgetMenu: function (divMenu, item) {
+		var currShown = curr.settingsShown;
+		settings.hideWidgetMenu();
+
+		if (currShown === item.widget.id) {
+			return;
+		}
+
+		var menuUl = divMenu.find('ul');
+
+		menuUl.empty();
+
+		if (item.setup.menu !== undefined) {
+			for (var i = 0; i < item.setup.menu.length; i++) {
+				var menu = item.setup.menu[i];
+
+				var liMenu = $('<li>').append($('<a>', {
+					href: '#',
+					class: menu.icon
+				}).append($('<span>').text(menu.text)));
+				liMenu.on('click', {function: menu.function}, function (event) {
+					nav.executeFunction(event.data.function, window);
+				}).on('mousedown mouseup', function (event) {
+					event.stopPropagation();
+				});
+				menuUl.append(liMenu);
+			}
+		}
+
+		if (item.setup.options !== undefined) {
+			var liSettings = $('<li>').append($('<a>', {
+				href: '#',
+				class: 'icon-settings'
+			}).append($('<span>').text('Add a widget')));
+			liSettings.on('click', function () {
+				//nav.showWidgetsList();
+			}).on('mousedown mouseup', function (event) {
+				event.stopPropagation();
+			});
+			menuUl.append(liSettings);
+		}
+
+		if (settings.moreWidgetToInstall()) {
+			var liAddWidget = $('<li>').append($('<a>', {
+				href: '#',
+				class: 'icon-add'
+			}).append($('<span>').text('Add a widget')));
+			liAddWidget.on('click', function () {
+				nav.showWidgetsList();
+			}).on('mousedown mouseup', function (event) {
+				event.stopPropagation();
+			});
+			menuUl.append(liAddWidget);
+		}
+
+		var liRemoveWidget = $('<li>').append($('<a>', {
+			href: '#',
+			class: 'icon-delete'
+		}).append($('<span>').text('Remove this widget')));
+		liRemoveWidget.on('click', function () {
+			grid.removeWidget(item.widget.id)
+		}).on('mousedown mouseup', function (event) {
+			event.stopPropagation();
+		});
+		menuUl.append(liRemoveWidget);
+
+		divMenu.fadeIn(150);
+		curr.settingsShown = item.widget.id;
+	},
+
+
+	hideWidgetMenu: function () {
+		curr.settingsShown = '';
+		nav.elements.divGridStack.find('.popovermenu').each(function () {
+			$(this).fadeOut(150);
+		});
+		// divHeader.fadeOut(150);
 	}
+
 	// displayWidgetSettings: function (widgetId) {
 	// 	if (curr.settingsWidget !== '') {
 	// 		if (widgetId !== curr.settingsWidget) {
@@ -164,6 +250,7 @@ var settings = {
 	// input).append(inputClose).append(inputSave))); settings.displaySettingsLi(settingsInput); },
 	// addSettingsCheckbox: function (option) { // { // 	"name": "test_long_lorem", // 	"title":
 	// "Longer Lorem", // 	"type": "checkbox", // 	"default": true // } },   displaySettingsLi:
-	// function (div) { div.css('display', 'inherit').fadeTo(0, 0); nav.elements.divDashSettings.append(div); div.fadeTo(150, 1); }
+	// function (div) { div.css('display', 'inherit').fadeTo(0, 0);
+	// nav.elements.divDashSettings.append(div); div.fadeTo(150, 1); }
 
 };

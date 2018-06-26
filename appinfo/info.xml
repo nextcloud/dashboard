@@ -42,8 +42,10 @@
 	</repair-steps>
 
 	<dashboard>
-		<widget>OCA\Dashboard\Widgets\TestWidget</widget>
+		<widget>OCA\Dashboard\Widgets\Test1Widget</widget>
 		<widget>OCA\Dashboard\Widgets\Test2Widget</widget>
+		<widget>OCA\Dashboard\Widgets\Test3Widget</widget>
+		<widget>OCA\Dashboard\Widgets\FortunesWidget</widget>
 	</dashboard>
 
 </info>

@@ -29,12 +29,14 @@ namespace OCA\Dashboard\Controller;
 use Exception;
 use OCA\Dashboard\AppInfo\Application;
 use OCA\Dashboard\Model\WidgetFrame;
+use OCA\Dashboard\Model\WidgetRequest;
 use OCA\Dashboard\Service\ConfigService;
 use OCA\Dashboard\Service\MiscService;
 use OCA\Dashboard\Service\WidgetsService;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IRequest;
+use OCP\Util;
 
 class NavigationController extends Controller {
 
@@ -77,6 +79,26 @@ class NavigationController extends Controller {
 	 * @return TemplateResponse
 	 */
 	public function navigate() {
+		$widgetFrames = $this->widgetsService->getWidgetFrames(false);
+
+		$this->feelAndLook();
+
+		foreach ($widgetFrames as $frame) {
+			$tmpl = $frame->getWidget()
+						  ->getTemplate();
+			if (!array_key_exists('app', $tmpl)) {
+				continue;
+			}
+
+			if (array_key_exists('css', $tmpl)) {
+				Util::addStyle($tmpl['app'], $tmpl['css']);
+			}
+
+			if (array_key_exists('js', $tmpl)) {
+				Util::addScript($tmpl['app'], $tmpl['js']);
+			}
+		}
+
 		return new TemplateResponse(Application::APP_NAME, 'navigate', []);
 	}
 
@@ -123,4 +145,43 @@ class NavigationController extends Controller {
 		}
 	}
 
+
+	/**
+	 * @NoAdminRequired
+	 * @NoSubAdminRequired
+	 *
+	 * @param string $json
+	 *
+	 * @return WidgetFrame[]
+	 */
+	public function requestWidget($json) {
+
+		try {
+			$request = WidgetRequest::fromJson($json);
+			$this->widgetsService->initWidgetRequest($request);
+			$this->widgetsService->requestWidget($request);
+
+			return ['result' => 'done', 'value' => $request->getResult()];
+		} catch (Exception $e) {
+			return ['result' => 'fail', 'message' => $e->getMessage()];
+		}
+	}
+
+
+	/**
+	 *
+	 */
+	private function feelAndLook() {
+		Util::addScript(Application::APP_NAME, 'gridstack.all');
+		Util::addScript(Application::APP_NAME, 'jquery.flip');
+
+		Util::addScript(Application::APP_NAME, 'dashboard.navigation');
+		Util::addScript(Application::APP_NAME, 'dashboard.net');
+		Util::addScript(Application::APP_NAME, 'dashboard.settings');
+		Util::addScript(Application::APP_NAME, 'dashboard.grid');
+		Util::addScript(Application::APP_NAME, 'dashboard');
+
+		Util::addStyle(Application::APP_NAME, 'gridstack');
+		Util::addStyle(Application::APP_NAME, 'dashboard');
+	}
 }

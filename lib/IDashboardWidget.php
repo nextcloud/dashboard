@@ -4,6 +4,8 @@
 namespace OCA\Dashboard;
 
 
+use OCA\Dashboard\Model\WidgetRequest;
+
 interface IDashboardWidget {
 
 	/**
@@ -18,6 +20,17 @@ interface IDashboardWidget {
 	public function getName();
 
 
+	/**
+	 * @return string
+	 */
+	public function getDescription();
+
+
+	/**
+	 * @return array
+	 */
+	public function getTemplate();
+
 
 	/**
 	 * @param array $config
@@ -30,5 +43,10 @@ interface IDashboardWidget {
 	 */
 	public function widgetSetup();
 
+
+	/**
+	 * @param WidgetRequest $request
+	 */
+	public function requestWidget(WidgetRequest $request);
 
 }

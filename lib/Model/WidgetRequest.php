@@ -30,30 +30,48 @@ namespace OCA\Dashboard\Model;
 use OCA\Dashboard\IDashboardWidget;
 use OCP\AppFramework\Http\TemplateResponse;
 
-class WidgetFrame implements \JsonSerializable {
+class WidgetRequest implements \JsonSerializable {
 
 
 	/** @var IDashboardWidget */
-	private $widget;
+	private $widget = null;
+
+	/** @var string */
+	private $widgetId = '';
+
+	/** @var string */
+	private $request = '';
 
 	/** @var array */
-	private $config = [];
-
-	/** @var array */
-	private $position = [];
+	private $result = [];
 
 
 	/**
-	 * WidgetFrame constructor.
+	 * WidgetRequest constructor.
 	 *
-	 * @param IDashboardWidget $widget
-	 * @param array $config
-	 * @param array $position
+	 * @param string $widgetId
 	 */
-	public function __construct(IDashboardWidget $widget, $config, $position) {
-		$this->widget = $widget;
-		$this->config = $config;
-		$this->position = $position;
+	public function __construct($widgetId) {
+		$this->widgetId = $widgetId;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getWidgetId() {
+		return $this->widgetId;
+	}
+
+	/**
+	 * @param string $widgetId
+	 *
+	 * @return $this;
+	 */
+	public function setWidgetId($widgetId) {
+		$this->widgetId = $widgetId;
+
+		return $this;
 	}
 
 
@@ -77,19 +95,19 @@ class WidgetFrame implements \JsonSerializable {
 
 
 	/**
-	 * @return array
+	 * @return string
 	 */
-	public function getConfig() {
-		return $this->config;
+	public function getRequest() {
+		return $this->request;
 	}
 
 	/**
-	 * @param array $config
+	 * @param string $request
 	 *
 	 * @return $this
 	 */
-	public function setConfig($config) {
-		$this->config = $config;
+	public function setRequest($request) {
+		$this->request = $request;
 
 		return $this;
 	}
@@ -98,17 +116,30 @@ class WidgetFrame implements \JsonSerializable {
 	/**
 	 * @return array
 	 */
-	public function getPosition() {
-		return $this->position;
+	public function getResult() {
+		return $this->result;
 	}
 
 	/**
-	 * @param array $position
+	 * @param array $result
 	 *
 	 * @return $this
 	 */
-	public function setPosition($position) {
-		$this->position = $position;
+	public function setResult($result) {
+		$this->result = $result;
+
+		return $this;
+	}
+
+
+	/**
+	 * @param string $key
+	 * @param string $result
+	 *
+	 * @return $this
+	 */
+	public function addResult($key, $result) {
+		$this->result[$key] = $result;
 
 		return $this;
 	}
@@ -125,21 +156,24 @@ class WidgetFrame implements \JsonSerializable {
 	public function jsonSerialize() {
 		$widget = $this->getWidget();
 
-		$template = $widget->getTemplate();
-		$html = new TemplateResponse($template['app'], $template['content'], [], 'blank');
-
 		return [
-			'widget'   => [
+			'widget' => [
 				'id'          => $widget->getId(),
 				'name'        => $widget->getName(),
 				'description' => $widget->getDescription()
-			],
-			'template' => $widget->getTemplate(),
-			'setup'    => $widget->widgetSetup(),
-			'html'     => $html->render(),
-			'config'   => $this->getConfig(),
-			'position' => $this->getPosition(),
-			'enabled'  => ((array_key_exists('x', $this->getPosition())) ? true : false)
+			]
 		];
 	}
+
+
+	public static function fromJson($json) {
+		$arr = json_decode($json, true);
+		$request = new WidgetRequest($arr['widget']);
+		$request->setRequest($arr['request']);
+
+//		$request->setType($arr['keyword']);
+
+		return $request;
+	}
+
 }

@@ -31,9 +31,9 @@ use OCA\Dashboard\AppInfo\Application;
 use OCA\Dashboard\IDashboardWidget;
 use OCA\Dashboard\Model\WidgetRequest;
 
-class Test2Widget implements IDashboardWidget {
+class Test3Widget implements IDashboardWidget {
 
-	const WIDGET_ID = 'test2';
+	const WIDGET_ID = 'test3';
 
 
 	/**
@@ -48,7 +48,7 @@ class Test2Widget implements IDashboardWidget {
 	 * @return string
 	 */
 	public function getName() {
-		return 'Used space';
+		return 'At vero eos';
 	}
 
 
@@ -56,7 +56,7 @@ class Test2Widget implements IDashboardWidget {
 	 * @return string
 	 */
 	public function getDescription() {
-		return 'Display the current use of your available disk space';
+		return 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti';
 	}
 
 
@@ -66,9 +66,9 @@ class Test2Widget implements IDashboardWidget {
 	public function getTemplate() {
 		return [
 			'app'     => Application::APP_NAME,
-			'icon'    => 'icon-disk-space',
-			'css'     => 'widgets/test2',
-			'content' => 'widgets/Test2'
+			'icon'    => 'icon-lorem',
+			'css'     => 'widgets/test3',
+			'content' => 'widgets/Test3'
 		];
 	}
 
@@ -78,9 +78,45 @@ class Test2Widget implements IDashboardWidget {
 	 */
 	public function widgetSetup() {
 		return [
-			'size' => [
-				'width'  => 4,
-				'height' => 2
+			'size'     => [
+				'min'     => [
+					'width'  => 3,
+					'height' => 4
+				],
+				'default' => [
+					'width'  => 5,
+					'height' => 5
+				],
+				'max'     => [
+					'width'  => 10,
+					'height' => 6
+				]
+			],
+			'settings' => [
+				[
+					'name'        => 'test_input',
+					'title'       => 'IMAP address',
+					'type'        => 'input',
+					'placeholder' => 'imap.example.net'
+				],
+				[
+					'name'        => 'test_input',
+					'title'       => 'Login',
+					'type'        => 'input',
+					'placeholder' => 'username'
+				],
+				[
+					'name'        => 'test_input',
+					'title'       => 'Password',
+					'type'        => 'input',
+					'placeholder' => ''
+				],
+				[
+					'name'    => 'test_long_lorem',
+					'title'   => 'Longer Lorem',
+					'type'    => 'checkbox',
+					'default' => true
+				]
 			]
 		];
 	}
@@ -98,5 +134,6 @@ class Test2Widget implements IDashboardWidget {
 	 */
 	public function requestWidget(WidgetRequest $request) {
 	}
+
 
 }
