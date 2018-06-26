@@ -125,15 +125,15 @@ class WidgetsService {
 	/**
 	 * @param $widgetId
 	 *
-	 * @return IDashboardWidget
+	 * @return WidgetFrame
 	 * @throws WidgetDoesNotExistException
 	 */
-	public function getWidget($widgetId) {
+	public function getWidgetFrame($widgetId) {
 		$widgetFrames = $this->getWidgetFrames();
 		foreach ($widgetFrames as $frame) {
 			$widget = $frame->getWidget();
 			if ($widget->getId() === $widgetId) {
-				return $widget;
+				return $frame;
 			}
 		}
 
@@ -148,8 +148,12 @@ class WidgetsService {
 	 */
 	public function initWidgetRequest(WidgetRequest $widgetRequest) {
 		$widgetId = $widgetRequest->getWidgetId();
+		$widgetFrame = $this->getWidgetFrame($widgetId);
 
-		$widgetRequest->setWidget($this->getWidget($widgetId));
+		$widget = $widgetFrame->getWidget();
+		$widget->loadWidget($widgetFrame->getConfig());
+
+		$widgetRequest->setWidget($widget);
 	}
 
 

@@ -76,6 +76,16 @@ var nav = {
 		$(window).click(function () {
 			settings.hideWidgetMenu();
 		});
+
+		// .on('mouseup', function () {
+		// 	if (!curr.gridEdit) {
+		// 		return;
+		// 	}
+		// 	curr.gridEdit = false;
+		// 	nav.elements.gridStack.setStatic(true);
+		// 	grid.saveGrid();
+		// });
+
 	},
 
 	//

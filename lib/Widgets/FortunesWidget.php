@@ -75,7 +75,7 @@ class FortunesWidget implements IDashboardWidget {
 			'icon'     => 'icon-fortunes',
 			'css'      => 'widgets/fortunes',
 			'js'       => 'widgets/fortunes',
-			'content'  => 'widgets/Fortunes',
+			'content'  => 'widgets/fortunes',
 			'function' => 'OCA.DashBoard.fortunes.init'
 		];
 	}
@@ -105,13 +105,6 @@ class FortunesWidget implements IDashboardWidget {
 	 * @param array $config
 	 */
 	public function loadWidget($config) {
-	}
-
-
-	/**
-	 * @param WidgetRequest $request
-	 */
-	public function requestWidget(WidgetRequest $request) {
 		$app = new Application();
 
 		$container = $app->getContainer();
@@ -120,8 +113,16 @@ class FortunesWidget implements IDashboardWidget {
 		} catch (QueryException $e) {
 			return;
 		}
+	}
 
-		$request->addResult('fortune', $this->fortunesService->getRandomFortune());
+
+	/**
+	 * @param WidgetRequest $request
+	 */
+	public function requestWidget(WidgetRequest $request) {
+		if ($request->getRequest() === 'getFortune') {
+			$request->addResult('fortune', $this->fortunesService->getRandomFortune());
+		}
 	}
 
 

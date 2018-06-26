@@ -27,14 +27,20 @@
 namespace OCA\Dashboard\Widgets;
 
 
+use Exception;
 use OCA\Dashboard\AppInfo\Application;
 use OCA\Dashboard\IDashboardWidget;
 use OCA\Dashboard\Model\WidgetRequest;
+use OCA\Dashboard\Service\Widgets\DiskSpace\DiskSpaceService;
+use OCP\AppFramework\QueryException;
 
-class Test2Widget implements IDashboardWidget {
+class DiskSpaceWidget implements IDashboardWidget {
 
-	const WIDGET_ID = 'test2';
+	const WIDGET_ID = 'diskspace';
 
+
+	/** @var DiskSpaceService */
+	private $diskSpaceService;
 
 	/**
 	 * @return string
@@ -48,7 +54,7 @@ class Test2Widget implements IDashboardWidget {
 	 * @return string
 	 */
 	public function getName() {
-		return 'Used space';
+		return 'Disk space';
 	}
 
 
@@ -65,10 +71,12 @@ class Test2Widget implements IDashboardWidget {
 	 */
 	public function getTemplate() {
 		return [
-			'app'     => Application::APP_NAME,
-			'icon'    => 'icon-disk-space',
-			'css'     => 'widgets/test2',
-			'content' => 'widgets/Test2'
+			'app'      => Application::APP_NAME,
+			'icon'     => 'icon-disk-space',
+			'css'      => 'widgets/diskspace',
+			'js'       => 'widgets/diskspace',
+			'content'  => 'widgets/diskspace',
+			'function' => 'OCA.DashBoard.diskspace.init'
 		];
 	}
 
@@ -90,6 +98,14 @@ class Test2Widget implements IDashboardWidget {
 	 * @param array $config
 	 */
 	public function loadWidget($config) {
+		$app = new Application();
+
+		$container = $app->getContainer();
+		try {
+			$this->diskSpaceService = $container->query(DiskSpaceService::class);
+		} catch (QueryException $e) {
+			return;
+		}
 	}
 
 
@@ -97,6 +113,13 @@ class Test2Widget implements IDashboardWidget {
 	 * @param WidgetRequest $request
 	 */
 	public function requestWidget(WidgetRequest $request) {
+		try {
+			if ($request->getRequest() === 'getDiskSpace') {
+				$request->addResult('diskSpace', $this->diskSpaceService->getDiskSpace());
+			}
+		} catch (Exception $e) {
+		}
 	}
+
 
 }

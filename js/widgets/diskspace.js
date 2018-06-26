@@ -30,43 +30,57 @@
 (function () {
 
 	/**
-	 * @constructs Fortunes
+	 * @constructs DiskSpace
 	 */
-	var Fortunes = function () {
+	var DiskSpace = function () {
 
-		var fortunes = {
+		var diskspace = {
 
 			init: function () {
-				fortunes.getFortune();
+				$('#diskspace-progress').fadeOut(0);
+
+				diskspace.getDiskSpace();
 			},
 
-			getFortune: function () {
+
+			getDiskSpace: function () {
 				var request = {
-					widget: 'fortunes',
-					request: 'getFortune'
+					widget: 'diskspace',
+					request: 'getDiskSpace'
 				};
 
-				net.requestWidget(request, fortunes.displayFortune);
+				net.requestWidget(request, diskspace.displayFortune);
 			},
+
 
 			displayFortune: function (result) {
 				if (result.result === 'fail') {
 					return;
 				}
 
-				var fortune = result.value.fortune;
-				$('#widget-fortunes').fadeOut(150, function () {
-					$(this).text(fortune).fadeIn(150);
-				});
+				console.log(JSON.stringify(result));
+
+				var used = OC.Util.humanFileSize(parseInt(result.value.diskSpace.used, 10), true);
+				var total = OC.Util.humanFileSize(parseInt(result.value.diskSpace.total, 10), true);
+				var percent = Math.round(100 * used / total);
+
+				$('#diskspace-progress').stop().fadeIn(150);
+				$('#diskspace-used').text(used);
+				$('#diskspace-total').text(total);
+				$('#diskspace-progress-used').css('width', percent + '%');
+				// var fortune = result.value.fortune;
+				// divDiskSpace.fadeOut(150, function () {
+				// 	$(this).text(fortune).fadeIn(150);
+				// });
 			}
 
 		};
 
-		$.extend(Fortunes.prototype, fortunes);
+		$.extend(DiskSpace.prototype, diskspace);
 	};
 
-	OCA.DashBoard.Fortunes = Fortunes;
-	OCA.DashBoard.fortunes = new Fortunes();
+	OCA.DashBoard.DiskSpace = DiskSpace;
+	OCA.DashBoard.diskspace = new DiskSpace();
 
 })();
 

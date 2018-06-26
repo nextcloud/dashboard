@@ -1,4 +1,5 @@
-/*
+<?php
+/**
  * Nextcloud - Dashboard App
  *
  * This file is licensed under the Affero General Public License version 3 or
@@ -23,41 +24,19 @@
  *
  */
 
+?>
 
-.icon-disk-space {
-	background-image: url('/apps/dashboard/img/widgets/diskspace.svg');
-}
+<div class="widget-diskspace">
 
-.icon-disk-space-white {
-	background-image: url('/apps/dashboard/img/widgets/diskspace-white.svg');
-}
+	<div id="diskspace-progress">
+		<div id="diskspace-progress-used" style="width: 0%"></div>
+		<div class="diskspace-progress-limit"></div>
+		<p class="diskspace-text"><strong id="diskspace-used"></strong> / <strong
+					id="diskspace-total"></strong></p>
+	</div>
 
-#quota {
-	position: relative;
-}
+</div>
 
-#quota div {
-	height: 1.8em;
-}
 
-#quota-used {
-	float: left;
-	background-color: #727272;
-}
 
-#quota-limit {
-	background-color: #b1b1b1;
-}
-
-#quota-text {
-	position: absolute;
-	top: 0.1em;
-	text-align: center;
-	width: 100%;
-	color: white;
-}
-
-.widget-test2 {
-	padding: 10px;
-}
 

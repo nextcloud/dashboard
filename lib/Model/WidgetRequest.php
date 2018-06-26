@@ -134,7 +134,7 @@ class WidgetRequest implements \JsonSerializable {
 
 	/**
 	 * @param string $key
-	 * @param string $result
+	 * @param string|array $result
 	 *
 	 * @return $this
 	 */

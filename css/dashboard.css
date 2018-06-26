@@ -55,7 +55,7 @@
 
 .widget-list-row {
 	height: 50px;
-	margin-top:15px;
+	margin-top: 15px;
 }
 
 .widget-list-icon {
@@ -71,12 +71,12 @@
 }
 
 .widget-list-name {
-	font-size:14px;
+	font-size: 14px;
 	color: #111;
 }
 
 .widget-list-desc {
-	font-size:12px;
+	font-size: 12px;
 	color: #666;
 }
 
@@ -88,7 +88,8 @@
 }
 
 .widget-content {
-	height: 100%;
+	height: inherit;
+	overflow: hidden;
 }
 
 .grid-stack {
@@ -117,4 +118,18 @@
 
 .back {
 	background: #666;
+}
+
+.grid-stack > .grid-stack-item > .grid-stack-item-content {
+	margin: unset;
+	position: unset;
+	top: unset;
+	left: unset;
+	right: unset;
+	bottom: unset;
+	width: unset;
+	z-index: unset;
+	overflow-x: unset;
+	overflow-y: unset;
+	height: inherit;
 }

@@ -36,6 +36,11 @@ var grid = {
 		nav.elements.divGridStack.gridstack(options);
 		nav.elements.gridStack = nav.elements.divGridStack.data('gridstack');
 		nav.elements.gridStack.setStatic(true);
+
+		$('.grid-stack').on('dragstop resizestop', function () {
+			nav.elements.gridStack.setStatic(true);
+			grid.saveGrid();
+		});
 	},
 
 
@@ -104,10 +109,11 @@ var grid = {
 
 		widget.find('.ui-resizable-handle').on('mousedown', function () {
 			nav.elements.gridStack.setStatic(false);
-		}).on('mouseup', function () {
-			nav.elements.gridStack.setStatic(true);
-			grid.saveGrid();
 		});
+		// 	.on('mouseup', function () {
+		// 	nav.elements.gridStack.setStatic(true);
+		// 	grid.saveGrid();
+		// });
 
 		if (auto) {
 			grid.saveGrid();
@@ -179,10 +185,11 @@ var grid = {
 		var widgetHeader = $('<div>', {class: 'widget-header'}).text(item.widget.name);
 		widgetHeader.on('mousedown', function () {
 			nav.elements.gridStack.setStatic(false);
-		}).on('mouseup', function () {
-			nav.elements.gridStack.setStatic(true);
-			grid.saveGrid();
 		});
+		// 	.on('mouseup', function () {
+		// 	nav.elements.gridStack.setStatic(true);
+		// 	grid.saveGrid();
+		// });
 
 
 		widgetHeader.append(headerRightIcon);
