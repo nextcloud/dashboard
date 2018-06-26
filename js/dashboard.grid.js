@@ -114,11 +114,6 @@ var grid = {
 			nav.elements.gridStack.setStatic(true);
 		});
 
-		// 	.on('mouseup', function () {
-		// 	nav.elements.gridStack.setStatic(true);
-		// 	grid.saveGrid();
-		// });
-
 		if (auto) {
 			grid.saveGrid();
 		}
@@ -164,28 +159,6 @@ var grid = {
 			event.stopPropagation();
 		});
 
-		// if (!curr.settingsShown) {
-		// 	headerIcons.hide();
-		// }
-
-		// var headerCloseIcon = $('<div>', {class: 'icon-close-white'});
-		// headerCloseIcon.on('mousedown', function (event) {
-		// 	event.stopPropagation();
-		// 	nav.hideWidgetsList();
-		// 	grid.removeWidget(item.widget.id);
-		// });
-		// headerIcons.append(headerCloseIcon);
-		//
-		// if (item.setup.settings !== undefined) {
-		// 	var headerSettingsIcon = $('<div>', {class: 'icon-settings-white'});
-		// 	headerSettingsIcon.on('mousedown', function (event) {
-		// 		event.stopPropagation();
-		// 		nav.hideWidgetsList();
-		// 		grid.configureWidget(item.widget.id);
-		// 	});
-		// 	headerIcons.append(headerSettingsIcon);
-		// }
-
 		var widgetHeader = $('<div>', {class: 'widget-header'});
 		if (item.template.icon !== undefined) {
 			var widgetIcon = $('<div>', {class: item.template.icon + '-white widget-header-icon'});
@@ -199,11 +172,6 @@ var grid = {
 		widgetHeader.on('click', function () {
 			nav.elements.gridStack.setStatic(true);
 		});
-		// 	.on('mouseup', function () {
-		// 	nav.elements.gridStack.setStatic(true);
-		// 	grid.saveGrid();
-		// });
-
 
 		widgetHeader.append(headerRightIcon);
 		widgetHeader.append(headerRightMenu);
@@ -313,7 +281,6 @@ var grid = {
 		setTimeout(function () {
 			var currGrid = [];
 			nav.elements.divGridStack.children('.grid-stack-item').each(function () {
-				// var node = $(this).data('_gridstack_node');
 				currGrid.push({
 					x: $(this).attr('data-gs-x'),
 					y: $(this).attr('data-gs-y'),
@@ -322,10 +289,7 @@ var grid = {
 					widgetId: $(this).attr('data-widget-id')
 				});
 			});
-			// var currGrid.push() _.map($('.grid-stack .grid-stack-item:visible'), function (el) {
-			//
-			// 	return ;
-			// }, this);
+
 			net.saveGrid(currGrid);
 		}, 150);
 	},
