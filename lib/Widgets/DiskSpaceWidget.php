@@ -76,7 +76,7 @@ class DiskSpaceWidget implements IDashboardWidget {
 			'css'      => 'widgets/diskspace',
 			'js'       => 'widgets/diskspace',
 			'content'  => 'widgets/diskspace',
-			'function' => 'OCA.DashBoard.diskspace.init'
+			'function' => 'OCA.DashBoard.diskspace.init',
 		];
 	}
 
@@ -87,8 +87,14 @@ class DiskSpaceWidget implements IDashboardWidget {
 	public function widgetSetup() {
 		return [
 			'size' => [
-				'width'  => 4,
-				'height' => 2
+				'width'  => 2,
+				'height' => 1
+			],
+			'jobs' => [
+				[
+					'delay'    => 600,
+					'function' => 'OCA.DashBoard.diskspace.getDiskSpace'
+				]
 			]
 		];
 	}

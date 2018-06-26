@@ -49,16 +49,18 @@
 					request: 'getDiskSpace'
 				};
 
-				net.requestWidget(request, diskspace.displayFortune);
+				net.requestWidget(request, diskspace.displayDiskSpace);
 			},
 
 
-			displayFortune: function (result) {
+			test: function () {
+				console.log('delayed job !');
+			},
+
+			displayDiskSpace: function (result) {
 				if (result.result === 'fail') {
 					return;
 				}
-
-				console.log(JSON.stringify(result));
 
 				var used = OC.Util.humanFileSize(parseInt(result.value.diskSpace.used, 10), true);
 				var total = OC.Util.humanFileSize(parseInt(result.value.diskSpace.total, 10), true);
@@ -68,10 +70,6 @@
 				$('#diskspace-used').text(used);
 				$('#diskspace-total').text(total);
 				$('#diskspace-progress-used').css('width', percent + '%');
-				// var fortune = result.value.fortune;
-				// divDiskSpace.fadeOut(150, function () {
-				// 	$(this).text(fortune).fadeIn(150);
-				// });
 			}
 
 		};

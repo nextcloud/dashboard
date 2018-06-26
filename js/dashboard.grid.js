@@ -123,6 +123,16 @@ var grid = {
 		if (item.template.function !== undefined) {
 			nav.executeFunction(item.template.function, window);
 		}
+
+		if (item.setup.jobs !== undefined) {
+			curr.jobs[item.widget.id] = [];
+			for (var i = 0; i < item.setup.jobs.length; i++) {
+				var job = item.setup.jobs[i];
+				curr.jobs[item.widget.id].push(setInterval(function () {
+					nav.executeFunction(job.function, window);
+				}, job.delay * 1000, job.delay * 1000));
+			}
+		}
 	},
 
 
@@ -136,6 +146,16 @@ var grid = {
 
 		nav.elements.gridStack.removeWidget(widget);
 		settings.updateWidgetEnabledStatus(widgetId, false);
+
+		if (typeof curr.jobs[widgetId] === undefined) {
+			return;
+		}
+
+		for (var i = 0; i < curr.jobs[widgetId].length; i++) {
+			clearInterval(curr.jobs[widgetId][i]);
+		}
+
+		curr.jobs[widgetId] = [];
 	},
 
 
