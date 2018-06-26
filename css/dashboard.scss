@@ -39,18 +39,31 @@
 	background-color: #0082c9;
 	color: #fff;
 	text-align: left;
-	padding: 5px 5px 5px 35px;
+	padding: 5px;
+}
+
+.widget-header-icon {
+	/*position: absolute;*/
+	/*left: 6px;*/
+	/*top: 4px;*/
+	/*padding: 3px;*/
+	padding: 3px;
+	float: left;
+}
+
+.widget-header-name {
+	margin-left: 25px;
 }
 
 .widget-right-icon {
 	position: absolute;
 	right: 6px;
 	top: 0px;
-	padding: 7px;
+	padding: 7px 18px 7px 7px;
 }
 
 .popovermenu {
-	margin: 10px 3px 0px;
+	margin: 10px 9px 0px;
 }
 
 .widget-list-row {
@@ -78,13 +91,7 @@
 .widget-list-desc {
 	font-size: 12px;
 	color: #666;
-}
-
-.widget-header-icon {
-	position: absolute;
-	left: 6px;
-	top: 4px;
-	padding: 3px;
+	margin-right: 10px;
 }
 
 .widget-content {
@@ -100,16 +107,18 @@
 	color: #2c3e50;
 	text-align: center;
 	overflow-y: hidden !important;
+	filter: drop-shadow(0 1px 10px var(--color-box-shadow));
 }
 
 .ui-state-disabled {
 	opacity: 1 !important;
 	filter: Alpha(Opacity=100) !important;
-	background: #ffffff;
+	-webkit-transition: background-color 200ms linear;
+	-ms-transition: background-color 200ms linear;
+	transition: background-color 200ms linear;
 }
 
 .widget-content {
-	background: #eaeaea;
 }
 
 .ui-state-disabled .widget-content {
@@ -121,7 +130,7 @@
 }
 
 .grid-stack > .grid-stack-item > .grid-stack-item-content {
-	margin: unset;
+	margin: 0 10px;
 	position: unset;
 	top: unset;
 	left: unset;

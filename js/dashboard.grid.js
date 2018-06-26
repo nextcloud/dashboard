@@ -110,6 +110,10 @@ var grid = {
 		widget.find('.ui-resizable-handle').on('mousedown', function () {
 			nav.elements.gridStack.setStatic(false);
 		});
+		widget.find('.ui-resizable-handle').on('click', function () {
+			nav.elements.gridStack.setStatic(true);
+		});
+
 		// 	.on('mouseup', function () {
 		// 	nav.elements.gridStack.setStatic(true);
 		// 	grid.saveGrid();
@@ -182,9 +186,18 @@ var grid = {
 		// 	headerIcons.append(headerSettingsIcon);
 		// }
 
-		var widgetHeader = $('<div>', {class: 'widget-header'}).text(item.widget.name);
+		var widgetHeader = $('<div>', {class: 'widget-header'});
+		if (item.template.icon !== undefined) {
+			var widgetIcon = $('<div>', {class: item.template.icon + '-white widget-header-icon'});
+			widgetHeader.append(widgetIcon);
+		}
+		widgetHeader.append($('<div>', {class: 'widget-header-name'}).text(item.widget.name));
+
 		widgetHeader.on('mousedown', function () {
 			nav.elements.gridStack.setStatic(false);
+		});
+		widgetHeader.on('click', function () {
+			nav.elements.gridStack.setStatic(true);
 		});
 		// 	.on('mouseup', function () {
 		// 	nav.elements.gridStack.setStatic(true);
@@ -196,10 +209,6 @@ var grid = {
 		widgetHeader.append(headerRightMenu);
 
 
-		if (item.template.icon !== undefined) {
-			var widgetIcon = $('<div>', {class: item.template.icon + '-white widget-header-icon'});
-			widgetHeader.append(widgetIcon);
-		}
 //		headerIcons.fadeOut(0);
 
 		return widgetHeader;
