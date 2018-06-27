@@ -265,11 +265,11 @@ var grid = {
 		}
 
 		if (position.width === undefined) {
-			position.width = 3;
+			position.width = 4;
 		}
 
 		if (position.height === undefined) {
-			position.height = 2;
+			position.height = 3;
 		}
 
 		if (position.minHeight === undefined) {
