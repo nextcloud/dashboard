@@ -37,6 +37,8 @@ var settings = {
 	options: [],
 
 	firstInstall: function () {
+
+		nav.elements.divNoWidget.stop().fadeOut(150);
 		for (var i = 0; i < curr.widgets.length; i++) {
 			var item = curr.widgets[i];
 			if (item.enabled) {
@@ -44,7 +46,7 @@ var settings = {
 			}
 		}
 
-		nav.elements.divNoWidget.fadeIn(300);
+		nav.elements.divNoWidget.stop().fadeIn(150);
 	},
 
 

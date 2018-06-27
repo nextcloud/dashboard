@@ -119,6 +119,7 @@ var grid = {
 		}
 
 		nav.elements.gridStack.setStatic(true);
+		settings.firstInstall();
 
 		if (item.template.function !== undefined) {
 			nav.executeFunction(item.template.function, window);
@@ -146,6 +147,7 @@ var grid = {
 
 		nav.elements.gridStack.removeWidget(widget);
 		settings.updateWidgetEnabledStatus(widgetId, false);
+		settings.firstInstall();
 
 		if (typeof curr.jobs[widgetId] === undefined) {
 			return;
@@ -195,9 +197,6 @@ var grid = {
 
 		widgetHeader.append(headerRightIcon);
 		widgetHeader.append(headerRightMenu);
-
-
-//		headerIcons.fadeOut(0);
 
 		return widgetHeader;
 	},
