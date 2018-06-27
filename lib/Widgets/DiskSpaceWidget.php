@@ -87,9 +87,19 @@ class DiskSpaceWidget implements IDashboardWidget {
 	 */
 	public function widgetSetup() {
 		return [
-			'size' => [
-				'width'  => 2,
-				'height' => 1
+			'size'     => [
+				'min'     => [
+					'width'  => 2,
+					'height' => 1
+				],
+				'default' => [
+					'width'  => 2,
+					'height' => 1
+				],
+				'max'     => [
+					'width'  => 3,
+					'height' => 1
+				]
 			],
 			'jobs' => [
 				[

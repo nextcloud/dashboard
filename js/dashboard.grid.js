@@ -233,7 +233,8 @@ var grid = {
 	defaultPosition: function (size) {
 		var position = {};
 		if (size.default !== undefined) {
-			position = size.default;
+			position.width = size.default.width;
+			position.height = size.default.height + 1;
 		}
 
 		if (size.min !== undefined) {
@@ -241,7 +242,7 @@ var grid = {
 				position.minWidth = size.min.width;
 			}
 			if (size.min.height !== undefined) {
-				position.minHeight = size.min.height;
+				position.minHeight = size.min.height + 1;
 			}
 		}
 
@@ -250,7 +251,7 @@ var grid = {
 				position.maxWidth = size.max.width;
 			}
 			if (size.max.height !== undefined) {
-				position.maxHeight = size.max.height;
+				position.maxHeight = size.max.height + 1;
 			}
 		}
 

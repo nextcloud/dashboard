@@ -80,9 +80,19 @@ class ClockWidget implements IDashboardWidget {
 	 */
 	public function widgetSetup() {
 		return [
-			'size' => [
-				'width'  => 4,
-				'height' => 2
+			'size'     => [
+				'min'     => [
+					'width'  => 2,
+					'height' => 1
+				],
+				'default' => [
+					'width'  => 2,
+					'height' => 1
+				],
+				'max'     => [
+					'width'  => 2,
+					'height' => 1
+				]
 			],
 			'jobs' => [
 				[

@@ -86,9 +86,19 @@ class FortunesWidget implements IDashboardWidget {
 	 */
 	public function widgetSetup() {
 		return [
-			'size' => [
-				'width'  => 4,
-				'height' => 2
+			'size'     => [
+				'min'     => [
+					'width'  => 2,
+					'height' => 1
+				],
+				'default' => [
+					'width'  => 3,
+					'height' => 2
+				],
+				'max'     => [
+					'width'  => 4,
+					'height' => 4
+				]
 			],
 			'menu' => [
 				[
