@@ -30,16 +30,10 @@ namespace OCA\Dashboard\Widgets;
 use OCA\Dashboard\AppInfo\Application;
 use OCA\Dashboard\IDashboardWidget;
 use OCA\Dashboard\Model\WidgetRequest;
-use OCA\Dashboard\Service\Widgets\Fortunes\FortunesService;
-use OCP\AppFramework\QueryException;
 
-class FortunesWidget implements IDashboardWidget {
+class ClockWidget implements IDashboardWidget {
 
-	const WIDGET_ID = 'fortunes';
-
-
-	/** @var FortunesService */
-	private $fortunesService;
+	const WIDGET_ID = 'clock';
 
 
 	/**
@@ -54,7 +48,7 @@ class FortunesWidget implements IDashboardWidget {
 	 * @return string
 	 */
 	public function getName() {
-		return 'Fortune Quotes';
+		return 'Clock';
 	}
 
 
@@ -62,7 +56,7 @@ class FortunesWidget implements IDashboardWidget {
 	 * @return string
 	 */
 	public function getDescription() {
-		return 'Get a random fortune quote';
+		return 'The time is now.';
 	}
 
 
@@ -72,11 +66,11 @@ class FortunesWidget implements IDashboardWidget {
 	public function getTemplate() {
 		return [
 			'app'      => Application::APP_NAME,
-			'icon'     => 'icon-fortunes',
-			'css'      => 'widgets/fortunes',
-			'js'       => 'widgets/fortunes',
-			'content'  => 'widgets/fortunes',
-			'function' => 'OCA.DashBoard.fortunes.init'
+			'icon'     => 'icon-clock',
+			'css'      => 'widgets/clock',
+			'js'       => 'widgets/clock',
+			'content'  => 'widgets/clock',
+			'function' => 'OCA.DashBoard.clock.init'
 		];
 	}
 
@@ -90,17 +84,10 @@ class FortunesWidget implements IDashboardWidget {
 				'width'  => 4,
 				'height' => 2
 			],
-			'menu' => [
-				[
-					'icon'     => 'icon-fortunes',
-					'text'     => 'New fortune',
-					'function' => 'OCA.DashBoard.fortunes.getFortune'
-				]
-			],
 			'jobs' => [
 				[
-					'delay'    => 300,
-					'function' => 'OCA.DashBoard.fortunes.getFortune'
+					'delay'    => 1,
+					'function' => 'OCA.DashBoard.clock.displayTime'
 				]
 			]
 		];
@@ -111,14 +98,6 @@ class FortunesWidget implements IDashboardWidget {
 	 * @param array $config
 	 */
 	public function loadWidget($config) {
-		$app = new Application();
-
-		$container = $app->getContainer();
-		try {
-			$this->fortunesService = $container->query(FortunesService::class);
-		} catch (QueryException $e) {
-			return;
-		}
 	}
 
 
@@ -126,9 +105,6 @@ class FortunesWidget implements IDashboardWidget {
 	 * @param WidgetRequest $request
 	 */
 	public function requestWidget(WidgetRequest $request) {
-		if ($request->getRequest() === 'getFortune') {
-			$request->addResult('fortune', $this->fortunesService->getRandomFortune());
-		}
 	}
 
 

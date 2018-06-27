@@ -33,6 +33,7 @@ use OCA\Dashboard\IDashboardWidget;
 use OCA\Dashboard\Model\WidgetRequest;
 use OCA\Dashboard\Service\Widgets\DiskSpace\DiskSpaceService;
 use OCP\AppFramework\QueryException;
+use OCP\Files\NotFoundException;
 
 class DiskSpaceWidget implements IDashboardWidget {
 
@@ -117,13 +118,12 @@ class DiskSpaceWidget implements IDashboardWidget {
 
 	/**
 	 * @param WidgetRequest $request
+	 *
+	 * @throws NotFoundException
 	 */
 	public function requestWidget(WidgetRequest $request) {
-		try {
-			if ($request->getRequest() === 'getDiskSpace') {
-				$request->addResult('diskSpace', $this->diskSpaceService->getDiskSpace());
-			}
-		} catch (Exception $e) {
+		if ($request->getRequest() === 'getDiskSpace') {
+			$request->addResult('diskSpace', $this->diskSpaceService->getDiskSpace());
 		}
 	}
 
