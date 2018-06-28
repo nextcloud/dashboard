@@ -36,9 +36,13 @@
 
 		var fortunes = {
 
+			divFortune: null,
+
 			init: function () {
+				fortunes.divFortune = $('#widget-fortunes');
 				fortunes.getFortune();
 			},
+
 
 			getFortune: function () {
 				var request = {
@@ -49,14 +53,25 @@
 				net.requestWidget(request, fortunes.displayFortune);
 			},
 
+
 			displayFortune: function (result) {
 				if (result.result === 'fail') {
 					return;
 				}
 
 				var fortune = result.value.fortune;
-				$('#widget-fortunes').fadeOut(150, function () {
+				fortunes.divFortune.fadeOut(150, function () {
 					$(this).text(fortune).fadeIn(150);
+				});
+			},
+
+			push: function (payload) {
+				if (payload.fortune === undefined) {
+					return;
+				}
+
+				fortunes.divFortune.fadeOut(150, function () {
+					$(this).text(payload.fortune).fadeIn(150);
 				});
 			}
 

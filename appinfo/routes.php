@@ -38,7 +38,8 @@ return [
 		['name' => 'Navigation#getWidgets', 'url' => '/widgets', 'verb' => 'GET'],
 		['name' => 'Navigation#deleteWidget', 'url' => '/widget', 'verb' => 'DELETE'],
 		['name' => 'Navigation#saveGrid', 'url' => '/widgets/grid', 'verb' => 'POST'],
-		['name' => 'Navigation#requestWidget', 'url' => '/widget/request', 'verb' => 'GET'],
+		['name' => 'Widget#requestWidget', 'url' => '/widget/request', 'verb' => 'GET'],
+		['name' => 'Widget#pushWidget', 'url' => '/widget/push', 'verb' => 'POST'],
 
 		//	['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
 		['name' => 'activity#index', 'url' => '/activities', 'verb' => 'GET'],

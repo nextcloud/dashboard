@@ -173,7 +173,7 @@ var settings = {
 			$(this).fadeOut(150);
 		});
 		// divHeader.fadeOut(150);
-	}
+	},
 
 	// displayWidgetSettings: function (widgetId) {
 	// 	if (curr.settingsWidget !== '') {
@@ -256,4 +256,19 @@ var settings = {
 	// function (div) { div.css('display', 'inherit').fadeTo(0, 0);
 	// nav.elements.divDashSettings.append(div); div.fadeTo(150, 1); }
 
+	broadcastPushWidget: function (result) {
+		if (result.data === undefined) {
+			return;
+		}
+
+		for (var i = 0; i < result.data.length; i++) {
+			var item = result.data[i];
+			var widget = settings.getWidget(item.widgetId);
+			if (!widget.enabled || widget.setup.push === undefined) {
+				continue;
+			}
+
+			nav.executeFunction(widget.setup.push, window, item.payload);
+		}
+	}
 };

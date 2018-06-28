@@ -26,6 +26,24 @@
 
 var net = {
 
+
+	init: function () {
+
+		net.pushWidget(-1);
+		// var server = require('http').createServer();
+		// var io = require('socket.io')(server);
+		// io.on('connection', function (client) {
+		// 	client.on('event', function (data) {
+		// 		console.log('___event: ' + JSON.stringify(data));
+		// 	});
+		// 	client.on('disconnect', function () {
+		// 		console.log('socket disconnect');
+		// 	});
+		// });
+		// server.listen(3000);
+	},
+
+
 	getWidgets: function (callback) {
 		var res = {status: -1};
 
@@ -93,6 +111,32 @@ var net = {
 		});
 	},
 
+
+	pushWidget: function (lastEventId) {
+
+		$.ajax({
+			method: 'POST',
+			url: OC.generateUrl('/apps/dashboard/widget/push'),
+			data: {
+				json: JSON.stringify({eventId: lastEventId})
+			}
+		}).done(function (res) {
+			if (res.result === 'done') {
+				settings.broadcastPushWidget(res);
+				lastEventId = res.lastEventId;
+				net.pushWidget(lastEventId);
+			} else {
+				net.failedPush();
+			}
+		}).fail(function () {
+			net.failedPush();
+		});
+	},
+
+
+	failedPush: function () {
+		console.log('FAIL !');
+	},
 
 	onCallback: function (callback, result) {
 		if (callback && (typeof callback === 'function')) {

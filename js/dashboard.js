@@ -66,6 +66,7 @@
 		$.extend(DashBoard.prototype, nav);
 		$.extend(DashBoard.prototype, net);
 
+		net.init();
 		nav.init();
 		grid.init();
 	};

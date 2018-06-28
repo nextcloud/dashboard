@@ -29,7 +29,6 @@ namespace OCA\Dashboard\Controller;
 use Exception;
 use OCA\Dashboard\AppInfo\Application;
 use OCA\Dashboard\Model\WidgetFrame;
-use OCA\Dashboard\Model\WidgetRequest;
 use OCA\Dashboard\Service\ConfigService;
 use OCA\Dashboard\Service\MiscService;
 use OCA\Dashboard\Service\WidgetsService;
@@ -145,27 +144,6 @@ class NavigationController extends Controller {
 		}
 	}
 
-
-	/**
-	 * @NoAdminRequired
-	 * @NoSubAdminRequired
-	 *
-	 * @param string $json
-	 *
-	 * @return WidgetFrame[]
-	 */
-	public function requestWidget($json) {
-
-		try {
-			$request = WidgetRequest::fromJson($json);
-			$this->widgetsService->initWidgetRequest($request);
-			$this->widgetsService->requestWidget($request);
-
-			return ['result' => 'done', 'value' => $request->getResult()];
-		} catch (Exception $e) {
-			return ['result' => 'fail', 'message' => $e->getMessage()];
-		}
-	}
 
 
 	/**

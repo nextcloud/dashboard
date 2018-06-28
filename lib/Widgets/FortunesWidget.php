@@ -86,7 +86,7 @@ class FortunesWidget implements IDashboardWidget {
 	 */
 	public function widgetSetup() {
 		return [
-			'size'     => [
+			'size' => [
 				'min'     => [
 					'width'  => 2,
 					'height' => 1
@@ -112,7 +112,8 @@ class FortunesWidget implements IDashboardWidget {
 					'delay'    => 300,
 					'function' => 'OCA.DashBoard.fortunes.getFortune'
 				]
-			]
+			],
+			'push' => 'OCA.DashBoard.fortunes.push'
 		];
 	}
 

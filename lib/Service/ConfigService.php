@@ -33,11 +33,15 @@ use OCP\Util;
 
 class ConfigService {
 
-	const TEST_TEST = 'test_test';
+	const LIVE_TECHNOLOGY = 'live_technology';
+
+	const LIVE_TECHNOLOGY_NONE = 0;
+	const LIVE_TECHNOLOGY_LONG_POLLING = 1;
+	const LIVE_TECHNOLOGY_NODEJS = 2;
 
 	/** @var array */
 	public $defaults = [
-		self::TEST_TEST => '',
+		self::LIVE_TECHNOLOGY => self::LIVE_TECHNOLOGY_LONG_POLLING
 	];
 
 	/** @var IConfig */
