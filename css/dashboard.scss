@@ -24,120 +24,121 @@
  */
 
 #dashboard-nowidget {
-	display: none;
+  display: none;
 }
 
 .icon-dashboard {
-	background-image: url('../img/dashboard-dark.svg');
+  background-image: url('../img/dashboard-dark.svg');
 }
 
 .icon-widget {
-	background-image: url('../img/widget.svg');
+  background-image: url('../img/widget.svg');
 }
 
 /* WIDGET HEADER */
 .widget-header {
-	background-color: var(--color-primary);
-	color: var(--color-primary-text);
-	height: 44px;
-	display: flex;
-	position: relative;
-	align-items: center;
-	.widget-header-icon {
-		margin: 3px;
-		width: 44px;
-		height: 44px;
-		background-size: 22px;
-	}
-	.widget-right-icon {
-		margin-left: auto;
-		width: 44px;
-		height: 44px;
-		cursor: pointer;
-	}
-	.popovermenu {
-		top: 44px;
-	}
+  background-color: var(--color-primary);
+  color: var(--color-primary-text);
+  height: 44px;
+  display: flex;
+  position: relative;
+  align-items: center;
+  border-top-right-radius: var(--border-radius);
+  border-top-left-radius: var(--border-radius);
+  .widget-header-icon {
+    margin: 3px;
+    width: 44px;
+    height: 44px;
+    background-size: 22px;
+  }
+  .widget-right-icon {
+    margin-left: auto;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+  }
+  .popovermenu {
+    top: 44px;
+  }
 }
 
 /* WIDGET LISTS */
 .widget-list-row {
-	height: 50px;
-	margin-top: 15px;
+  height: 50px;
+  margin-top: 15px;
 }
 
 .widget-list-icon {
-	width: 32px;
-	height: 32px;
-	position: absolute;
-	margin: 10px;
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  margin: 10px;
 }
 
 .widget-list-text {
-	position: absolute;
-	left: 80px;
+  position: absolute;
+  left: 80px;
 }
 
 .widget-list-name {
-	font-size: 14px;
-	color: var(--color-text-light);
+  font-size: 14px;
+  color: var(--color-text-light);
 }
 
 .widget-list-desc {
-	font-size: 12px;
-	color: var(--color-text-lighter);
-	margin-right: 10px;
+  font-size: 12px;
+  color: var(--color-text-lighter);
+  margin-right: 10px;
 }
-
 
 /* GRID */
 .grid-stack {
-	margin-top: 10px
+  margin-top: 10px
 }
 
 .grid-stack-item-content {
-	color: #2c3e50;
-	text-align: center;
-	filter: drop-shadow(0 1px 3px var(--color-box-shadow));
+  color: #2c3e50;
+  text-align: center;
+  filter: drop-shadow(0 1px 3px var(--color-box-shadow));
+  border-radius: var(--border-radius);
 }
 
 .ui-state-disabled {
-	opacity: 1 !important;
-	filter: Alpha(Opacity=100) !important;
-	-webkit-transition: background-color 200ms linear;
-	-ms-transition: background-color 200ms linear;
-	transition: background-color 200ms linear;
+  opacity: 1 !important;
+  filter: Alpha(Opacity=100) !important;
+  -webkit-transition: background-color 200ms linear;
+  -ms-transition: background-color 200ms linear;
+  transition: background-color 200ms linear;
 }
 
 /* GRID STACK PLACEHOLDER */
 .grid-stack .grid-stack-placeholder > .placeholder-content {
-	border-color: var(--color-background-darker);
+  border-color: var(--color-background-darker);
 }
-
 
 /* WIDGET BACK */
 .back {
-	background: var(--color-background-darker);
+  background: var(--color-background-darker);
 }
 
 /* WIDGET CONTENT */
 .widget-content {
-	height: calc(100% - 44px);
-	overflow: hidden !important;
+  height: calc(100% - 44px);
+  overflow: hidden !important;
 }
 
 .grid-stack > .grid-stack-item > .grid-stack-item-content {
-	margin: 0 10px;
-	position: unset;
-	top: unset;
-	left: unset;
-	right: unset;
-	bottom: unset;
-	width: unset;
-	z-index: unset;
-	overflow-x: unset;
-	overflow-y: unset;
-	height: inherit;
-	background-color: var(--color-main-background);
-	color: var(--color-main-text);
+  margin: 0 10px;
+  position: unset;
+  top: unset;
+  left: unset;
+  right: unset;
+  bottom: unset;
+  width: unset;
+  z-index: unset;
+  overflow-x: unset;
+  overflow-y: unset;
+  height: inherit;
+  background-color: var(--color-main-background);
+  color: var(--color-main-text);
 }
