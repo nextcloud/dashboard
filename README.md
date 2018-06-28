@@ -40,6 +40,7 @@ Install 3rd party scripts via composer [https://getcomposer.org/](https://getcom
 ```
 cd [path to your webroot]/nextcloud/apps/dashboard
 ```
+```
 composer install
 ```
 
@@ -72,6 +73,7 @@ mv [path to your webroot]/nextcloud/apps/dashboard-master [path to your webroot]
 Install 3rd party scripts via composer [https://getcomposer.org/](https://getcomposer.org/).
 ```
 cd [path to your webroot]/nextcloud/apps/dashboard
+```
 ```
 composer install
 ```
