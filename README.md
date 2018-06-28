@@ -36,6 +36,13 @@ cd [path to your webroot]/nextcloud/apps/
 git clone https://github.com/nextcloud/dashboard.git
 ```
 
+Install 3rd party scripts via composer [https://getcomposer.org/](https://getcomposer.org/).
+```
+cd [path to your webroot]/nextcloud/apps/dashboard
+```
+composer install
+```
+
 Open a terminal and change the ownership of the whole dashboard directory to
 your webservice user and group (usually `www-data` or `apache`):
 ```
@@ -60,6 +67,13 @@ unzip master.zip -d [path to your webroot]/nextcloud/apps/
 ```
 ```
 mv [path to your webroot]/nextcloud/apps/dashboard-master [path to your webroot]/nextcloud/apps/dashboard
+```
+
+Install 3rd party scripts via composer [https://getcomposer.org/](https://getcomposer.org/).
+```
+cd [path to your webroot]/nextcloud/apps/dashboard
+```
+composer install
 ```
 
 Open a terminal and change the ownership of the whole dashboard directory to
