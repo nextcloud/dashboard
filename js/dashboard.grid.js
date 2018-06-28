@@ -186,7 +186,7 @@ var grid = {
 			var widgetIcon = $('<div>', {class: item.template.icon + '-white widget-header-icon'});
 			widgetHeader.append(widgetIcon);
 		}
-		widgetHeader.append($('<div>', {class: 'widget-header-name'}).text(item.widget.name));
+		widgetHeader.append($('<h2>', {class: 'widget-header-name'}).text(item.widget.name));
 
 		widgetHeader.on('mousedown', function () {
 			nav.elements.gridStack.setStatic(false);
