@@ -173,7 +173,7 @@ var grid = {
 	generateWidgetHeader: function (item) {
 
 		var headerRightMenu = $('<div>', {class: 'popovermenu'}).append($('<ul>'));
-		var headerRightIcon = $('<div>', {class: 'widget-right-icon icon-more-white'});
+		var headerRightIcon = $('<div>', {class: 'widget-right-icon icon-more'});
 		headerRightIcon.on('click', function (event) {
 			event.stopPropagation();
 			settings.displayWidgetMenu(headerRightMenu, item);
@@ -183,7 +183,7 @@ var grid = {
 
 		var widgetHeader = $('<div>', {class: 'widget-header'});
 		if (item.template.icon !== undefined) {
-			var widgetIcon = $('<div>', {class: item.template.icon + '-white widget-header-icon'});
+			var widgetIcon = $('<div>', {class: item.template.icon + ' widget-header-icon'});
 			widgetHeader.append(widgetIcon);
 		}
 		widgetHeader.append($('<h2>', {class: 'widget-header-name'}).text(item.widget.name));
