@@ -37,16 +37,19 @@
 
 /* WIDGET HEADER */
 .widget-header {
-  background-color: var(--color-primary);
-  color: var(--color-primary-text);
+  background-color: var(--color-main-background);
+  color: var(--color-main-text);
   height: 44px;
   display: flex;
   position: relative;
   align-items: center;
   border-top-right-radius: var(--border-radius);
   border-top-left-radius: var(--border-radius);
+  border-bottom: 1px solid var(--color-border);
+  h2 {
+    margin-bottom: 0;
+  }
   .widget-header-icon {
-    margin: 3px;
     width: 44px;
     height: 44px;
     background-size: 22px;
