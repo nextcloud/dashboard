@@ -104,10 +104,12 @@ var net = {
 				json: JSON.stringify(request)
 			}
 		}).done(function (res) {
-			net.onCallback(callback, res);
+			if (res.result === 'done') {
+				net.onCallback(callback, res);
+			}
 		}).fail(function () {
 			// net.failedToAjax();
-			net.onCallback(callback, res);
+			//net.onCallback(callback, res);
 		});
 	},
 
