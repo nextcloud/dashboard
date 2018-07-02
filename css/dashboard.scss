@@ -27,6 +27,21 @@
   display: none;
 }
 
+.dashboard-newwidget {
+  border: 1px dashed #000;
+  border-radius: 3px;
+  position: fixed;
+  right: 27px;
+  bottom: 17px;
+  color: #000;
+  font-weight: bold;
+  text-align: center;
+  padding: 40px 60px 40px 60px;
+  opacity: 0;
+  z-index: 0;
+  cursor: pointer;
+}
+
 .icon-dashboard {
   background-image: url('../img/dashboard-dark.svg');
 }
@@ -106,6 +121,7 @@
   text-align: center;
   filter: drop-shadow(0 1px 3px var(--color-box-shadow));
   border-radius: var(--border-radius);
+  z-index: 1 !important;
 }
 
 .ui-state-disabled {
@@ -140,7 +156,7 @@
   right: unset;
   bottom: unset;
   width: unset;
-  z-index: unset;
+  z-index: 1 !important;
   overflow-x: unset;
   overflow-y: unset;
   height: inherit;

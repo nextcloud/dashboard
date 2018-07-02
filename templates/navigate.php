@@ -46,4 +46,8 @@ namespace OCA\Dashboard;
 	<div class="popovermenu">
 		<ul></ul>
 	</div>
+
+	<div class="dashboard-newwidget">
+		Add new widget
+	</div>
 </div>

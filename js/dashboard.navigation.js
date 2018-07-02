@@ -30,6 +30,7 @@ var nav = {
 
 	elements: {
 		divNoWidget: null,
+		divNewWidget: null,
 		buttonNewWidget: null,
 		elWidgetList: null,
 		divGridStack: null,
@@ -45,10 +46,20 @@ var nav = {
 
 	initElements: function () {
 		nav.elements.divNoWidget = $('#dashboard-nowidget');
+		nav.elements.divNewWidget = $('.dashboard-newwidget');
 		nav.elements.buttonNewWidget = $('#dashboard-newwidget');
 		nav.elements.divGridStack = $('.grid-stack');
 
 		nav.elements.buttonNewWidget.on('click', nav.showWidgetsList);
+
+		nav.elements.divNewWidget.fadeOut(0).delay(3000).fadeTo(150, 0.35);
+		nav.elements.divNewWidget.on('mouseover', function () {
+			$(this).stop().fadeTo(150, 0.7);
+		}).on('mouseout', function () {
+			$(this).stop().fadeTo(150, 0.35);
+		}).on('click', function () {
+			nav.showWidgetsList();
+		});
 
 		$(window).click(function () {
 			settings.hideWidgetMenu();
@@ -130,6 +141,10 @@ var nav = {
 		var func = namespaces.pop();
 		for (var i = 0; i < namespaces.length; i++) {
 			context = context[namespaces[i]];
+		}
+		if (context === undefined) {
+			console.log('Unknown function \'' + functionName + '\'');
+			return;
 		}
 		return context[func].apply(context, args);
 	}
