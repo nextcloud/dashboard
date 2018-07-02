@@ -4,7 +4,7 @@ OC.L10N.register(
     "Dashboard" : "ダッシュボード",
     "Save changes" : "変更を保存",
     "Create announcement" : "アナウンスを生成する",
-    "Settings have been updated." : "設定は保存されました。",
+    "Settings have been updated." : "設定を更新しました。",
     "Show box" : "Boxを表示",
     "Wide box" : "Wide box",
     "Placement" : "配置",
