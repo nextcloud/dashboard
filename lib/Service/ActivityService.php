@@ -102,13 +102,15 @@ class ActivityService {
 		$files = array();
 		while ($row = $result->fetch()) {
 			$files[] = array(
-				'object_name' => substr($row['file'], 1),
-				'link'	      =>
-					str_replace(
-						'apps/files/?dir=/',
-						'f/' . $row['object_id'],
-						$row['link']
-					),
+				'object_name' => substr(
+					$row['file'],
+					strrpos($row['file'], '/') +1
+				),
+				'link'	      => substr(
+					$row['link'],
+					0,
+					strpos($row['link'], '.php/') + 5
+				) . 'f/' . $row['object_id'],
 				'type'	      => $row['subject'],
 				'timestamp'   => $row['timestamp'],
 				'user'        => $row['user'],
