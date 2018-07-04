@@ -8,6 +8,7 @@
  * @author regio iT gesellschaft für informationstechnologie mbh
  * @copyright regio iT 2017
  * @license GNU AGPL version 3 or any later version
+ * @contributor tuxedo-rb | TUXEDO Computers GmbH | https://www.tuxedocomputers.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -27,10 +28,8 @@
 /** @var array $_ */
 ?>
 <?php
-if($_['show_activity']===1)    {?>
-<section class="dashboard-section span6" <?php if($_['show_wide_activity']===1)    {?> style="width: 97.25%"
-    <?php
-} ?>>
+if($_['show_activity']===1) {?>
+<section class="dashboard-section span6" style="border-bottom-color: <?php p($_['theming_color']); ?>;<?php if($_['show_wide_activity']===1) { ?> width: 97.25%;<?php } ?>">
 <h1><a data-toggle="myCollapse" data-target="#activities"><?php p($l->t('Recently uploaded files')); ?></a></h1>
 <div class="myCollapse in" id="activities">
     <table class="hover" style="width: 100%;">
@@ -45,6 +44,4 @@ if($_['show_activity']===1)    {?>
     </table>
 </div>
 </section>
-<?php
-}
-?>
+<?php }?>

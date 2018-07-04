@@ -27,23 +27,23 @@
 
 /** @var array $_ */
 ?>
-<div class="row-fluid">
-        <?php print_unescaped($this->inc("section.{$_['panel_0']}")); ?>
-        <?php print_unescaped($this->inc("section.{$_['panel_1']}")); ?>
+<div class="row-fluid" style="border-bottom-color: <?php p($_['theming_color']); ?>;">
+    <?php print_unescaped($this->inc("section.{$_['panel_0']}")); ?>
+    <?php print_unescaped($this->inc("section.{$_['panel_1']}")); ?>
 </div>
 
-<div class="row-fluid">
+<div class="row-fluid" style="border-bottom-color: <?php p($_['theming_color']); ?>;">
     <?php print_unescaped($this->inc("section.{$_['panel_2']}")); ?>
     <?php print_unescaped($this->inc("section.{$_['panel_3']}")); ?>
 </div>
 
 <?php if($_['show_quota']===1) : ?>
-<div class="row-fluid">
-    <section class="dashboard-section">
+<div class="row-fluid" style="border-bottom-color: <?php p($_['theming_color']); ?>;">
+    <section class="dashboard-section" style="border-bottom-color: <?php p($_['theming_color']); ?>;">
         <h1><a data-toggle="myCollapse" data-target="#quota"><?php p($l->t('Used space')); ?></a></h1>
 
         <div id="quota" class="myCollapse in">
-            <div id="quota-used" style="width: <?php p($_['storage_info']['relative']); ?>%"></div>
+            <div id="quota-used" style="width: <?php p($_['storage_info']['relative']); ?>%;"></div>
             <div id="quota-limit"></div>
             <p id="quota-text"><?php print_unescaped($l->t('You have used <strong>%s</strong> of the available <strong>%s</strong>', $_['storage_info']['quota'])); ?></p>
         </div>

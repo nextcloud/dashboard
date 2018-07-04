@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Nextcloud - Dashboard App
  *
@@ -28,7 +27,6 @@
 
 namespace OCA\Dashboard\Controller;
 
-
 use DateInterval;
 use OC_Helper;
 use OCA\Dashboard\Db\DashboardSettingsMapper;
@@ -39,7 +37,7 @@ use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IRequest;
 use OCP\IURLGenerator;
 use OCP\Template;
-
+use OCP\IConfig;
 
 /**
  * Description of PageController
@@ -55,6 +53,9 @@ class PageController extends Controller {
 	/** @var IURLGenerator */
 	private $urlGenerator;
 
+	/** @var IConfig */
+	private $config;
+
 	/**
 	 * PageController constructor.
 	 *
@@ -63,15 +64,21 @@ class PageController extends Controller {
 	 * @param DashboardSettingsMapper $dashboardSettingsMapper
 	 * @param DashboardService $dashboardService
 	 * @param IURLGenerator $urlGenerator
+	 * @param IConfig $config
 	 */
 	public function __construct(
-		$appName, IRequest $request, DashboardSettingsMapper $dashboardSettingsMapper,
-		DashboardService $dashboardService, IURLGenerator $urlGenerator
+		$appName,
+		IRequest $request,
+		DashboardSettingsMapper $dashboardSettingsMapper,
+		DashboardService $dashboardService,
+		IURLGenerator $urlGenerator,
+		IConfig $config
 	) {
 		parent::__construct($appName, $request);
 		$this->dashboardSettingsMapper = $dashboardSettingsMapper;
 		$this->dashboardService = $dashboardService;
 		$this->urlGenerator = $urlGenerator;
+		$this->config = $config;
 	}
 
 	/**
@@ -85,6 +92,7 @@ class PageController extends Controller {
 	 * @NoCSRFRequired
 	 */
 	public function index() {
+		$defaultColor = $this->config->getAppValue('theming', 'color', '#0082C9');
 		$canCreateAnnouncements = $this->dashboardService->isInGroup('News');
 		$storageInfo = OC_Helper::getStorageInfo('/');
 
@@ -159,6 +167,7 @@ class PageController extends Controller {
 			}
 		}
 		$params = [
+			'theming_color'            => $defaultColor,
 			'can_create_announcements' => $canCreateAnnouncements,
 			'isAdmin'                  => $this->dashboardService->isAdmin(),
 			'show_activity'            => $showActivity,
@@ -240,4 +249,5 @@ class PageController extends Controller {
 			return 'blank';
 		}
 	}
+
 }
