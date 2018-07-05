@@ -25,7 +25,8 @@
 
 
 var curr = {
-	settingsShown: false,
+	mouseOverWidget: '',
+	settingsShown: '',
 	widgetsShown: false,
 	settingsWidget: '',
 	widgets: [],
@@ -39,6 +40,7 @@ var settings = {
 	firstInstall: function () {
 
 		nav.elements.divNoWidget.stop().fadeOut(150);
+		nav.elements.divNewWidget.stop().fadeTo(150, 0.35);
 		for (var i = 0; i < curr.widgets.length; i++) {
 			var item = curr.widgets[i];
 			if (item.enabled) {
@@ -47,6 +49,7 @@ var settings = {
 		}
 
 		nav.elements.divNoWidget.stop().fadeIn(150);
+		nav.elements.divNewWidget.stop().fadeOut(150);
 	},
 
 
@@ -172,10 +175,24 @@ var settings = {
 		nav.elements.divGridStack.find('.popovermenu').each(function () {
 			$(this).fadeOut(150);
 		});
+		settings.removeAllWidgetRightIcon();
 		// divHeader.fadeOut(150);
 	},
 
-	// displayWidgetSettings: function (widgetId) {
+
+	removeAllWidgetRightIcon: function () {
+		nav.elements.divGridStack.children('div').each(function () {
+			var currWidgetId = $(this).attr('data-widget-id');
+			if (curr.settingsShown === currWidgetId || curr.mouseOverWidget === currWidgetId) {
+				return;
+			}
+
+			$(this).find('.widget-right-icon').stop().fadeOut(150);
+		});
+	},
+
+
+// displayWidgetSettings: function (widgetId) {
 	// 	if (curr.settingsWidget !== '') {
 	// 		if (widgetId !== curr.settingsWidget) {
 	// 			settings.hideWidgetSettings(widgetId);

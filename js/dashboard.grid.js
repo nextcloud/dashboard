@@ -102,9 +102,13 @@ var grid = {
 			position.minWidth, position.maxWidth, position.minHeight, position.maxHeight);
 
 		widget.on('mouseover', function () {
+			curr.mouseOverWidget = item.widget.id;
 			widget.find('.ui-resizable-handle').stop().fadeIn(150);
+			widget.find('.widget-right-icon').stop().fadeTo(150, 0.65);
 		}).on('mouseout', function () {
+			curr.mouseOverWidget = '';
 			widget.find('.ui-resizable-handle').stop().fadeOut(150);
+			settings.removeAllWidgetRightIcon();
 		});
 
 		widget.find('.ui-resizable-handle').on('mousedown', function () {
@@ -149,7 +153,8 @@ var grid = {
 		settings.updateWidgetEnabledStatus(widgetId, false);
 		settings.firstInstall();
 
-		if (typeof curr.jobs[widgetId] === undefined) {
+
+		if (curr.jobs[widgetId] === undefined || (typeof curr.jobs[widgetId] === undefined)) {
 			return;
 		}
 
@@ -174,7 +179,7 @@ var grid = {
 
 		var headerRightMenu = $('<div>', {class: 'popovermenu'}).append($('<ul>'));
 		var headerRightIcon = $('<div>', {class: 'widget-right-icon icon-more'});
-		headerRightIcon.on('click', function (event) {
+		headerRightIcon.fadeOut(0).on('click', function (event) {
 			event.stopPropagation();
 			settings.displayWidgetMenu(headerRightMenu, item);
 		}).on('mousedown mouseup', function (event) {
@@ -315,23 +320,23 @@ var grid = {
 	},
 
 
-	hideSettings: function () {
-		nav.elements.gridStack.setStatic(true);
-		nav.elements.divGridStack.find('.widget-right-icons').each(function () {
-			$(this).stop().fadeOut(150);
-		});
-
-		nav.elements.divGridStack.find('.widget-content').each(function () {
-			if ($(this).data('flip-model')) {
-				$(this).flip(false);
-			}
-		});
-	},
-
-	showSettings: function () {
-		nav.elements.gridStack.setStatic(false);
-		nav.elements.divGridStack.find('.widget-right-icons').each(function () {
-			$(this).stop().fadeIn(150);
-		});
-	}
+	// hideSettings: function () {
+	// 	nav.elements.gridStack.setStatic(true);
+	// 	nav.elements.divGridStack.find('.widget-right-icons').each(function () {
+	// 		$(this).stop().fadeOut(150);
+	// 	});
+	//
+	// 	nav.elements.divGridStack.find('.widget-content').each(function () {
+	// 		if ($(this).data('flip-model')) {
+	// 			$(this).flip(false);
+	// 		}
+	// 	});
+	// },
+	//
+	// showSettings: function () {
+	// 	nav.elements.gridStack.setStatic(false);
+	// 	nav.elements.divGridStack.find('.widget-right-icons').each(function () {
+	// 		$(this).stop().fadeIn(150);
+	// 	});
+	// }
 };
