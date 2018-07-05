@@ -32,14 +32,6 @@
 		<admin>OCA\Dashboard\Settings\Admin</admin>
 		<admin-section>OCA\Dashboard\Settings\Section</admin-section>
 	</settings>
-	<repair-steps>
-		<install>
-			<step>OCA\Dashboard\Migration\SetDefaultDashboardSettings</step>
-		</install>
-		<uninstall>
-			<step>OCA\Dashboard\Migration\DropDashboardTables</step>
-		</uninstall>
-	</repair-steps>
 
 	<commands>
 		<command>OCA\Dashboard\Command\Push</command>
