@@ -75,11 +75,15 @@
     width: 44px;
     height: 44px;
     cursor: pointer;
-    opacity: 0.65;
+    opacity: 0;
   }
   .popovermenu {
     top: 44px;
   }
+}
+
+.popovermenu {
+  z-index: 999;
 }
 
 /* WIDGET LISTS */
