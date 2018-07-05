@@ -140,11 +140,11 @@ var nav = {
 		var namespaces = functionName.split(".");
 		var func = namespaces.pop();
 		for (var i = 0; i < namespaces.length; i++) {
+			if (context[namespaces[i]] === undefined) {
+				console.log('Unknown function \'' + functionName + '\'');
+				return;
+			}
 			context = context[namespaces[i]];
-		}
-		if (context === undefined) {
-			console.log('Unknown function \'' + functionName + '\'');
-			return;
 		}
 		return context[func].apply(context, args);
 	}
