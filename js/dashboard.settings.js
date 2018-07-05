@@ -175,6 +175,10 @@ var settings = {
 		nav.elements.divGridStack.find('.popovermenu').each(function () {
 			$(this).fadeOut(150);
 		});
+		nav.elements.divGridStack.find('DIV.ui-resizable-handle').each(function () {
+			$(this).removeClass('ui-resizable-handle-hidden');
+		});
+
 		settings.removeAllWidgetRightIcon();
 		// divHeader.fadeOut(150);
 	},

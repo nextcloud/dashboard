@@ -167,3 +167,7 @@
   background-color: var(--color-main-background);
   color: var(--color-main-text);
 }
+
+.ui-resizable-handle-hidden {
+  z-index: 0 !important;
+}

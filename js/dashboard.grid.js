@@ -74,7 +74,11 @@ var grid = {
 			'data-widget-id': item.widget.id
 		});
 
-		widgetDiv.append(this.generateWidgetHeader(item));
+		var widget = $('<div>', {
+			'data-widget-id': item.widget.id
+		}).append(widgetDiv);
+
+		widgetDiv.append(this.generateWidgetHeader(item, widget));
 		var widgetContent = $('<div>', {class: 'widget-content'});
 		widgetDiv.append(widgetContent);
 
@@ -90,10 +94,6 @@ var grid = {
 				axis: 'y'
 			});
 		}
-
-		var widget = $('<div>', {
-			'data-widget-id': item.widget.id
-		}).append(widgetDiv);
 
 		var position = grid.initPosition(item);
 
@@ -175,13 +175,14 @@ var grid = {
 		widget.find('.widget-content').flip('toggle');
 	},
 
-	generateWidgetHeader: function (item) {
+	generateWidgetHeader: function (item, parent) {
 
 		var headerRightMenu = $('<div>', {class: 'popovermenu'}).append($('<ul>'));
 		var headerRightIcon = $('<div>', {class: 'widget-right-icon icon-more'});
 		headerRightIcon.fadeOut(0).on('click', function (event) {
 			event.stopPropagation();
 			settings.displayWidgetMenu(headerRightMenu, item);
+			parent.children('DIV.ui-resizable-handle').addClass('ui-resizable-handle-hidden');
 		}).on('mousedown mouseup', function (event) {
 			event.stopPropagation();
 		});
