@@ -34,7 +34,7 @@ use OCA\Dashboard\Exceptions\WidgetDoesNotExistException;
 use OCA\Dashboard\Exceptions\WidgetIsNotCompatibleException;
 use OCA\Dashboard\Exceptions\WidgetIsNotUniqueException;
 use OCA\Dashboard\IDashboardWidget;
-use OCA\Dashboard\Model\Event;
+use OCA\Dashboard\Model\WidgetEvent;
 use OCA\Dashboard\Model\WidgetFrame;
 use OCA\Dashboard\Model\WidgetRequest;
 use OCP\AppFramework\QueryException;
@@ -74,17 +74,18 @@ class EventsService {
 	 * @param array $payload
 	 */
 	public function createEvent($userId, $widgetId, $payload) {
-		$event = new Event($userId, $widgetId);
+		$event = new WidgetEvent($userId, $widgetId);
 		$event->setPayload($payload);
 
 		$this->pushEvent($event);
 	}
 
 	/**
-	 * @param Event $event
+	 * @param WidgetEvent $event
 	 */
-	public function pushEvent(Event $event) {
+	public function pushEvent(WidgetEvent $event) {
 		try {
+			$this->miscService->log('push event: ' . json_encode($event));
 			$this->eventsRequest->create($event);
 		} catch (Exception $e) {
 		}
@@ -95,7 +96,7 @@ class EventsService {
 	 *
 	 * @param int $lastEventId
 	 *
-	 * @return Event[]
+	 * @return WidgetEvent[]
 	 */
 	public function getEvents($userId, $lastEventId) {
 		$events = $this->eventsRequest->getEventsByUserId($userId, $lastEventId);

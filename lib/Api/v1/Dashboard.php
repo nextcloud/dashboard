@@ -28,8 +28,10 @@ namespace OCA\Dashboard\Api\v1;
 
 
 use OCA\Dashboard\AppInfo\Application;
+use OCA\Dashboard\Model\WidgetSettings;
 use OCA\Dashboard\Service\ConfigService;
 use OCA\Dashboard\Service\EventsService;
+use OCA\Dashboard\Service\WidgetsService;
 use OCP\AppFramework\QueryException;
 
 class Dashboard {
@@ -75,13 +77,28 @@ class Dashboard {
 
 
 	/**
-	 * @param string $userId
 	 * @param string $widgetId
+	 * @param string $userId
+	 *
+	 * @return WidgetSettings
+	 * @throws QueryException
+	 */
+	public static function getWidgetSettings($widgetId, $userId) {
+		$c = self::getContainer();
+
+		return $c->query(WidgetsService::class)
+				 ->getWidgetSettings($widgetId, $userId);
+	}
+
+
+	/**
+	 * @param string $widgetId
+	 * @param string $userId
 	 * @param array $payload
 	 *
 	 * @throws QueryException
 	 */
-	public static function createEvent($userId, $widgetId, $payload) {
+	public static function createEvent($widgetId, $userId, $payload) {
 		$c = self::getContainer();
 
 		$c->query(EventsService::class)

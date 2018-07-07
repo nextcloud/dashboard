@@ -27,18 +27,18 @@
 namespace OCA\Dashboard\Db;
 
 
-use OCA\Dashboard\Model\Event;
+use OCA\Dashboard\Model\WidgetEvent;
 
 class EventsRequest extends EventsRequestBuilder {
 
 
 	/**
-	 * @param Event $event
+	 * @param WidgetEvent $event
 	 *
 	 * @return int
 	 * @throws \Exception
 	 */
-	public function create(Event $event) {
+	public function create(WidgetEvent $event) {
 
 		try {
 			$qb = $this->getEventsInsertSql();
@@ -56,9 +56,9 @@ class EventsRequest extends EventsRequestBuilder {
 
 
 	/**
-	 * @param Event $event
+	 * @param WidgetEvent $event
 	 */
-	public function deleteEvent(Event $event) {
+	public function deleteEvent(WidgetEvent $event) {
 		$qb = $this->getEventsDeleteSql();
 		$this->limitToId($qb, $event->getId());
 
@@ -67,14 +67,13 @@ class EventsRequest extends EventsRequestBuilder {
 
 
 	/**
-	 * @param Event[] $events
+	 * @param WidgetEvent[] $events
 	 */
 	public function deleteEvents($events) {
 // TODO single request for all Ids
 		foreach ($events as $event) {
 			$this->deleteEvent($event);
 		}
-
 	}
 
 	/**
@@ -92,7 +91,7 @@ class EventsRequest extends EventsRequestBuilder {
 	 * @param string $userId
 	 * @param int $lastEventId
 	 *
-	 * @return Event[]
+	 * @return WidgetEvent[]
 	 */
 	public function getEventsByUserId($userId, $lastEventId) {
 		$qb = $this->getEventsSelectSql();

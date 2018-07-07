@@ -97,7 +97,7 @@ var nav = {
 		var count = 0;
 		for (var i = 0; i < curr.widgets.length; i++) {
 			var item = curr.widgets[i];
-			if (item.enabled) {
+			if (item.config.enabled) {
 				continue;
 			}
 
@@ -121,7 +121,7 @@ var nav = {
 
 			div.on('click', function () {
 				var item = settings.getWidget($(this).attr('data-widget-id'));
-				if (item === null || item.enabled) {
+				if (item === null || item.config.enabled) {
 					return
 				}
 

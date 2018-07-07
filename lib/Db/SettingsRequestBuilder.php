@@ -27,10 +27,10 @@
 namespace OCA\Dashboard\Db;
 
 
-use OCA\Dashboard\Model\WidgetEvent;
+use OCA\Dashboard\Model\WidgetSettings;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 
-class EventsRequestBuilder extends CoreRequestBuilder {
+class SettingsRequestBuilder extends CoreRequestBuilder {
 
 
 	/**
@@ -38,10 +38,9 @@ class EventsRequestBuilder extends CoreRequestBuilder {
 	 *
 	 * @return IQueryBuilder
 	 */
-	protected function getEventsInsertSql() {
+	protected function getSettingsInsertSql() {
 		$qb = $this->dbConnection->getQueryBuilder();
-		$qb->insert(self::TABLE_EVENTS);
-		$qb->setValue('creation', $qb->createNamedParameter(time()));
+		$qb->insert(self::TABLE_SETTINGS);
 
 		return $qb;
 	}
@@ -52,9 +51,9 @@ class EventsRequestBuilder extends CoreRequestBuilder {
 	 *
 	 * @return IQueryBuilder
 	 */
-	protected function getEventsUpdateSql() {
+	protected function getSettingsUpdateSql() {
 		$qb = $this->dbConnection->getQueryBuilder();
-		$qb->update(self::TABLE_EVENTS);
+		$qb->update(self::TABLE_SETTINGS);
 
 		return $qb;
 	}
@@ -65,14 +64,14 @@ class EventsRequestBuilder extends CoreRequestBuilder {
 	 *
 	 * @return IQueryBuilder
 	 */
-	protected function getEventsSelectSql() {
+	protected function getSettingsSelectSql() {
 		$qb = $this->dbConnection->getQueryBuilder();
 
 		/** @noinspection PhpMethodParametersCountMismatchInspection */
-		$qb->select('e.id', 'e.user_id', 'e.widget_id', 'e.payload', 'e.creation')
-		   ->from(self::TABLE_EVENTS, 'e');
+		$qb->select('s.widget_id', 's.user_id', 's.position', 's.settings', 's.enabled')
+		   ->from(self::TABLE_SETTINGS, 's');
 
-		$this->defaultSelectAlias = 'e';
+		$this->defaultSelectAlias = 's';
 
 		return $qb;
 	}
@@ -83,9 +82,9 @@ class EventsRequestBuilder extends CoreRequestBuilder {
 	 *
 	 * @return IQueryBuilder
 	 */
-	protected function getEventsDeleteSql() {
+	protected function getSettingsDeleteSql() {
 		$qb = $this->dbConnection->getQueryBuilder();
-		$qb->delete(self::TABLE_EVENTS);
+		$qb->delete(self::TABLE_SETTINGS);
 
 		return $qb;
 	}
@@ -94,15 +93,15 @@ class EventsRequestBuilder extends CoreRequestBuilder {
 	/**
 	 * @param array $data
 	 *
-	 * @return WidgetEvent
+	 * @return WidgetSettings
 	 */
-	protected function parseEventsSelectSql($data) {
-		$event = new WidgetEvent($data['user_id'], $data['widget_id']);
-		$event->setId($data['id'])
-			  ->setPayload(json_decode($data['payload'], true))
-			  ->setCreation($data['creation']);
+	protected function parseSettingsSelectSql($data) {
+		$settings = new WidgetSettings($data['widget_id'], $data['user_id']);
+		$settings->setPosition(json_decode($data['position'], true))
+				 ->setSettings(json_decode($data['settings'], true))
+				 ->setEnabled($data['enabled']);
 
-		return $event;
+		return $settings;
 	}
 
 }

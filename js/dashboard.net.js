@@ -28,19 +28,7 @@ var net = {
 
 
 	init: function () {
-
 		net.pushWidget(-1);
-		// var server = require('http').createServer();
-		// var io = require('socket.io')(server);
-		// io.on('connection', function (client) {
-		// 	client.on('event', function (data) {
-		// 		console.log('___event: ' + JSON.stringify(data));
-		// 	});
-		// 	client.on('disconnect', function () {
-		// 		console.log('socket disconnect');
-		// 	});
-		// });
-		// server.listen(3000);
 	},
 
 
@@ -137,7 +125,7 @@ var net = {
 
 
 	failedPush: function () {
-		console.log('FAIL !');
+		// console.log('FAIL !');
 	},
 
 	onCallback: function (callback, result) {

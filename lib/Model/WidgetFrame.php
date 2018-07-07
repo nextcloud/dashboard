@@ -36,11 +36,8 @@ class WidgetFrame implements \JsonSerializable {
 	/** @var IDashboardWidget */
 	private $widget;
 
-	/** @var array */
-	private $config = [];
-
-	/** @var array */
-	private $position = [];
+	/** @var WidgetSettings */
+	private $settings;
 
 
 	/**
@@ -50,10 +47,9 @@ class WidgetFrame implements \JsonSerializable {
 	 * @param array $config
 	 * @param array $position
 	 */
-	public function __construct(IDashboardWidget $widget, $config, $position) {
+	public function __construct(IDashboardWidget $widget, WidgetSettings $settings) {
 		$this->widget = $widget;
-		$this->config = $config;
-		$this->position = $position;
+		$this->settings = $settings;
 	}
 
 
@@ -77,38 +73,19 @@ class WidgetFrame implements \JsonSerializable {
 
 
 	/**
-	 * @return array
+	 * @return WidgetSettings
 	 */
-	public function getConfig() {
-		return $this->config;
+	public function getSettings() {
+		return $this->settings;
 	}
 
 	/**
-	 * @param array $config
+	 * @param WidgetSettings $settings
 	 *
 	 * @return $this
 	 */
-	public function setConfig($config) {
-		$this->config = $config;
-
-		return $this;
-	}
-
-
-	/**
-	 * @return array
-	 */
-	public function getPosition() {
-		return $this->position;
-	}
-
-	/**
-	 * @param array $position
-	 *
-	 * @return $this
-	 */
-	public function setPosition($position) {
-		$this->position = $position;
+	public function setConfig(WidgetSettings $settings) {
+		$this->settings = $settings;
 
 		return $this;
 	}
@@ -137,9 +114,7 @@ class WidgetFrame implements \JsonSerializable {
 			'template' => $widget->getTemplate(),
 			'setup'    => $widget->widgetSetup(),
 			'html'     => $html->render(),
-			'config'   => $this->getConfig(),
-			'position' => $this->getPosition(),
-			'enabled'  => ((array_key_exists('x', $this->getPosition())) ? true : false)
+			'config'   => $this->getSettings()
 		];
 	}
 }

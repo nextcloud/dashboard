@@ -6,6 +6,7 @@ namespace OCA\Dashboard\Widgets;
 use OCA\Dashboard\AppInfo\Application;
 use OCA\Dashboard\IDashboardWidget;
 use OCA\Dashboard\Model\WidgetRequest;
+use OCA\Dashboard\Model\WidgetSettings;
 
 class Test1Widget implements IDashboardWidget {
 
@@ -100,9 +101,9 @@ class Test1Widget implements IDashboardWidget {
 
 
 	/**
-	 * @param array $config
+	 * @param WidgetSettings $settings
 	 */
-	public function loadWidget($config) {
+	public function loadWidget($settings) {
 	}
 
 

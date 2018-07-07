@@ -3,6 +3,53 @@
 	<name>*dbname*</name>
 	<create>true</create>
 	<overwrite>false</overwrite>
+
+	<table>
+		<name>*dbprefix*dashboard_settings</name>
+		<declaration>
+			<field>
+				<name>widget_id</name>
+				<type>text</type>
+				<notnull>true</notnull>
+				<length>31</length>
+			</field>
+			<field>
+				<name>user_id</name>
+				<type>text</type>
+				<notnull>true</notnull>
+				<length>63</length>
+			</field>
+			<field>
+				<name>position</name>
+				<type>text</type>
+				<notnull>true</notnull>
+				<length>255</length>
+			</field>
+			<field>
+				<name>settings</name>
+				<type>text</type>
+				<notnull>true</notnull>
+				<length>3000</length>
+			</field>
+			<field>
+				<name>enabled</name>
+				<type>boolean</type>
+				<notnull>true</notnull>
+			</field>
+			<index>
+				<name>unique_setting</name>
+				<primary>true</primary>
+				<unique>true</unique>
+				<field>
+					<name>widget_id</name>
+				</field>
+				<field>
+					<name>user_id</name>
+				</field>
+			</index>
+		</declaration>
+	</table>
+
 	<table>
 		<name>*dbprefix*dashboard_events</name>
 		<declaration>
@@ -41,4 +88,5 @@
 			</field>
 		</declaration>
 	</table>
+
 </database>

@@ -43,7 +43,7 @@ var settings = {
 		nav.elements.divNewWidget.stop().fadeTo(150, 0.35);
 		for (var i = 0; i < curr.widgets.length; i++) {
 			var item = curr.widgets[i];
-			if (item.enabled) {
+			if (item.config.enabled) {
 				return;
 			}
 		}
@@ -56,7 +56,7 @@ var settings = {
 	moreWidgetToInstall: function () {
 		for (var i = 0; i < curr.widgets.length; i++) {
 			var item = curr.widgets[i];
-			if (!item.enabled) {
+			if (!item.config.enabled) {
 				return true;
 			}
 		}
@@ -79,7 +79,7 @@ var settings = {
 	updateWidgetEnabledStatus: function (widgetId, enabled) {
 		for (var i = 0; i < curr.widgets.length; i++) {
 			if (curr.widgets[i].widget.id === widgetId) {
-				curr.widgets[i].enabled = enabled;
+				curr.widgets[i].config.enabled = enabled;
 			}
 		}
 	},
@@ -285,10 +285,10 @@ var settings = {
 		for (var i = 0; i < result.data.length; i++) {
 			var item = result.data[i];
 			var widget = settings.getWidget(item.widgetId);
-			if (!widget.enabled || widget.setup.push === undefined) {
+			if (!widget.config.enabled || widget.setup.push === undefined) {
 				continue;
 			}
-
+console.log('payload !');
 			nav.executeFunction(widget.setup.push, window, item.payload);
 		}
 	}

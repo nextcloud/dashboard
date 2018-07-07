@@ -29,19 +29,27 @@ namespace OCA\Dashboard\Service;
 use Exception;
 use OC\App\AppManager;
 use OC_App;
+use OCA\Dashboard\Db\SettingsRequest;
+use OCA\Dashboard\Exceptions\UserCannotBeEmptyException;
 use OCA\Dashboard\Exceptions\WidgetDoesNotExistException;
 use OCA\Dashboard\Exceptions\WidgetIsNotCompatibleException;
 use OCA\Dashboard\Exceptions\WidgetIsNotUniqueException;
 use OCA\Dashboard\IDashboardWidget;
 use OCA\Dashboard\Model\WidgetFrame;
 use OCA\Dashboard\Model\WidgetRequest;
+use OCA\Dashboard\Model\WidgetSettings;
 use OCP\AppFramework\QueryException;
-use OCP\PreConditionNotMetException;
 
 class WidgetsService {
 
+	/** @var string */
+	private $userId;
+
 	/** @var AppManager */
 	private $appManager;
+
+	/** @var SettingsRequest */
+	private $settingsRequest;
 
 	/** @var ConfigService */
 	private $configService;
@@ -59,19 +67,27 @@ class WidgetsService {
 	/**
 	 * ProviderService constructor.
 	 *
+	 * @param string $userId
 	 * @param AppManager $appManager
+	 * @param SettingsRequest $settingsRequest
 	 * @param ConfigService $configService
 	 * @param MiscService $miscService
-	 *
 	 */
 	public function __construct(
-		AppManager $appManager, ConfigService $configService, MiscService $miscService
+		$userId, AppManager $appManager, SettingsRequest $settingsRequest,
+		ConfigService $configService, MiscService $miscService
 	) {
+		$this->userId = $userId;
 		$this->appManager = $appManager;
+		$this->settingsRequest = $settingsRequest;
 		$this->configService = $configService;
 		$this->miscService = $miscService;
 	}
 
+
+	public function getWidgetSettings($widgetId, $userId) {
+		return $this->settingsRequest->get($widgetId, $userId);
+	}
 
 	/**
 	 * @param bool $loadWidgets
@@ -96,7 +112,8 @@ class WidgetsService {
 			return;
 		}
 
-		$this->configService->deleteUserValue('_' . $widgetId . '_pos');
+		$this->settingsRequest->disableWidget($widgetId, $this->userId);
+//		$this->configService->deleteUserValue('_' . $widgetId . '_pos');
 	}
 
 	/**
@@ -112,12 +129,17 @@ class WidgetsService {
 				'height' => $item['height']
 			];
 
-			try {
-				$this->configService->setUserValue(
-					'_' . $item['widgetId'] . '_pos', json_encode($pos)
-				);
-			} catch (PreConditionNotMetException $e) {
-			}
+			$settings = new WidgetSettings($item['widgetId'], $this->userId);
+			$settings->setPosition($pos);
+			$settings->setEnabled(true);
+
+//			try {
+			$this->settingsRequest->savePosition($settings);
+//				$this->configService->setUserValue(
+//					'_' . $item['widgetId'] . '_pos', json_encode($pos)
+//				);
+//			} catch (PreConditionNotMetException $e) {
+//			}
 		}
 	}
 
@@ -151,7 +173,7 @@ class WidgetsService {
 		$widgetFrame = $this->getWidgetFrame($widgetId);
 
 		$widget = $widgetFrame->getWidget();
-		$widget->loadWidget($widgetFrame->getConfig());
+		$widget->loadWidget($widgetFrame->getSettings());
 
 		$widgetRequest->setWidget($widget);
 	}
@@ -176,7 +198,7 @@ class WidgetsService {
 		foreach ($this->widgetFrames as $widgetFrame) {
 			try {
 				$widget = $widgetFrame->getWidget();
-				$widget->loadWidget($widgetFrame->getConfig());
+				$widget->loadWidget($widgetFrame->getSettings());
 			} catch (Exception $e) {
 				$this->miscService->log($e->getMessage());
 			}
@@ -191,21 +213,16 @@ class WidgetsService {
 	 *
 	 * @return WidgetFrame
 	 */
-	private function generateWidgetFrame(IDashboardWidget $widget) {
-		$settings = MiscService::get($widget->widgetSetup(), 'settings', []);
+	private function generateWidgetFrame(IDashboardWidget $widget, $userId = '') {
 
-		$position =
-			json_decode($this->configService->getUserValue('_' . $widget->getId() . '_pos', '[]'));
-		$config =
-			json_decode($this->configService->getUserValue('_' . $widget->getId() . '_conf', '[]'));
-
-		foreach ($settings as $item) {
-			if (!array_key_exists($item['name'], $config)) {
-				$config[$item['name']] = MiscService::get($item, 'default', '');
-			}
+		if ($userId === '') {
+			$userId = $this->userId;
 		}
 
-		return new WidgetFrame($widget, $config, $position);
+		$settings = $this->settingsRequest->get($widget->getId(), $userId);
+		$settings->setDefaultSettings(MiscService::get($widget->widgetSetup(), 'settings', []));
+
+		return new WidgetFrame($widget, $settings);
 	}
 
 

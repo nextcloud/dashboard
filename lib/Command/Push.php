@@ -28,7 +28,7 @@ namespace OCA\Dashboard\Command;
 
 use Exception;
 use OC\Core\Command\Base;
-use OCA\Dashboard\Model\Event;
+use OCA\Dashboard\Model\WidgetEvent;
 use OCA\Dashboard\Service\EventsService;
 use OCA\Dashboard\Service\MiscService;
 use Symfony\Component\Console\Input\InputArgument;
@@ -65,8 +65,8 @@ class Push extends Base {
 		parent::configure();
 		$this->setName('dashboard:push')
 			 ->setDescription('Push an event manually')
-			 ->addArgument('user', InputArgument::REQUIRED, 'userId')
 			 ->addArgument('widget', InputArgument::REQUIRED, 'widgetId')
+			 ->addArgument('user', InputArgument::REQUIRED, 'userId')
 			 ->addArgument('json', InputArgument::REQUIRED, 'payload');
 	}
 
@@ -79,7 +79,7 @@ class Push extends Base {
 	 * @throws Exception
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output) {
-		$event = new Event($input->getArgument('user'), $input->getArgument('widget'));
+		$event = new WidgetEvent($input->getArgument('user'), $input->getArgument('widget'));
 		$payload = json_decode($input->getArgument('json'), true);
 
 		if (!is_array($payload)) {

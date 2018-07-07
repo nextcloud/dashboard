@@ -36,6 +36,7 @@ use OCP\IL10N;
 
 class CoreRequestBuilder {
 
+	const TABLE_SETTINGS = 'dashboard_settings';
 	const TABLE_EVENTS = 'dashboard_events';
 
 	/** @var IDBConnection */

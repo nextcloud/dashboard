@@ -27,10 +27,9 @@
 namespace OCA\Dashboard\Model;
 
 
-class Event implements \JsonSerializable {
+use OCA\Dashboard\Service\MiscService;
 
-	/** @var int */
-	private $id;
+class WidgetSettings implements \JsonSerializable {
 
 	/** @var string */
 	private $userId;
@@ -39,39 +38,23 @@ class Event implements \JsonSerializable {
 	private $widgetId;
 
 	/** @var array */
-	private $payload = [];
+	private $position = [];
 
-	/** @var int */
-	private $creation;
+	/** @var array */
+	private $settings = [];
+
+	/** @var bool */
+	private $enabled = false;
 
 	/**
-	 * WidgetFrame constructor.
+	 * WidgetSettings constructor.
 	 *
 	 * @param $userId
 	 * @param $widgetId
 	 */
-	public function __construct($userId, $widgetId) {
-		$this->userId = $userId;
+	public function __construct($widgetId, $userId) {
 		$this->widgetId = $widgetId;
-	}
-
-
-	/**
-	 * @return int
-	 */
-	public function getId() {
-		return $this->id;
-	}
-
-	/**
-	 * @param int $id
-	 *
-	 * @return $this
-	 */
-	public function setId($id) {
-		$this->id = $id;
-
-		return $this;
+		$this->userId = $userId;
 	}
 
 
@@ -116,36 +99,70 @@ class Event implements \JsonSerializable {
 	/**
 	 * @return array
 	 */
-	public function getPayload() {
-		return $this->payload;
+	public function getPosition() {
+		return $this->position;
 	}
 
 	/**
-	 * @param array $payload
+	 * @param array $position
 	 *
 	 * @return $this
 	 */
-	public function setPayload($payload) {
-		$this->payload = $payload;
+	public function setPosition($position) {
+		$this->position = $position;
 
 		return $this;
 	}
 
 
 	/**
-	 * @return int
+	 * @return array
 	 */
-	public function getCreation() {
-		return $this->creation;
+	public function getSettings() {
+		return $this->settings;
 	}
 
 	/**
-	 * @param int $creation
+	 * @param array $settings
 	 *
 	 * @return $this
 	 */
-	public function setCreation($creation) {
-		$this->creation = $creation;
+	public function setSettings($settings) {
+		$this->settings = $settings;
+
+		return $this;
+	}
+
+
+	/**
+	 * @param array $default
+	 */
+	public function setDefaultSettings($default) {
+		$curr = $this->getSettings();
+		foreach ($default as $item) {
+			if (!array_key_exists($item['name'], $curr)) {
+				$curr[$item['name']] = MiscService::get($item, 'default', '');
+			}
+		}
+
+		$this->setSettings($curr);
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	public function isEnabled() {
+		return $this->enabled;
+	}
+
+	/**
+	 * @param bool $enabled
+	 *
+	 * @return $this
+	 */
+	public function setEnabled($enabled) {
+		$this->enabled = $enabled;
 
 		return $this;
 	}
@@ -161,11 +178,11 @@ class Event implements \JsonSerializable {
 	 */
 	public function jsonSerialize() {
 		return [
-			'id'       => $this->getId(),
 			'widgetId' => $this->getWidgetId(),
 			'userId'   => $this->getUserId(),
-			'payload'  => $this->getPayload(),
-			'creation' => $this->getCreation()
+			'position' => $this->getPosition(),
+			'settings' => $this->getSettings(),
+			'enabled'  => $this->isEnabled()
 		];
 	}
 }

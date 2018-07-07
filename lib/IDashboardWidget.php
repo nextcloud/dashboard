@@ -5,6 +5,7 @@ namespace OCA\Dashboard;
 
 
 use OCA\Dashboard\Model\WidgetRequest;
+use OCA\Dashboard\Model\WidgetSettings;
 
 interface IDashboardWidget {
 
@@ -33,9 +34,9 @@ interface IDashboardWidget {
 
 
 	/**
-	 * @param array $config
+	 * @param WidgetSettings $settings
 	 */
-	public function loadWidget($config);
+	public function loadWidget($settings);
 
 
 	/**

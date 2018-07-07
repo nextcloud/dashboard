@@ -37,10 +37,22 @@ var grid = {
 		nav.elements.gridStack = nav.elements.divGridStack.data('gridstack');
 		nav.elements.gridStack.setStatic(true);
 
-		$('.grid-stack').on('dragstop resizestop', function () {
+		nav.elements.divGridStack.on('dragstop resizestop', function () {
 			nav.elements.gridStack.setStatic(true);
 			grid.saveGrid();
 		});
+
+		nav.elements.divGridStack.on('resizestop', function (event) {
+			var widget = settings.getWidget($(event.target).attr('data-widget-id'));
+			if (widget === null || widget.setup.resize === undefined) {
+				return;
+			}
+
+			setTimeout(function () {
+				nav.executeFunction(widget.setup.resize, window, grid.getInfoFromDiv($(event.target)))
+			}, 200);
+		});
+
 	},
 
 
@@ -50,7 +62,7 @@ var grid = {
 		nav.elements.gridStack.removeAll();
 		for (var i = 0; i < curr.widgets.length; i++) {
 			var item = curr.widgets[i];
-			if (item.enabled === false) {
+			if (item.config.enabled === false) {
 				continue;
 			}
 
@@ -126,7 +138,7 @@ var grid = {
 		settings.firstInstall();
 
 		if (item.template.function !== undefined) {
-			nav.executeFunction(item.template.function, window);
+			nav.executeFunction(item.template.function, window, position);
 		}
 
 		if (item.setup.jobs !== undefined) {
@@ -214,20 +226,20 @@ var grid = {
 			position = this.defaultPosition(item.setup.size);
 		}
 
-		if (item.position.x !== undefined) {
-			position.x = item.position.x;
+		if (item.config.position.x !== undefined) {
+			position.x = item.config.position.x;
 		}
 
-		if (item.position.y !== undefined) {
-			position.y = item.position.y;
+		if (item.config.position.y !== undefined) {
+			position.y = item.config.position.y;
 		}
 
-		if (item.position.width !== undefined) {
-			position.width = item.position.width;
+		if (item.config.position.width !== undefined) {
+			position.width = item.config.position.width;
 		}
 
-		if (item.position.height !== undefined) {
-			position.height = item.position.height;
+		if (item.config.position.height !== undefined) {
+			position.height = item.config.position.height;
 		}
 
 		position = grid.fixPosition(position);
@@ -307,18 +319,24 @@ var grid = {
 		setTimeout(function () {
 			var currGrid = [];
 			nav.elements.divGridStack.children('.grid-stack-item').each(function () {
-				currGrid.push({
-					x: $(this).attr('data-gs-x'),
-					y: $(this).attr('data-gs-y'),
-					width: $(this).attr('data-gs-width'),
-					height: $(this).attr('data-gs-height'),
-					widgetId: $(this).attr('data-widget-id')
-				});
+				var info = grid.getInfoFromDiv($(this));
+				info.widgetId = $(this).attr('data-widget-id');
+				currGrid.push(info);
 			});
 
 			net.saveGrid(currGrid);
-		}, 150);
+		}, 100);
 	},
+
+
+	getInfoFromDiv: function (div) {
+		return {
+			x: div.attr('data-gs-x'),
+			y: div.attr('data-gs-y'),
+			width: div.attr('data-gs-width'),
+			height: div.attr('data-gs-height')
+		};
+	}
 
 
 	// hideSettings: function () {

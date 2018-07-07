@@ -137,7 +137,6 @@ class NavigationController extends Controller {
 		try {
 			$grid = json_decode($grid, true);
 			$this->widgetsService->saveGrid($grid);
-
 			return ['result' => 'done'];
 		} catch (Exception $e) {
 			return ['result' => 'fail', 'message' => $e->getMessage()];
