@@ -15,7 +15,7 @@
                 - remaining storage space in their account
 ]]>
 	</description>
-	<version>5.99.6</version>
+	<version>5.99.8</version>
 	<licence>agpl</licence>
 	<author>Maxence Lange</author>
 	<namespace>Dashboard</namespace>
