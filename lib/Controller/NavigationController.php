@@ -154,6 +154,7 @@ class NavigationController extends Controller {
 
 		Util::addScript(Application::APP_NAME, 'dashboard.navigation');
 		Util::addScript(Application::APP_NAME, 'dashboard.net');
+		Util::addScript(Application::APP_NAME, 'dashboard.api');
 		Util::addScript(Application::APP_NAME, 'dashboard.settings');
 		Util::addScript(Application::APP_NAME, 'dashboard.grid');
 		Util::addScript(Application::APP_NAME, 'dashboard');

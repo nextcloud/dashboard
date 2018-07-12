@@ -65,6 +65,7 @@
 		$.extend(DashBoard.prototype, grid);
 		$.extend(DashBoard.prototype, nav);
 		$.extend(DashBoard.prototype, net);
+		$.extend(DashBoard.prototype, dashboard);
 
 		net.init();
 		nav.init();
