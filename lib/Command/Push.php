@@ -79,16 +79,20 @@ class Push extends Base {
 	 * @throws Exception
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output) {
-		$event = new WidgetEvent($input->getArgument('user'), $input->getArgument('widget'));
+
+		$widget = $input->getArgument('widget');
+		$user = $input->getArgument('user');
 		$payload = json_decode($input->getArgument('json'), true);
 
 		if (!is_array($payload)) {
 			throw new Exception('payload must be a valid JSON');
 		}
 
-		$event->setPayload($payload);
-
-		$this->eventsService->pushEvent($event);
+		if ($user === 'global') {
+			$this->eventsService->createGlobalEvent($widget, $payload);
+		} else {
+			$this->eventsService->createUserEvent($widget, $user, $payload);
+		}
 		$output->writeln('event created');
 	}
 

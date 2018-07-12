@@ -69,7 +69,7 @@ class EventsRequestBuilder extends CoreRequestBuilder {
 		$qb = $this->dbConnection->getQueryBuilder();
 
 		/** @noinspection PhpMethodParametersCountMismatchInspection */
-		$qb->select('e.id', 'e.user_id', 'e.widget_id', 'e.payload', 'e.creation')
+		$qb->select('e.id', 'e.widget_id', 'e.broadcast', 'e.recipient', 'e.payload', 'e.unique_id', 'e.creation')
 		   ->from(self::TABLE_EVENTS, 'e');
 
 		$this->defaultSelectAlias = 'e';
@@ -97,9 +97,11 @@ class EventsRequestBuilder extends CoreRequestBuilder {
 	 * @return WidgetEvent
 	 */
 	protected function parseEventsSelectSql($data) {
-		$event = new WidgetEvent($data['user_id'], $data['widget_id']);
+		$event = new WidgetEvent($data['widget_id']);
 		$event->setId($data['id'])
+			  ->setRecipient($data['broadcast'], $data['recipient'])
 			  ->setPayload(json_decode($data['payload'], true))
+			  ->setUniqueId($data['unique_id'])
 			  ->setCreation($data['creation']);
 
 		return $event;

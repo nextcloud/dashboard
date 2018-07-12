@@ -93,16 +93,53 @@ class Dashboard {
 
 	/**
 	 * @param string $widgetId
-	 * @param string $userId
+	 * @param string|array $users
 	 * @param array $payload
+	 * @param string $uniqueId
 	 *
-	 * @throws QueryException
 	 */
-	public static function createEvent($widgetId, $userId, $payload) {
+	public static function createUserEvent($widgetId, $users, $payload, $uniqueId = '') {
 		$c = self::getContainer();
 
-		$c->query(EventsService::class)
-		  ->createEvent($userId, $widgetId, $payload);
+		try {
+			$c->query(EventsService::class)
+			  ->createUserEvent($widgetId, $users, $payload, $uniqueId);
+		} catch (QueryException $e) {
+		}
+	}
+
+
+	/**
+	 * @param string $widgetId
+	 * @param string|array $groups
+	 * @param array $payload
+	 * @param string $uniqueId
+	 *
+	 */
+	public static function createGroupEvent($widgetId, $groups, $payload, $uniqueId = '') {
+		$c = self::getContainer();
+
+		try {
+			$c->query(EventsService::class)
+			  ->createGroupEvent($widgetId, $groups, $payload, $uniqueId);
+		} catch (QueryException $e) {
+		}
+	}
+
+
+	/**
+	 * @param string $widgetId
+	 * @param array $payload
+	 * @param string $uniqueId
+	 */
+	public static function createGlobalEvent($widgetId, $payload, $uniqueId = '') {
+		$c = self::getContainer();
+
+		try {
+			$c->query(EventsService::class)
+			  ->createGlobalEvent($widgetId, $payload, $uniqueId);
+		} catch (QueryException $e) {
+		}
 	}
 
 

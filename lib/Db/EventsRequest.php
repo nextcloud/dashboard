@@ -42,8 +42,10 @@ class EventsRequest extends EventsRequestBuilder {
 
 		try {
 			$qb = $this->getEventsInsertSql();
-			$qb->setValue('user_id', $qb->createNamedParameter($event->getUserId()))
+			$qb->setValue('broadcast', $qb->createNamedParameter($event->getBroadcast()))
+			   ->setValue('recipient', $qb->createNamedParameter($event->getRecipient()))
 			   ->setValue('widget_id', $qb->createNamedParameter($event->getWidgetId()))
+			   ->setValue('unique_id', $qb->createNamedParameter($event->getUniqueId()))
 			   ->setValue('payload', $qb->createNamedParameter(json_encode($event->getPayload())));
 
 			$qb->execute();
@@ -93,9 +95,31 @@ class EventsRequest extends EventsRequestBuilder {
 	 *
 	 * @return WidgetEvent[]
 	 */
-	public function getEventsByUserId($userId, $lastEventId) {
+	public function getUserEvents($userId, $lastEventId) {
 		$qb = $this->getEventsSelectSql();
-		$this->limitToUserId($qb, $userId);
+		$this->limitToBroadcast($qb, WidgetEvent::BROADCAST_USER);
+		$this->limitToRecipient($qb, $userId);
+		$this->startFromId($qb, $lastEventId);
+
+		$events = [];
+		$cursor = $qb->execute();
+		while ($data = $cursor->fetch()) {
+			$events[] = $this->parseEventsSelectSql($data);
+		}
+		$cursor->closeCursor();
+
+		return $events;
+	}
+
+
+	/**
+	 * @param int $lastEventId
+	 *
+	 * @return WidgetEvent[]
+	 */
+	public function getGlobalEvents($lastEventId) {
+		$qb = $this->getEventsSelectSql();
+		$this->limitToBroadcast($qb, WidgetEvent::BROADCAST_GLOBAL);
 		$this->startFromId($qb, $lastEventId);
 
 		$events = [];

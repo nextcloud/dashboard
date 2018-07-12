@@ -89,10 +89,10 @@ class CoreRequestBuilder {
 	 * Limit the request to the OwnerId
 	 *
 	 * @param IQueryBuilder $qb
-	 * @param string $userId
+	 * @param string $widgetId
 	 */
-	protected function limitToWidgetId(IQueryBuilder &$qb, $userId) {
-		$this->limitToDBField($qb, 'widget_id', $userId);
+	protected function limitToWidgetId(IQueryBuilder &$qb, $widgetId) {
+		$this->limitToDBField($qb, 'widget_id', $widgetId);
 	}
 
 
@@ -100,10 +100,32 @@ class CoreRequestBuilder {
 	 * Limit to the type
 	 *
 	 * @param IQueryBuilder $qb
-	 * @param string $providerId
+	 * @param string $userId
 	 */
-	protected function limitToUserId(IQueryBuilder &$qb, $providerId) {
-		$this->limitToDBField($qb, 'user_id', $providerId);
+	protected function limitToUserId(IQueryBuilder &$qb, $userId) {
+		$this->limitToDBField($qb, 'user_id', $userId);
+	}
+
+
+	/**
+	 * Limit to the broadcast
+	 *
+	 * @param IQueryBuilder $qb
+	 * @param string $broadcast
+	 */
+	protected function limitToBroadcast(IQueryBuilder &$qb, $broadcast) {
+		$this->limitToDBField($qb, 'broadcast', $broadcast);
+	}
+
+
+	/**
+	 * Limit to the recipient
+	 *
+	 * @param IQueryBuilder $qb
+	 * @param string $recipient
+	 */
+	protected function limitToRecipient(IQueryBuilder &$qb, $recipient) {
+		$this->limitToDBField($qb, 'recipient', $recipient);
 	}
 
 

@@ -29,29 +29,39 @@ namespace OCA\Dashboard\Model;
 
 class WidgetEvent implements \JsonSerializable {
 
+
+	const BROADCAST_USER = 'user';
+	const BROADCAST_GROUP = 'group';
+	const BROADCAST_GLOBAL = 'global';
+
+
 	/** @var int */
 	private $id;
 
 	/** @var string */
-	private $userId;
+	private $widgetId;
 
 	/** @var string */
-	private $widgetId;
+	private $broadcast;
+
+	/** @var string */
+	private $recipient;
 
 	/** @var array */
 	private $payload = [];
+
+	/** @var string */
+	private $uniqueId = '';
 
 	/** @var int */
 	private $creation;
 
 	/**
-	 * WidgetFrame constructor.
+	 * WidgetEvent constructor.
 	 *
-	 * @param $userId
 	 * @param $widgetId
 	 */
-	public function __construct($userId, $widgetId) {
-		$this->userId = $userId;
+	public function __construct($widgetId) {
 		$this->widgetId = $widgetId;
 	}
 
@@ -78,25 +88,6 @@ class WidgetEvent implements \JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function getUserId() {
-		return $this->userId;
-	}
-
-	/**
-	 * @param string $userId
-	 *
-	 * @return $this
-	 */
-	public function setUserId($userId) {
-		$this->userId = $userId;
-
-		return $this;
-	}
-
-
-	/**
-	 * @return string
-	 */
 	public function getWidgetId() {
 		return $this->widgetId;
 	}
@@ -108,6 +99,36 @@ class WidgetEvent implements \JsonSerializable {
 	 */
 	public function setWidgetId($widgetId) {
 		$this->widgetId = $widgetId;
+
+		return $this;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getBroadcast() {
+		return $this->broadcast;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getRecipient() {
+		return $this->recipient;
+	}
+
+
+	/**
+	 * @param string $broadcast
+	 * @param string $recipient
+	 *
+	 * @return $this
+	 */
+	public function setRecipient($broadcast, $recipient = '') {
+		$this->broadcast = $broadcast;
+		$this->recipient = $recipient;
 
 		return $this;
 	}
@@ -127,6 +148,25 @@ class WidgetEvent implements \JsonSerializable {
 	 */
 	public function setPayload($payload) {
 		$this->payload = $payload;
+
+		return $this;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getUniqueId() {
+		return $this->uniqueId;
+	}
+
+	/**
+	 * @param string $uniqueId
+	 *
+	 * @return $this
+	 */
+	public function setUniqueId($uniqueId) {
+		$this->uniqueId = $uniqueId;
 
 		return $this;
 	}
@@ -161,11 +201,13 @@ class WidgetEvent implements \JsonSerializable {
 	 */
 	public function jsonSerialize() {
 		return [
-			'id'       => $this->getId(),
-			'widgetId' => $this->getWidgetId(),
-			'userId'   => $this->getUserId(),
-			'payload'  => $this->getPayload(),
-			'creation' => $this->getCreation()
+			'id'        => $this->getId(),
+			'widgetId'  => $this->getWidgetId(),
+			'broadcast' => $this->getBroadcast(),
+			'recipient' => $this->getRecipient(),
+			'payload'   => $this->getPayload(),
+			'uniqueId'  => $this->getUniqueId(),
+			'creation'  => $this->getCreation()
 		];
 	}
 }

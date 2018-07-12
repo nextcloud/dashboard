@@ -69,23 +69,82 @@ class EventsService {
 
 
 	/**
-	 * @param string $userId
+	 * @param string $widgetId
+	 * @param string|array $users
+	 * @param array $payload
+	 * @param string $uniqueId
+	 */
+	public function createUserEvent($widgetId, $users, $payload, $uniqueId = '') {
+		if (!is_array($users)) {
+			$users = [$users];
+		}
+
+		if ($uniqueId === '') {
+			$uniqueId = uniqid();
+		}
+
+		foreach ($users as $userId) {
+			$event = new WidgetEvent($widgetId);
+			$event->setRecipient(WidgetEvent::BROADCAST_USER, $userId);
+			$event->setPayload($payload);
+			$event->setUniqueId($uniqueId);
+
+			$this->pushEvent($event);
+		}
+	}
+
+
+	/**
+	 * @param string $widgetId
+	 * @param string|array $groups
+	 * @param array $payload
+	 * @param string $uniqueId
+	 */
+	public function createGroupEvent($widgetId, $groups, $payload, $uniqueId = '') {
+		if (!is_array($groups)) {
+			$groups = [$groups];
+		}
+
+		if ($uniqueId === '') {
+			$uniqueId = uniqid();
+		}
+
+		foreach ($groups as $groupId) {
+			$event = new WidgetEvent($widgetId);
+			$event->setRecipient(WidgetEvent::BROADCAST_GROUP, $groupId);
+			$event->setPayload($payload);
+			$event->setUniqueId($uniqueId);
+
+			$this->pushEvent($event);
+		}
+	}
+
+
+	/**
 	 * @param string $widgetId
 	 * @param array $payload
+	 * @param string $uniqueId
 	 */
-	public function createEvent($userId, $widgetId, $payload) {
-		$event = new WidgetEvent($userId, $widgetId);
+	public function createGlobalEvent($widgetId, $payload, $uniqueId = '') {
+		if ($uniqueId === '') {
+			$uniqueId = uniqid();
+		}
+
+		$event = new WidgetEvent($widgetId);
+		$event->setRecipient(WidgetEvent::BROADCAST_GLOBAL);
 		$event->setPayload($payload);
+		$event->setUniqueId($uniqueId);
 
 		$this->pushEvent($event);
 	}
+
 
 	/**
 	 * @param WidgetEvent $event
 	 */
 	public function pushEvent(WidgetEvent $event) {
 		try {
-			$this->miscService->log('push event: ' . json_encode($event));
+//			$this->miscService->log('push event: ' . json_encode($event));
 			$this->eventsRequest->create($event);
 		} catch (Exception $e) {
 		}
@@ -99,9 +158,12 @@ class EventsService {
 	 * @return WidgetEvent[]
 	 */
 	public function getEvents($userId, $lastEventId) {
-		$events = $this->eventsRequest->getEventsByUserId($userId, $lastEventId);
+		$userEvents = $this->eventsRequest->getUserEvents($userId, $lastEventId);
+//$groupEvents = $this->eventsRequest->getEventsByGroups($userId, $lastEventId);
+		$groupEvents = [];
+		$globalEvents = $this->eventsRequest->getGlobalEvents($lastEventId);
 
-		return $events;
+		return array_merge($userEvents, $groupEvents, $globalEvents);
 	}
 
 
