@@ -65,6 +65,7 @@
 				});
 			},
 
+
 			push: function (payload) {
 				if (payload.fortune === undefined) {
 					return;

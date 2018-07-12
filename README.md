@@ -43,7 +43,7 @@ You can (almost) instantly push payload from Nextcloud to your widget:
  - call the API from your PHP:
 
 ```
-OCA\Dashboard\Api\v1\Dashboard::createEvent('user_id', 'your_widget_id', payload_in_JSON);
+OCA\Dashboard\Api\v1\Dashboard::createEvent('your_widget_id', 'user_id', payload_in_JSON);
 ```
 
  - the method set in `widgetSetup()['push']` will receive the payload.
@@ -51,8 +51,8 @@ OCA\Dashboard\Api\v1\Dashboard::createEvent('user_id', 'your_widget_id', payload
 _Note: you can manually generate events using the command line:_
 
 
->      ./occ dashboard:push userid widgetid payload
+>      ./occ dashboard:push widgetid userid payload
 
 _You can, this way, modify the displayed fortune for any user:_
 
->     ./occ dashboard:push cult fortunes "{\"fortune\": \"foobar\"}"
+>     ./occ dashboard:push fortunes cult "{\"fortune\": \"foobar\"}"
