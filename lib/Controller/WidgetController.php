@@ -1,12 +1,14 @@
-<?php
+<?php declare(strict_types=1);
+
+
 /**
- * Nextcloud - Dashboard App
+ * Nextcloud - Dashboard app
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author regio iT gesellschaft für informationstechnologie mbh
- * @copyright regio iT 2017
+ * @author Maxence Lange <maxence@artificial-owl.com>
+ * @copyright 2018, Maxence Lange <maxence@artificial-owl.com>
  * @license GNU AGPL version 3 or any later version
  *
  * This program is free software: you can redistribute it and/or modify
@@ -24,21 +26,19 @@
  *
  */
 
+
 namespace OCA\Dashboard\Controller;
 
 use Exception;
 use OCA\Dashboard\AppInfo\Application;
-use OCA\Dashboard\Model\WidgetEvent;
-use OCA\Dashboard\Model\WidgetFrame;
 use OCA\Dashboard\Model\WidgetRequest;
 use OCA\Dashboard\Service\ConfigService;
 use OCA\Dashboard\Service\EventsService;
 use OCA\Dashboard\Service\MiscService;
 use OCA\Dashboard\Service\WidgetsService;
 use OCP\AppFramework\Controller;
-use OCP\AppFramework\Http\TemplateResponse;
+use OCP\Dashboard\Model\IWidgetEvent;
 use OCP\IRequest;
-use OCP\Util;
 
 class WidgetController extends Controller {
 
@@ -90,7 +90,7 @@ class WidgetController extends Controller {
 	 *
 	 * @return array
 	 */
-	public function requestWidget($json) {
+	public function requestWidget(string $json): array {
 
 		try {
 			$request = WidgetRequest::fromJson($json);
@@ -112,9 +112,9 @@ class WidgetController extends Controller {
 	 *
 	 * @return array
 	 */
-	public function pushWidget($json) {
+	public function pushWidget(string $json): array {
 		$params = json_decode($json, true);
-		$lastEventId = MiscService::get($params, 'eventId', 0);
+		$lastEventId = intval(MiscService::get($params, 'eventId', 0));
 
 		if ($lastEventId === -1) {
 			return $this->pushWidgetInit();
@@ -137,7 +137,7 @@ class WidgetController extends Controller {
 	/**
 	 * @return array
 	 */
-	private function pushWidgetInit() {
+	private function pushWidgetInit(): array {
 		$lastEventId = $this->eventsService->getLastEventId();
 
 		return [
@@ -148,11 +148,11 @@ class WidgetController extends Controller {
 
 
 	/**
-	 * @param $lastEventId
+	 * @param int $lastEventId
 	 *
 	 * @return string
 	 */
-	private function pushEventCheck(&$lastEventId) {
+	private function pushEventCheck(int &$lastEventId): string {
 
 		while (true) {
 			sleep(10);
@@ -164,16 +164,17 @@ class WidgetController extends Controller {
 
 				return $data;
 			}
-
 		}
+
+		return '';
 	}
 
 
 	/**
-	 * @param WidgetEvent[] $events
+	 * @param IWidgetEvent[] $events
 	 * @param int $lastEventId
 	 */
-	private function updateLastEventId($events, &$lastEventId) {
+	private function updateLastEventId(array $events, int &$lastEventId) {
 		foreach ($events as $event) {
 			if ($event->getId() > $lastEventId) {
 				$lastEventId = $event->getId();

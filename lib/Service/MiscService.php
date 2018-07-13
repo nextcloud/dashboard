@@ -1,12 +1,14 @@
-<?php
+<?php declare(strict_types=1);
+
+
 /**
- * Nextcloud - Dashboard App
+ * Nextcloud - Dashboard app
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author regio iT gesellschaft für informationstechnologie mbh
- * @copyright regio iT 2017
+ * @author Maxence Lange <maxence@artificial-owl.com>
+ * @copyright 2018, Maxence Lange <maxence@artificial-owl.com>
  * @license GNU AGPL version 3 or any later version
  *
  * This program is free software: you can redistribute it and/or modify
@@ -38,24 +40,30 @@ class MiscService {
 		$this->logger = $logger;
 	}
 
-	public function log($message, $level = 2) {
-		$data = array(
+
+	/**
+	 * @param string $message
+	 * @param int $level
+	 */
+	public function log(string $message, $level = 2) {
+		$data = [
 			'app'   => Application::APP_NAME,
 			'level' => $level
-		);
+		];
 
 		$this->logger->log($level, $message, $data);
 	}
 
+
 	/**
-	 * @param $arr
-	 * @param $k
+	 * @param array $arr
+	 * @param string $k
 	 *
 	 * @param string|array|integer $default
 	 *
 	 * @return array|string|integer
 	 */
-	public static function get($arr, $k, $default = '') {
+	public static function get(array $arr, string $k, $default) {
 		if ($arr === null) {
 			return $default;
 		}
@@ -67,25 +75,5 @@ class MiscService {
 		return $arr[$k];
 	}
 
-
-	public static function noEndSlash($path) {
-		if (substr($path, -1) === '/') {
-			$path = substr($path, 0, -1);
-		}
-
-		return $path;
-	}
-
-
-	/**
-	 * @param string $time
-	 *
-	 * @return float
-	 */
-	public static function getMicroTime($time) {
-		list($usec, $sec) = explode(' ', $time);
-
-		return ((float)$usec + (float)$sec);
-	}
 }
 

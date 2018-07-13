@@ -1,12 +1,14 @@
-<?php
+<?php declare(strict_types=1);
+
+
 /**
- * Nextcloud - Dashboard App
+ * Nextcloud - Dashboard app
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author regio iT gesellschaft für informationstechnologie mbh
- * @copyright regio iT 2017
+ * @author Maxence Lange <maxence@artificial-owl.com>
+ * @copyright 2018, Maxence Lange <maxence@artificial-owl.com>
  * @license GNU AGPL version 3 or any later version
  *
  * This program is free software: you can redistribute it and/or modify
@@ -24,14 +26,7 @@
  *
  */
 
-/**
- * Create your routes in here. The name is the lowercase name of the controller
- * without the controller part, the stuff after the hash is the method.
- * e.g. page#index -> OCA\Dashboard\Controller\PageController->index()
- *
- * The controller class has to be registered in the application.php file since
- * it's instantiated in there
- */
+
 return [
 	'routes' => [
 		['name' => 'Navigation#navigate', 'url' => '/', 'verb' => 'GET'],
@@ -40,41 +35,5 @@ return [
 		['name' => 'Navigation#saveGrid', 'url' => '/widgets/grid', 'verb' => 'POST'],
 		['name' => 'Widget#requestWidget', 'url' => '/widget/request', 'verb' => 'GET'],
 		['name' => 'Widget#pushWidget', 'url' => '/widget/push', 'verb' => 'POST'],
-
-		//	['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
-		['name' => 'activity#index', 'url' => '/activities', 'verb' => 'GET'],
-		['name' => 'announcement#index', 'url' => '/announcements', 'verb' => 'GET'],
-		['name' => 'announcement#create', 'url' => '/announcements', 'verb' => 'POST'],
-		[
-			'name' => 'announcement#destroy', 'url' => '/announcements/{id}',
-			'verb' => 'DELETE', 'requirements' => [
-			'id' => '\d+',
-		]
-		],
-		[
-			'name'         => 'announcement#edit', 'url' => '/announcements/{id}',
-			'verb'         => 'GET',
-			'requirements' => [
-				'id' => '\d+',
-			]
-		],
-		[
-			'name' => 'announcement#updateEdit', 'url' => '/announcements/{id}',
-			'verb' => 'POST', 'requirements' => [
-			'id' => '\d+',
-		]
-		],
-
-		['name' => 'calendar#get_event_sources', 'url' => '/event_sources', 'verb' => 'GET'],
-
-		[
-			'name' => 'calendar#get_events', 'url' => '/events/{calendarid}',
-			'verb' => 'GET', 'requirements' => [
-			'calendarid' => '\d+|shared_events',
-		]
-		],
-		['name' => 'inbox#index', 'url' => '/inbox', 'verb' => 'GET'],
-		['name' => 'personal#save', 'url' => '/personal', 'verb' => 'POST'],
-		['name' => 'admin#save', 'url' => '/admin', 'verb' => 'POST'],
 	]
 ];

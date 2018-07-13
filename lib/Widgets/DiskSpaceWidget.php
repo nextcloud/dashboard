@@ -1,12 +1,14 @@
-<?php
+<?php declare(strict_types=1);
+
+
 /**
- * Nextcloud - Dashboard App
+ * Nextcloud - Dashboard app
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author regio iT gesellschaft für informationstechnologie mbh
- * @copyright regio iT 2017
+ * @author Maxence Lange <maxence@artificial-owl.com>
+ * @copyright 2018, Maxence Lange <maxence@artificial-owl.com>
  * @license GNU AGPL version 3 or any later version
  *
  * This program is free software: you can redistribute it and/or modify
@@ -27,11 +29,10 @@
 namespace OCA\Dashboard\Widgets;
 
 
-use Exception;
 use OCA\Dashboard\AppInfo\Application;
-use OCA\Dashboard\IDashboardWidget;
-use OCA\Dashboard\Model\WidgetRequest;
-use OCA\Dashboard\Model\WidgetSettings;
+use OCP\Dashboard\IDashboardWidget;
+use OCP\Dashboard\Model\IWidgetRequest;
+use OCP\Dashboard\Model\IWidgetSettings;
 use OCA\Dashboard\Service\Widgets\DiskSpace\DiskSpaceService;
 use OCP\AppFramework\QueryException;
 use OCP\Files\NotFoundException;
@@ -47,7 +48,7 @@ class DiskSpaceWidget implements IDashboardWidget {
 	/**
 	 * @return string
 	 */
-	public function getId() {
+	public function getId(): string {
 		return self::WIDGET_ID;
 	}
 
@@ -55,7 +56,7 @@ class DiskSpaceWidget implements IDashboardWidget {
 	/**
 	 * @return string
 	 */
-	public function getName() {
+	public function getName(): string {
 		return 'Disk space';
 	}
 
@@ -63,7 +64,7 @@ class DiskSpaceWidget implements IDashboardWidget {
 	/**
 	 * @return string
 	 */
-	public function getDescription() {
+	public function getDescription(): string {
 		return 'Display the current use of your available disk space';
 	}
 
@@ -71,7 +72,7 @@ class DiskSpaceWidget implements IDashboardWidget {
 	/**
 	 * @return array
 	 */
-	public function getTemplate() {
+	public function getTemplate(): array {
 		return [
 			'app'      => Application::APP_NAME,
 			'icon'     => 'icon-disk-space',
@@ -86,7 +87,7 @@ class DiskSpaceWidget implements IDashboardWidget {
 	/**
 	 * @return array
 	 */
-	public function widgetSetup() {
+	public function widgetSetup(): array {
 		return [
 			'size' => [
 				'min'     => [
@@ -113,9 +114,9 @@ class DiskSpaceWidget implements IDashboardWidget {
 
 
 	/**
-	 * @param WidgetSettings $settings
+	 * @param IWidgetSettings $settings
 	 */
-	public function loadWidget($settings) {
+	public function loadWidget(IWidgetSettings $settings) {
 		$app = new Application();
 
 		$container = $app->getContainer();
@@ -128,11 +129,11 @@ class DiskSpaceWidget implements IDashboardWidget {
 
 
 	/**
-	 * @param WidgetRequest $request
+	 * @param IWidgetRequest $request
 	 *
 	 * @throws NotFoundException
 	 */
-	public function requestWidget(WidgetRequest $request) {
+	public function requestWidget(IWidgetRequest $request) {
 		if ($request->getRequest() === 'getDiskSpace') {
 			$request->addResult('diskSpace', $this->diskSpaceService->getDiskSpace());
 		}

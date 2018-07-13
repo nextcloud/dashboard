@@ -1,12 +1,14 @@
-<?php
+<?php declare(strict_types=1);
+
+
 /**
- * Nextcloud - Dashboard App
+ * Nextcloud - Dashboard app
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author regio iT gesellschaft für informationstechnologie mbh
- * @copyright regio iT 2017
+ * @author Maxence Lange <maxence@artificial-owl.com>
+ * @copyright 2018, Maxence Lange <maxence@artificial-owl.com>
  * @license GNU AGPL version 3 or any later version
  *
  * This program is free software: you can redistribute it and/or modify
@@ -28,6 +30,7 @@ namespace OCA\Dashboard\Db;
 
 
 use OCA\Dashboard\Model\WidgetEvent;
+use OCP\Dashboard\Model\IWidgetEvent;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 
 class EventsRequestBuilder extends CoreRequestBuilder {
@@ -38,7 +41,7 @@ class EventsRequestBuilder extends CoreRequestBuilder {
 	 *
 	 * @return IQueryBuilder
 	 */
-	protected function getEventsInsertSql() {
+	protected function getEventsInsertSql(): IQueryBuilder {
 		$qb = $this->dbConnection->getQueryBuilder();
 		$qb->insert(self::TABLE_EVENTS);
 		$qb->setValue('creation', $qb->createNamedParameter(time()));
@@ -52,7 +55,7 @@ class EventsRequestBuilder extends CoreRequestBuilder {
 	 *
 	 * @return IQueryBuilder
 	 */
-	protected function getEventsUpdateSql() {
+	protected function getEventsUpdateSql(): IQueryBuilder {
 		$qb = $this->dbConnection->getQueryBuilder();
 		$qb->update(self::TABLE_EVENTS);
 
@@ -65,11 +68,14 @@ class EventsRequestBuilder extends CoreRequestBuilder {
 	 *
 	 * @return IQueryBuilder
 	 */
-	protected function getEventsSelectSql() {
+	protected function getEventsSelectSql(): IQueryBuilder {
 		$qb = $this->dbConnection->getQueryBuilder();
 
 		/** @noinspection PhpMethodParametersCountMismatchInspection */
-		$qb->select('e.id', 'e.widget_id', 'e.broadcast', 'e.recipient', 'e.payload', 'e.unique_id', 'e.creation')
+		$qb->select(
+			'e.id', 'e.widget_id', 'e.broadcast', 'e.recipient', 'e.payload', 'e.unique_id',
+			'e.creation'
+		)
 		   ->from(self::TABLE_EVENTS, 'e');
 
 		$this->defaultSelectAlias = 'e';
@@ -83,7 +89,7 @@ class EventsRequestBuilder extends CoreRequestBuilder {
 	 *
 	 * @return IQueryBuilder
 	 */
-	protected function getEventsDeleteSql() {
+	protected function getEventsDeleteSql(): IQueryBuilder {
 		$qb = $this->dbConnection->getQueryBuilder();
 		$qb->delete(self::TABLE_EVENTS);
 
@@ -96,7 +102,7 @@ class EventsRequestBuilder extends CoreRequestBuilder {
 	 *
 	 * @return WidgetEvent
 	 */
-	protected function parseEventsSelectSql($data) {
+	protected function parseEventsSelectSql($data): IWidgetEvent {
 		$event = new WidgetEvent($data['widget_id']);
 		$event->setId($data['id'])
 			  ->setRecipient($data['broadcast'], $data['recipient'])

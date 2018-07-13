@@ -1,12 +1,14 @@
-<?php
+<?php declare(strict_types=1);
+
+
 /**
- * Nextcloud - Dashboard App
+ * Nextcloud - Dashboard app
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author regio iT gesellschaft für informationstechnologie mbh
- * @copyright regio iT 2017
+ * @author Maxence Lange <maxence@artificial-owl.com>
+ * @copyright 2018, Maxence Lange <maxence@artificial-owl.com>
  * @license GNU AGPL version 3 or any later version
  *
  * This program is free software: you can redistribute it and/or modify
@@ -23,6 +25,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
 
 namespace OCA\Dashboard\Controller;
 
@@ -77,7 +80,7 @@ class NavigationController extends Controller {
 	 *
 	 * @return TemplateResponse
 	 */
-	public function navigate() {
+	public function navigate(): TemplateResponse {
 		$widgetFrames = $this->widgetsService->getWidgetFrames(false);
 
 		$this->feelAndLook();
@@ -108,7 +111,7 @@ class NavigationController extends Controller {
 	 *
 	 * @return WidgetFrame[]
 	 */
-	public function getWidgets() {
+	public function getWidgets(): array {
 		$widgetFrames = $this->widgetsService->getWidgetFrames(false);
 
 		return $widgetFrames;
@@ -120,7 +123,7 @@ class NavigationController extends Controller {
 	 *
 	 * @param string $widgetId
 	 */
-	public function deleteWidget($widgetId) {
+	public function deleteWidget(string $widgetId) {
 		$this->widgetsService->removeWidget($widgetId);
 	}
 
@@ -133,16 +136,16 @@ class NavigationController extends Controller {
 	 *
 	 * @return WidgetFrame[]
 	 */
-	public function saveGrid($grid) {
+	public function saveGrid(string $grid): array {
 		try {
 			$grid = json_decode($grid, true);
 			$this->widgetsService->saveGrid($grid);
+
 			return ['result' => 'done'];
 		} catch (Exception $e) {
 			return ['result' => 'fail', 'message' => $e->getMessage()];
 		}
 	}
-
 
 
 	/**

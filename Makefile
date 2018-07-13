@@ -22,9 +22,6 @@ clean:
 	rm -rf $(build_dir)
 	rm -rf node_modules components vendor
 
-composer:
-	composer install
-
 npm:
 	npm install gridstack
 	cp node_modules/gridstack/dist/gridstack.all.js ./js/
@@ -32,14 +29,8 @@ npm:
 	npm install nnattawat/flip
 	cp node_modules/flip/dist/jquery.flip.js ./js/
 
-test: SHELL:=/bin/bash
-test: composer
-	phpunit --coverage-clover=coverage.xml --configuration=tests/phpunit.xml tests
-	@if [ -f $(codecov_token_dir)/$(app_name) ]; then \
-		bash <(curl -s https://codecov.io/bash) -t @$(codecov_token_dir)/$(app_name) ; \
-	fi
 
-appstore: composer npm clean
+appstore: npm clean
 	mkdir -p $(sign_dir)
 	rsync -a \
 	--exclude=/build \

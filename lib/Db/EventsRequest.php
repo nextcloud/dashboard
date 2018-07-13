@@ -1,12 +1,14 @@
-<?php
+<?php declare(strict_types=1);
+
+
 /**
- * Nextcloud - Dashboard App
+ * Nextcloud - Dashboard app
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author regio iT gesellschaft für informationstechnologie mbh
- * @copyright regio iT 2017
+ * @author Maxence Lange <maxence@artificial-owl.com>
+ * @copyright 2018, Maxence Lange <maxence@artificial-owl.com>
  * @license GNU AGPL version 3 or any later version
  *
  * This program is free software: you can redistribute it and/or modify
@@ -27,18 +29,18 @@
 namespace OCA\Dashboard\Db;
 
 
-use OCA\Dashboard\Model\WidgetEvent;
+use OCP\Dashboard\Model\IWidgetEvent;
 
 class EventsRequest extends EventsRequestBuilder {
 
 
 	/**
-	 * @param WidgetEvent $event
+	 * @param IWidgetEvent $event
 	 *
 	 * @return int
 	 * @throws \Exception
 	 */
-	public function create(WidgetEvent $event) {
+	public function create(IWidgetEvent $event): int {
 
 		try {
 			$qb = $this->getEventsInsertSql();
@@ -58,30 +60,9 @@ class EventsRequest extends EventsRequestBuilder {
 
 
 	/**
-	 * @param WidgetEvent $event
-	 */
-	public function deleteEvent(WidgetEvent $event) {
-		$qb = $this->getEventsDeleteSql();
-		$this->limitToId($qb, $event->getId());
-
-		$qb->execute();
-	}
-
-
-	/**
-	 * @param WidgetEvent[] $events
-	 */
-	public function deleteEvents($events) {
-// TODO single request for all Ids
-		foreach ($events as $event) {
-			$this->deleteEvent($event);
-		}
-	}
-
-	/**
 	 * @param string $userId
 	 */
-	public function reset($userId) {
+	public function reset(string $userId) {
 		$qb = $this->getEventsDeleteSql();
 		$this->limitToUserId($qb, $userId);
 
@@ -93,12 +74,35 @@ class EventsRequest extends EventsRequestBuilder {
 	 * @param string $userId
 	 * @param int $lastEventId
 	 *
-	 * @return WidgetEvent[]
+	 * @return IWidgetEvent[]
 	 */
-	public function getUserEvents($userId, $lastEventId) {
+	public function getUserEvents(string $userId, int $lastEventId): array {
 		$qb = $this->getEventsSelectSql();
-		$this->limitToBroadcast($qb, WidgetEvent::BROADCAST_USER);
+		$this->limitToBroadcast($qb, IWidgetEvent::BROADCAST_USER);
 		$this->limitToRecipient($qb, $userId);
+		$this->startFromId($qb, $lastEventId);
+
+		$events = [];
+		$cursor = $qb->execute();
+		while ($data = $cursor->fetch()) {
+			$events[] = $this->parseEventsSelectSql($data);
+		}
+		$cursor->closeCursor();
+
+		return $events;
+	}
+
+
+	/**
+	 * @param array $groups
+	 * @param int $lastEventId
+	 *
+	 * @return IWidgetEvent []
+	 */
+	public function getGroupEvents(array $groups, int $lastEventId): array {
+		$qb = $this->getEventsSelectSql();
+		$this->limitToBroadcast($qb, IWidgetEvent::BROADCAST_GROUP);
+		$this->limitToRecipient($qb, $groups);
 		$this->startFromId($qb, $lastEventId);
 
 		$events = [];
@@ -115,11 +119,11 @@ class EventsRequest extends EventsRequestBuilder {
 	/**
 	 * @param int $lastEventId
 	 *
-	 * @return WidgetEvent[]
+	 * @return IWidgetEvent []
 	 */
-	public function getGlobalEvents($lastEventId) {
+	public function getGlobalEvents(int $lastEventId): array {
 		$qb = $this->getEventsSelectSql();
-		$this->limitToBroadcast($qb, WidgetEvent::BROADCAST_GLOBAL);
+		$this->limitToBroadcast($qb, IWidgetEvent::BROADCAST_GLOBAL);
 		$this->startFromId($qb, $lastEventId);
 
 		$events = [];
@@ -136,7 +140,7 @@ class EventsRequest extends EventsRequestBuilder {
 	/**
 	 * return int
 	 */
-	public function getLastEventId() {
+	public function getLastEventId(): int {
 		$qb = $this->getEventsSelectSql();
 		$qb->orderBy('id', 'desc');
 		$qb->setMaxResults(1);

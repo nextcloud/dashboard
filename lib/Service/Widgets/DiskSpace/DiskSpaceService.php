@@ -32,7 +32,7 @@ use OC_App;
 use OC_Helper;
 use OCA\Dashboard\Exceptions\WidgetIsNotCompatibleException;
 use OCA\Dashboard\Exceptions\WidgetIsNotUniqueException;
-use OCA\Dashboard\IDashboardWidget;
+use OCP\Dashboard\IDashboardWidget;
 use OCA\Dashboard\Model\WidgetFrame;
 use OCA\Dashboard\Service\ConfigService;
 use OCA\Dashboard\Service\MiscService;

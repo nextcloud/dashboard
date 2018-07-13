@@ -1,12 +1,38 @@
-<?php
+<?php declare(strict_types=1);
+
+
+/**
+ * Nextcloud - Dashboard app
+ *
+ * This file is licensed under the Affero General Public License version 3 or
+ * later. See the COPYING file.
+ *
+ * @author Maxence Lange <maxence@artificial-owl.com>
+ * @copyright 2018, Maxence Lange <maxence@artificial-owl.com>
+ * @license GNU AGPL version 3 or any later version
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 namespace OCA\Dashboard\Widgets;
 
 
 use OCA\Dashboard\AppInfo\Application;
-use OCA\Dashboard\IDashboardWidget;
-use OCA\Dashboard\Model\WidgetRequest;
-use OCA\Dashboard\Model\WidgetSettings;
+use OCP\Dashboard\IDashboardWidget;
+use OCP\Dashboard\Model\IWidgetRequest;
+use OCP\Dashboard\Model\IWidgetSettings;
 
 class Test1Widget implements IDashboardWidget {
 
@@ -16,7 +42,7 @@ class Test1Widget implements IDashboardWidget {
 	/**
 	 * @return string
 	 */
-	public function getId() {
+	public function getId(): string {
 		return self::WIDGET_ID;
 	}
 
@@ -24,7 +50,7 @@ class Test1Widget implements IDashboardWidget {
 	/**
 	 * @return string
 	 */
-	public function getName() {
+	public function getName(): string {
 		return 'Lorem Ipsum';
 	}
 
@@ -32,7 +58,7 @@ class Test1Widget implements IDashboardWidget {
 	/**
 	 * @return string
 	 */
-	public function getDescription() {
+	public function getDescription(): string {
 		return 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor '
 			   . ' incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam';
 	}
@@ -41,7 +67,7 @@ class Test1Widget implements IDashboardWidget {
 	/**
 	 * @return array
 	 */
-	public function getTemplate() {
+	public function getTemplate(): array {
 		return [
 			'app'     => Application::APP_NAME,
 			'icon'    => 'icon-lorem',
@@ -54,7 +80,7 @@ class Test1Widget implements IDashboardWidget {
 	/**
 	 * @return array
 	 */
-	public function widgetSetup() {
+	public function widgetSetup(): array {
 		return [
 			'size'     => [
 				'min'     => [
@@ -101,16 +127,16 @@ class Test1Widget implements IDashboardWidget {
 
 
 	/**
-	 * @param WidgetSettings $settings
+	 * @param IWidgetSettings $settings
 	 */
-	public function loadWidget($settings) {
+	public function loadWidget(IWidgetSettings $settings) {
 	}
 
 
 	/**
-	 * @param WidgetRequest $request
+	 * @param IWidgetRequest $request
 	 */
-	public function requestWidget(WidgetRequest $request) {
+	public function requestWidget(IWidgetRequest $request) {
 	}
 
 }

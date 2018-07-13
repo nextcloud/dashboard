@@ -1,12 +1,14 @@
-<?php
+<?php declare(strict_types=1);
+
+
 /**
- * Nextcloud - Dashboard App
+ * Nextcloud - Dashboard app
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author regio iT gesellschaft für informationstechnologie mbh
- * @copyright regio iT 2017
+ * @author Maxence Lange <maxence@artificial-owl.com>
+ * @copyright 2018, Maxence Lange <maxence@artificial-owl.com>
  * @license GNU AGPL version 3 or any later version
  *
  * This program is free software: you can redistribute it and/or modify
@@ -24,12 +26,12 @@
  *
  */
 
+
 namespace OCA\Dashboard\Service;
 
 use OCA\Dashboard\AppInfo\Application;
 use OCP\IConfig;
 use OCP\PreConditionNotMetException;
-use OCP\Util;
 
 class ConfigService {
 
@@ -62,7 +64,7 @@ class ConfigService {
 	 * @param MiscService $miscService
 	 */
 	public function __construct(
-		IConfig $config, $userId, MiscService $miscService
+		IConfig $config, string $userId, MiscService $miscService
 	) {
 		$this->config = $config;
 		$this->userId = $userId;
@@ -73,7 +75,7 @@ class ConfigService {
 	/**
 	 * @return array
 	 */
-	public function getConfig() {
+	public function getConfig(): array {
 		$keys = array_keys($this->defaults);
 		$data = [];
 
@@ -88,7 +90,7 @@ class ConfigService {
 	/**
 	 * @param array $save
 	 */
-	public function setConfig($save) {
+	public function setConfig(array $save) {
 		$keys = array_keys($this->defaults);
 
 		foreach ($keys as $k) {
@@ -103,11 +105,11 @@ class ConfigService {
 	 * Get a value by key
 	 *
 	 * @param string $key
-	 * @param null $defaultValue
+	 * @param string $defaultValue
 	 *
 	 * @return string
 	 */
-	public function getAppValue($key, $defaultValue = null) {
+	public function getAppValue(string $key, $defaultValue = ''): string {
 		if (array_key_exists($key, $this->defaults)) {
 			$defaultValue = $this->defaults[$key];
 		}
@@ -120,10 +122,8 @@ class ConfigService {
 	 *
 	 * @param string $key
 	 * @param string $value
-	 *
-	 * @return void
 	 */
-	public function setAppValue($key, $value) {
+	public function setAppValue(string $key, string $value) {
 		$this->config->setAppValue(Application::APP_NAME, $key, $value);
 	}
 
@@ -134,7 +134,7 @@ class ConfigService {
 	 *
 	 * @return string
 	 */
-	public function deleteAppValue($key) {
+	public function deleteAppValue(string $key) {
 		return $this->config->deleteAppValue(Application::APP_NAME, $key);
 	}
 
@@ -142,12 +142,11 @@ class ConfigService {
 	 * Get a user value by key
 	 *
 	 * @param string $key
-	 *
-	 * @param null $defaultValue
+	 * @param string $defaultValue
 	 *
 	 * @return string
 	 */
-	public function getUserValue($key, $defaultValue = null) {
+	public function getUserValue($key, $defaultValue = ''): string {
 		if (array_key_exists($key, $this->defaults)) {
 			$defaultValue = $this->defaults[$key];
 		}
@@ -166,7 +165,7 @@ class ConfigService {
 	 * @return string
 	 * @throws PreConditionNotMetException
 	 */
-	public function setUserValue($key, $value) {
+	public function setUserValue(string $key, string $value): string {
 		return $this->config->setUserValue($this->userId, Application::APP_NAME, $key, $value);
 	}
 
@@ -175,11 +174,9 @@ class ConfigService {
 	 * remove a key
 	 *
 	 * @param string $key
-	 *
-	 * @return string
 	 */
-	public function deleteUserValue($key) {
-		return $this->config->deleteUserValue($this->userId, Application::APP_NAME, $key);
+	public function deleteUserValue(string $key) {
+		$this->config->deleteUserValue($this->userId, Application::APP_NAME, $key);
 	}
 
 
@@ -191,7 +188,7 @@ class ConfigService {
 	 *
 	 * @return string
 	 */
-	public function getValueForUser($userId, $key) {
+	public function getValueForUser(string $userId, string $key): string {
 		return $this->config->getUserValue($userId, Application::APP_NAME, $key);
 	}
 
@@ -205,26 +202,8 @@ class ConfigService {
 	 * @return string
 	 * @throws PreConditionNotMetException
 	 */
-	public function setValueForUser($userId, $key, $value) {
+	public function setValueForUser(string $userId, string $key, string $value): string {
 		return $this->config->setUserValue($userId, Application::APP_NAME, $key, $value);
 	}
 
-
-	/**
-	 * return the cloud version.
-	 * if $complete is true, return a string x.y.z
-	 *
-	 * @param boolean $complete
-	 *
-	 * @return string|integer
-	 */
-	public function getCloudVersion($complete = false) {
-		$ver = Util::getVersion();
-
-		if ($complete) {
-			return implode('.', $ver);
-		}
-
-		return $ver[0];
-	}
 }

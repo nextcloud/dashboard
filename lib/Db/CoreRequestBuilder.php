@@ -1,12 +1,14 @@
-<?php
+<?php declare(strict_types=1);
+
+
 /**
- * Nextcloud - Dashboard App
+ * Nextcloud - Dashboard app
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author regio iT gesellschaft für informationstechnologie mbh
- * @copyright regio iT 2017
+ * @author Maxence Lange <maxence@artificial-owl.com>
+ * @copyright 2018, Maxence Lange <maxence@artificial-owl.com>
  * @license GNU AGPL version 3 or any later version
  *
  * This program is free software: you can redistribute it and/or modify
@@ -24,6 +26,7 @@
  *
  */
 
+
 namespace OCA\Dashboard\Db;
 
 
@@ -32,7 +35,6 @@ use OCA\Dashboard\Service\ConfigService;
 use OCA\Dashboard\Service\MiscService;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
-use OCP\IL10N;
 
 class CoreRequestBuilder {
 
@@ -41,9 +43,6 @@ class CoreRequestBuilder {
 
 	/** @var IDBConnection */
 	protected $dbConnection;
-
-	/** @var IL10N */
-	protected $l10n;
 
 	/** @var ConfigService */
 	protected $configService;
@@ -58,16 +57,13 @@ class CoreRequestBuilder {
 	/**
 	 * CoreRequestBuilder constructor.
 	 *
-	 * @param IL10N $l10n
 	 * @param IDBConnection $connection
 	 * @param ConfigService $configService
 	 * @param MiscService $miscService
 	 */
 	public function __construct(
-		IL10N $l10n, IDBConnection $connection, ConfigService $configService,
-		MiscService $miscService
+		IDBConnection $connection, ConfigService $configService, MiscService $miscService
 	) {
-		$this->l10n = $l10n;
 		$this->dbConnection = $connection;
 		$this->configService = $configService;
 		$this->miscService = $miscService;
@@ -86,7 +82,7 @@ class CoreRequestBuilder {
 
 
 	/**
-	 * Limit the request to the OwnerId
+	 * Limit the request to the WidgetId
 	 *
 	 * @param IQueryBuilder $qb
 	 * @param string $widgetId
@@ -97,7 +93,7 @@ class CoreRequestBuilder {
 
 
 	/**
-	 * Limit to the type
+	 * Limit to the UserId
 	 *
 	 * @param IQueryBuilder $qb
 	 * @param string $userId
@@ -122,7 +118,7 @@ class CoreRequestBuilder {
 	 * Limit to the recipient
 	 *
 	 * @param IQueryBuilder $qb
-	 * @param string $recipient
+	 * @param string|array $recipient
 	 */
 	protected function limitToRecipient(IQueryBuilder &$qb, $recipient) {
 		$this->limitToDBField($qb, 'recipient', $recipient);
@@ -130,7 +126,7 @@ class CoreRequestBuilder {
 
 
 	/**
-	 * Limit from id
+	 * start from Id
 	 *
 	 * @param IQueryBuilder $qb
 	 * @param int $id
@@ -147,9 +143,9 @@ class CoreRequestBuilder {
 	/**
 	 * @param IQueryBuilder $qb
 	 * @param string $field
-	 * @param string|integer|array $values
+	 * @param string|array $values
 	 */
-	private function limitToDBField(IQueryBuilder &$qb, $field, $values) {
+	private function limitToDBField(IQueryBuilder &$qb, string $field, $values) {
 		$expr = $qb->expr();
 		$pf = ($qb->getType() === QueryBuilder::SELECT) ? $this->defaultSelectAlias . '.' : '';
 		$field = $pf . $field;

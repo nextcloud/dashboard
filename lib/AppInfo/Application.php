@@ -1,14 +1,15 @@
-<?php
+<?php declare(strict_types=1);
+
+
 /**
- * Nextcloud - Dashboard App
+ * Nextcloud - Dashboard app
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author regio iT gesellschaft für informationstechnologie mbh
- * @copyright regio iT 2017
+ * @author Maxence Lange <maxence@artificial-owl.com>
+ * @copyright 2018, Maxence Lange <maxence@artificial-owl.com>
  * @license GNU AGPL version 3 or any later version
- * @contributor tuxedo-rb | TUXEDO Computers GmbH | https://www.tuxedocomputers.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -29,8 +30,6 @@ namespace OCA\Dashboard\AppInfo;
 
 use OCP\AppFramework\App;
 use OCP\AppFramework\IAppContainer;
-use OCP\AppFramework\QueryException;
-use OCP\Util;
 
 class Application extends App {
 
@@ -57,17 +56,9 @@ class Application extends App {
 
 
 	/**
-	 *
-	 */
-	public function registerPersonalSettings() {
-
-	}
-
-
-	/**
 	 * @return array
 	 */
-	private function dashboardNavigation() {
+	private function dashboardNavigation(): array {
 		$urlGen = \OC::$server->getURLGenerator();
 		$navName = \OC::$server->getL10N(self::APP_NAME)
 							   ->t('Dashboard');
@@ -80,28 +71,5 @@ class Application extends App {
 			'name'  => $navName
 		];
 	}
-
-
-//
-//$container->getServer()->getNavigationManager()->add(function () use ($container) {
-//    $urlGenerator = $container->getServer()->getURLGenerator();
-//    $l10n = $container->query('OCP\IL10N');
-//    return [
-//        'id' => 'dashboard',
-//        // sorting weight for the navigation. The higher the number, the higher
-//        // will it be listed in the navigation
-//        'order' => -1,
-//        // the route that will be shown on startup
-//        'href' => $urlGenerator->linkToRoute('dashboard.page.index'),
-//        // the icon that will be shown in the navigation
-//        // this file needs to exist in img/
-//        'icon' => $urlGenerator->imagePath('dashboard', 'dashboard.svg'),
-//        // the title of your application. This will be used in the
-//        // navigation or on the settings page of your app
-//        'name' => $l10n->t('Dashboard')
-//    ];
-//});
-//App::registerAdmin($container->getAppName(), 'admin');
-
 
 }

@@ -1,12 +1,14 @@
-<?php
+<?php declare(strict_types=1);
+
+
 /**
- * Nextcloud - Dashboard App
+ * Nextcloud - Dashboard app
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author regio iT gesellschaft für informationstechnologie mbh
- * @copyright regio iT 2017
+ * @author Maxence Lange <maxence@artificial-owl.com>
+ * @copyright 2018, Maxence Lange <maxence@artificial-owl.com>
  * @license GNU AGPL version 3 or any later version
  *
  * This program is free software: you can redistribute it and/or modify
@@ -28,9 +30,9 @@ namespace OCA\Dashboard\Widgets;
 
 
 use OCA\Dashboard\AppInfo\Application;
-use OCA\Dashboard\IDashboardWidget;
-use OCA\Dashboard\Model\WidgetRequest;
-use OCA\Dashboard\Model\WidgetSettings;
+use OCP\Dashboard\IDashboardWidget;
+use OCP\Dashboard\Model\IWidgetRequest;
+use OCP\Dashboard\Model\IWidgetSettings;
 
 class ClockWidget implements IDashboardWidget {
 
@@ -40,7 +42,7 @@ class ClockWidget implements IDashboardWidget {
 	/**
 	 * @return string
 	 */
-	public function getId() {
+	public function getId(): string {
 		return self::WIDGET_ID;
 	}
 
@@ -48,7 +50,7 @@ class ClockWidget implements IDashboardWidget {
 	/**
 	 * @return string
 	 */
-	public function getName() {
+	public function getName(): string {
 		return 'Clock';
 	}
 
@@ -56,7 +58,7 @@ class ClockWidget implements IDashboardWidget {
 	/**
 	 * @return string
 	 */
-	public function getDescription() {
+	public function getDescription(): string {
 		return 'The time is now.';
 	}
 
@@ -64,7 +66,7 @@ class ClockWidget implements IDashboardWidget {
 	/**
 	 * @return array
 	 */
-	public function getTemplate() {
+	public function getTemplate(): array {
 		return [
 			'app'      => Application::APP_NAME,
 			'icon'     => 'icon-clock',
@@ -79,9 +81,9 @@ class ClockWidget implements IDashboardWidget {
 	/**
 	 * @return array
 	 */
-	public function widgetSetup() {
+	public function widgetSetup(): array {
 		return [
-			'size'     => [
+			'size' => [
 				'min'     => [
 					'width'  => 2,
 					'height' => 1
@@ -106,16 +108,16 @@ class ClockWidget implements IDashboardWidget {
 
 
 	/**
-	 * @param WidgetSettings $settings
+	 * @param IWidgetSettings $settings
 	 */
-	public function loadWidget($settings) {
+	public function loadWidget(IWidgetSettings $settings) {
 	}
 
 
 	/**
-	 * @param WidgetRequest $request
+	 * @param IWidgetRequest $request
 	 */
-	public function requestWidget(WidgetRequest $request) {
+	public function requestWidget(IWidgetRequest $request) {
 	}
 
 

@@ -1,12 +1,14 @@
-<?php
+<?php declare(strict_types=1);
+
+
 /**
- * Nextcloud - Dashboard App
+ * Nextcloud - Dashboard app
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author regio iT gesellschaft für informationstechnologie mbh
- * @copyright regio iT 2017
+ * @author Maxence Lange <maxence@artificial-owl.com>
+ * @copyright 2018, Maxence Lange <maxence@artificial-owl.com>
  * @license GNU AGPL version 3 or any later version
  *
  * This program is free software: you can redistribute it and/or modify
@@ -27,12 +29,9 @@
 namespace OCA\Dashboard\Model;
 
 
-class WidgetEvent implements \JsonSerializable {
+use OCP\Dashboard\Model\IWidgetEvent;
 
-
-	const BROADCAST_USER = 'user';
-	const BROADCAST_GROUP = 'group';
-	const BROADCAST_GLOBAL = 'global';
+class WidgetEvent implements IWidgetEvent, \JsonSerializable {
 
 
 	/** @var int */
@@ -61,7 +60,7 @@ class WidgetEvent implements \JsonSerializable {
 	 *
 	 * @param $widgetId
 	 */
-	public function __construct($widgetId) {
+	public function __construct(string $widgetId) {
 		$this->widgetId = $widgetId;
 	}
 
@@ -69,7 +68,7 @@ class WidgetEvent implements \JsonSerializable {
 	/**
 	 * @return int
 	 */
-	public function getId() {
+	public function getId(): int {
 		return $this->id;
 	}
 
@@ -78,7 +77,7 @@ class WidgetEvent implements \JsonSerializable {
 	 *
 	 * @return $this
 	 */
-	public function setId($id) {
+	public function setId(int $id): IWidgetEvent {
 		$this->id = $id;
 
 		return $this;
@@ -88,7 +87,7 @@ class WidgetEvent implements \JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function getWidgetId() {
+	public function getWidgetId(): string {
 		return $this->widgetId;
 	}
 
@@ -97,7 +96,7 @@ class WidgetEvent implements \JsonSerializable {
 	 *
 	 * @return $this
 	 */
-	public function setWidgetId($widgetId) {
+	public function setWidgetId(string $widgetId): IWidgetEvent {
 		$this->widgetId = $widgetId;
 
 		return $this;
@@ -107,7 +106,7 @@ class WidgetEvent implements \JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function getBroadcast() {
+	public function getBroadcast(): string {
 		return $this->broadcast;
 	}
 
@@ -115,7 +114,7 @@ class WidgetEvent implements \JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function getRecipient() {
+	public function getRecipient(): string {
 		return $this->recipient;
 	}
 
@@ -126,7 +125,7 @@ class WidgetEvent implements \JsonSerializable {
 	 *
 	 * @return $this
 	 */
-	public function setRecipient($broadcast, $recipient = '') {
+	public function setRecipient(string $broadcast, string $recipient = ''): IWidgetEvent {
 		$this->broadcast = $broadcast;
 		$this->recipient = $recipient;
 
@@ -137,7 +136,7 @@ class WidgetEvent implements \JsonSerializable {
 	/**
 	 * @return array
 	 */
-	public function getPayload() {
+	public function getPayload(): array {
 		return $this->payload;
 	}
 
@@ -146,7 +145,7 @@ class WidgetEvent implements \JsonSerializable {
 	 *
 	 * @return $this
 	 */
-	public function setPayload($payload) {
+	public function setPayload(array $payload): IWidgetEvent {
 		$this->payload = $payload;
 
 		return $this;
@@ -156,7 +155,7 @@ class WidgetEvent implements \JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function getUniqueId() {
+	public function getUniqueId(): string {
 		return $this->uniqueId;
 	}
 
@@ -165,7 +164,7 @@ class WidgetEvent implements \JsonSerializable {
 	 *
 	 * @return $this
 	 */
-	public function setUniqueId($uniqueId) {
+	public function setUniqueId(string $uniqueId): IWidgetEvent {
 		$this->uniqueId = $uniqueId;
 
 		return $this;
@@ -175,7 +174,7 @@ class WidgetEvent implements \JsonSerializable {
 	/**
 	 * @return int
 	 */
-	public function getCreation() {
+	public function getCreation(): int {
 		return $this->creation;
 	}
 
@@ -184,7 +183,7 @@ class WidgetEvent implements \JsonSerializable {
 	 *
 	 * @return $this
 	 */
-	public function setCreation($creation) {
+	public function setCreation(int $creation): IWidgetEvent {
 		$this->creation = $creation;
 
 		return $this;
@@ -199,7 +198,7 @@ class WidgetEvent implements \JsonSerializable {
 	 * which is a value of any type other than a resource.
 	 * @since 5.4.0
 	 */
-	public function jsonSerialize() {
+	public function jsonSerialize(): array {
 		return [
 			'id'        => $this->getId(),
 			'widgetId'  => $this->getWidgetId(),

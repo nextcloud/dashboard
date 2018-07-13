@@ -1,12 +1,14 @@
-<?php
+<?php declare(strict_types=1);
+
+
 /**
- * Nextcloud - Dashboard App
+ * Nextcloud - Dashboard app
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author regio iT gesellschaft für informationstechnologie mbh
- * @copyright regio iT 2017
+ * @author Maxence Lange <maxence@artificial-owl.com>
+ * @copyright 2018, Maxence Lange <maxence@artificial-owl.com>
  * @license GNU AGPL version 3 or any later version
  *
  * This program is free software: you can redistribute it and/or modify
@@ -24,21 +26,23 @@
  *
  */
 
+
 namespace OCA\Dashboard\Api\v1;
 
 
 use OCA\Dashboard\AppInfo\Application;
-use OCA\Dashboard\Model\WidgetSettings;
 use OCA\Dashboard\Service\ConfigService;
 use OCA\Dashboard\Service\EventsService;
 use OCA\Dashboard\Service\WidgetsService;
+use OCP\AppFramework\IAppContainer;
+use OCP\Dashboard\Model\IWidgetSettings;
 use OCP\AppFramework\QueryException;
 
 class Dashboard {
 
 	const API_VERSION = [0, 1, 0];
 
-	protected static function getContainer() {
+	protected static function getContainer(): IAppContainer {
 		$app = new Application();
 
 		return $app->getContainer();
@@ -50,7 +54,7 @@ class Dashboard {
 	 *
 	 * @return string
 	 */
-	public static function appName() {
+	public static function appName(): string {
 		return Application::APP_NAME;
 	}
 
@@ -63,7 +67,7 @@ class Dashboard {
 	 * @return array
 	 * @throws QueryException
 	 */
-	public static function version() {
+	public static function version(): array {
 		$c = self::getContainer();
 
 		return [
@@ -80,10 +84,10 @@ class Dashboard {
 	 * @param string $widgetId
 	 * @param string $userId
 	 *
-	 * @return WidgetSettings
+	 * @return IWidgetSettings
 	 * @throws QueryException
 	 */
-	public static function getWidgetSettings($widgetId, $userId) {
+	public static function getWidgetSettings(string $widgetId, string $userId): IWidgetSettings {
 		$c = self::getContainer();
 
 		return $c->query(WidgetsService::class)
@@ -98,7 +102,9 @@ class Dashboard {
 	 * @param string $uniqueId
 	 *
 	 */
-	public static function createUserEvent($widgetId, $users, $payload, $uniqueId = '') {
+	public static function createUserEvent(
+		string $widgetId, $users, array $payload, string $uniqueId = ''
+	) {
 		$c = self::getContainer();
 
 		try {
@@ -116,7 +122,9 @@ class Dashboard {
 	 * @param string $uniqueId
 	 *
 	 */
-	public static function createGroupEvent($widgetId, $groups, $payload, $uniqueId = '') {
+	public static function createGroupEvent(
+		string $widgetId, $groups, array $payload, string $uniqueId = ''
+	) {
 		$c = self::getContainer();
 
 		try {
@@ -132,7 +140,8 @@ class Dashboard {
 	 * @param array $payload
 	 * @param string $uniqueId
 	 */
-	public static function createGlobalEvent($widgetId, $payload, $uniqueId = '') {
+	public static function createGlobalEvent(string $widgetId, array $payload, string $uniqueId = ''
+	) {
 		$c = self::getContainer();
 
 		try {

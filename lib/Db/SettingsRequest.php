@@ -1,12 +1,14 @@
-<?php
+<?php declare(strict_types=1);
+
+
 /**
- * Nextcloud - Dashboard App
+ * Nextcloud - Dashboard app
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author regio iT gesellschaft für informationstechnologie mbh
- * @copyright regio iT 2017
+ * @author Maxence Lange <maxence@artificial-owl.com>
+ * @copyright 2018, Maxence Lange <maxence@artificial-owl.com>
  * @license GNU AGPL version 3 or any later version
  *
  * This program is free software: you can redistribute it and/or modify
@@ -28,14 +30,15 @@ namespace OCA\Dashboard\Db;
 
 
 use OCA\Dashboard\Model\WidgetSettings;
+use OCP\Dashboard\Model\IWidgetSettings;
 
 class SettingsRequest extends SettingsRequestBuilder {
 
 
 	/**
-	 * @param WidgetSettings $settings
+	 * @param IWidgetSettings $settings
 	 */
-	public function create(WidgetSettings $settings) {
+	public function create(IWidgetSettings $settings) {
 		$qb = $this->getSettingsInsertSql();
 		$qb->setValue('user_id', $qb->createNamedParameter($settings->getUserId()))
 		   ->setValue('widget_id', $qb->createNamedParameter($settings->getWidgetId()))
@@ -53,7 +56,7 @@ class SettingsRequest extends SettingsRequestBuilder {
 	 *
 	 * @return WidgetSettings
 	 */
-	public function get($widgetId, $userId) {
+	public function get(string $widgetId, string $userId) {
 
 		$qb = $this->getSettingsSelectSql();
 		$this->limitToWidgetId($qb, $widgetId);
@@ -72,9 +75,9 @@ class SettingsRequest extends SettingsRequestBuilder {
 
 
 	/**
-	 * @param WidgetSettings $settings
+	 * @param IWidgetSettings $settings
 	 */
-	public function savePosition(WidgetSettings $settings) {
+	public function savePosition(IWidgetSettings $settings) {
 		$qb = $this->getSettingsUpdateSql();
 		$qb->set('position', $qb->createNamedParameter(json_encode($settings->getPosition())))
 		   ->set('enabled', $qb->createNamedParameter($settings->isEnabled()));
@@ -93,7 +96,7 @@ class SettingsRequest extends SettingsRequestBuilder {
 	 * @param string $widgetId
 	 * @param string $userId
 	 */
-	public function disableWidget($widgetId, $userId) {
+	public function disableWidget(string $widgetId, string $userId) {
 		$qb = $this->getSettingsUpdateSql();
 		$qb->set('enabled', $qb->createNamedParameter(false));
 

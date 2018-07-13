@@ -1,12 +1,14 @@
-<?php
+<?php declare(strict_types=1);
+
+
 /**
- * Nextcloud - Dashboard App
+ * Nextcloud - Dashboard app
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author regio iT gesellschaft für informationstechnologie mbh
- * @copyright regio iT 2017
+ * @author Maxence Lange <maxence@artificial-owl.com>
+ * @copyright 2018, Maxence Lange <maxence@artificial-owl.com>
  * @license GNU AGPL version 3 or any later version
  *
  * This program is free software: you can redistribute it and/or modify
@@ -30,15 +32,16 @@ use Exception;
 use OC\App\AppManager;
 use OC_App;
 use OCA\Dashboard\Db\SettingsRequest;
-use OCA\Dashboard\Exceptions\UserCannotBeEmptyException;
 use OCA\Dashboard\Exceptions\WidgetDoesNotExistException;
 use OCA\Dashboard\Exceptions\WidgetIsNotCompatibleException;
 use OCA\Dashboard\Exceptions\WidgetIsNotUniqueException;
-use OCA\Dashboard\IDashboardWidget;
 use OCA\Dashboard\Model\WidgetFrame;
-use OCA\Dashboard\Model\WidgetRequest;
 use OCA\Dashboard\Model\WidgetSettings;
+use OCA\Dashboard\Model\WidgetRequest;
 use OCP\AppFramework\QueryException;
+use OCP\Dashboard\IDashboardWidget;
+use OCP\Dashboard\Model\IWidgetRequest;
+use OCP\Dashboard\Model\IWidgetSettings;
 
 class WidgetsService {
 
@@ -74,7 +77,7 @@ class WidgetsService {
 	 * @param MiscService $miscService
 	 */
 	public function __construct(
-		$userId, AppManager $appManager, SettingsRequest $settingsRequest,
+		string $userId, AppManager $appManager, SettingsRequest $settingsRequest,
 		ConfigService $configService, MiscService $miscService
 	) {
 		$this->userId = $userId;
@@ -85,16 +88,23 @@ class WidgetsService {
 	}
 
 
-	public function getWidgetSettings($widgetId, $userId) {
+	/**
+	 * @param string $widgetId
+	 * @param string $userId
+	 *
+	 * @return IWidgetSettings
+	 */
+	public function getWidgetSettings(string $widgetId, string $userId): IWidgetSettings {
 		return $this->settingsRequest->get($widgetId, $userId);
 	}
+
 
 	/**
 	 * @param bool $loadWidgets
 	 *
 	 * @return WidgetFrame[]
 	 */
-	public function getWidgetFrames($loadWidgets = false) {
+	public function getWidgetFrames(bool $loadWidgets = false): array {
 		$this->getWidgets();
 		if ($loadWidgets) {
 			$this->loadWidgets();
@@ -107,20 +117,19 @@ class WidgetsService {
 	/**
 	 * @param string $widgetId
 	 */
-	public function removeWidget($widgetId) {
+	public function removeWidget(string $widgetId) {
 		if ($widgetId === '' || is_null($widgetId)) {
 			return;
 		}
 
 		$this->settingsRequest->disableWidget($widgetId, $this->userId);
-//		$this->configService->deleteUserValue('_' . $widgetId . '_pos');
 	}
+
 
 	/**
 	 * @param array $grid
 	 */
-	public function saveGrid($grid) {
-
+	public function saveGrid(array $grid) {
 		foreach ($grid as $item) {
 			$pos = [
 				'x'      => $item['x'],
@@ -133,24 +142,18 @@ class WidgetsService {
 			$settings->setPosition($pos);
 			$settings->setEnabled(true);
 
-//			try {
 			$this->settingsRequest->savePosition($settings);
-//				$this->configService->setUserValue(
-//					'_' . $item['widgetId'] . '_pos', json_encode($pos)
-//				);
-//			} catch (PreConditionNotMetException $e) {
-//			}
 		}
 	}
 
 
 	/**
-	 * @param $widgetId
+	 * @param string $widgetId
 	 *
 	 * @return WidgetFrame
 	 * @throws WidgetDoesNotExistException
 	 */
-	public function getWidgetFrame($widgetId) {
+	public function getWidgetFrame(string $widgetId) : WidgetFrame {
 		$widgetFrames = $this->getWidgetFrames();
 		foreach ($widgetFrames as $frame) {
 			$widget = $frame->getWidget();
@@ -164,11 +167,11 @@ class WidgetsService {
 
 
 	/**
-	 * @param WidgetRequest $widgetRequest
+	 * @param IWidgetRequest $widgetRequest
 	 *
 	 * @throws WidgetDoesNotExistException
 	 */
-	public function initWidgetRequest(WidgetRequest $widgetRequest) {
+	public function initWidgetRequest(IWidgetRequest $widgetRequest) {
 		$widgetId = $widgetRequest->getWidgetId();
 		$widgetFrame = $this->getWidgetFrame($widgetId);
 
@@ -180,9 +183,9 @@ class WidgetsService {
 
 
 	/**
-	 * @param WidgetRequest $widgetRequest
+	 * @param IWidgetRequest $widgetRequest
 	 */
-	public function requestWidget(WidgetRequest $widgetRequest) {
+	public function requestWidget(IWidgetRequest $widgetRequest) {
 		$widget = $widgetRequest->getWidget();
 		$widget->requestWidget($widgetRequest);
 	}
@@ -210,10 +213,11 @@ class WidgetsService {
 
 	/**
 	 * @param IDashboardWidget $widget
+	 * @param string $userId
 	 *
 	 * @return WidgetFrame
 	 */
-	private function generateWidgetFrame(IDashboardWidget $widget, $userId = '') {
+	private function generateWidgetFrame(IDashboardWidget $widget, string $userId = ''): WidgetFrame {
 
 		if ($userId === '') {
 			$userId = $this->userId;
@@ -251,7 +255,7 @@ class WidgetsService {
 	 * @throws WidgetIsNotCompatibleException
 	 * @throws QueryException
 	 */
-	private function getWidgetsFromApp($appId) {
+	private function getWidgetsFromApp(string $appId) {
 		$appInfo = OC_App::getAppInfo($appId);
 		if (!is_array($appInfo) || !key_exists('dashboard', $appInfo)
 			|| !key_exists('widget', $appInfo['dashboard'])) {

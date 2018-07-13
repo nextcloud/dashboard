@@ -1,12 +1,14 @@
-<?php
+<?php declare(strict_types=1);
+
+
 /**
- * Nextcloud - Dashboard App
+ * Nextcloud - Dashboard app
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author regio iT gesellschaft für informationstechnologie mbh
- * @copyright regio iT 2017
+ * @author Maxence Lange <maxence@artificial-owl.com>
+ * @copyright 2018, Maxence Lange <maxence@artificial-owl.com>
  * @license GNU AGPL version 3 or any later version
  *
  * This program is free software: you can redistribute it and/or modify
@@ -28,7 +30,6 @@ namespace OCA\Dashboard\Command;
 
 use Exception;
 use OC\Core\Command\Base;
-use OCA\Dashboard\Model\WidgetEvent;
 use OCA\Dashboard\Service\EventsService;
 use OCA\Dashboard\Service\MiscService;
 use Symfony\Component\Console\Input\InputArgument;
@@ -50,8 +51,6 @@ class Push extends Base {
 	 *
 	 * @param EventsService $eventsService
 	 * @param MiscService $miscService
-	 *
-	 * @internal param IndexService $indexService
 	 */
 	public function __construct(EventsService $eventsService, MiscService $miscService) {
 		parent::__construct();
@@ -61,6 +60,9 @@ class Push extends Base {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function configure() {
 		parent::configure();
 		$this->setName('dashboard:push')
@@ -75,7 +77,6 @@ class Push extends Base {
 	 * @param InputInterface $input
 	 * @param OutputInterface $output
 	 *
-	 * @return int|null|void
 	 * @throws Exception
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output) {

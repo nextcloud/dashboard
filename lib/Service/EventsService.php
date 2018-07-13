@@ -1,12 +1,14 @@
-<?php
+<?php declare(strict_types=1);
+
+
 /**
- * Nextcloud - Dashboard App
+ * Nextcloud - Dashboard app
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author regio iT gesellschaft für informationstechnologie mbh
- * @copyright regio iT 2017
+ * @author Maxence Lange <maxence@artificial-owl.com>
+ * @copyright 2018, Maxence Lange <maxence@artificial-owl.com>
  * @license GNU AGPL version 3 or any later version
  *
  * This program is free software: you can redistribute it and/or modify
@@ -24,23 +26,24 @@
  *
  */
 
+
 namespace OCA\Dashboard\Service;
 
 use Exception;
-use OC\App\AppManager;
-use OC_App;
 use OCA\Dashboard\Db\EventsRequest;
-use OCA\Dashboard\Exceptions\WidgetDoesNotExistException;
-use OCA\Dashboard\Exceptions\WidgetIsNotCompatibleException;
-use OCA\Dashboard\Exceptions\WidgetIsNotUniqueException;
-use OCA\Dashboard\IDashboardWidget;
 use OCA\Dashboard\Model\WidgetEvent;
-use OCA\Dashboard\Model\WidgetFrame;
-use OCA\Dashboard\Model\WidgetRequest;
-use OCP\AppFramework\QueryException;
-use OCP\PreConditionNotMetException;
+use OCP\Dashboard\Model\IWidgetEvent;
+use OCP\IGroup;
+use OCP\IGroupManager;
+use OCP\IUserManager;
 
 class EventsService {
+
+	/** @var IUserManager */
+	private $userManager;
+
+	/** @var IGroupManager */
+	private $groupManager;
 
 	/** @var EventsRequest */
 	private $eventsRequest;
@@ -53,15 +56,20 @@ class EventsService {
 
 
 	/**
-	 * ProviderService constructor.
+	 * EventsService constructor.
 	 *
+	 * @param IUserManager $userManager
+	 * @param IGroupManager $groupManager
 	 * @param EventsRequest $eventsRequest
 	 * @param ConfigService $configService
 	 * @param MiscService $miscService
 	 */
 	public function __construct(
-		EventsRequest $eventsRequest, ConfigService $configService, MiscService $miscService
+		IUserManager $userManager, IGroupManager $groupManager, EventsRequest $eventsRequest,
+		ConfigService $configService, MiscService $miscService
 	) {
+		$this->userManager = $userManager;
+		$this->groupManager = $groupManager;
 		$this->eventsRequest = $eventsRequest;
 		$this->configService = $configService;
 		$this->miscService = $miscService;
@@ -74,7 +82,8 @@ class EventsService {
 	 * @param array $payload
 	 * @param string $uniqueId
 	 */
-	public function createUserEvent($widgetId, $users, $payload, $uniqueId = '') {
+	public function createUserEvent(string $widgetId, $users, array $payload, string $uniqueId = ''
+	) {
 		if (!is_array($users)) {
 			$users = [$users];
 		}
@@ -85,7 +94,7 @@ class EventsService {
 
 		foreach ($users as $userId) {
 			$event = new WidgetEvent($widgetId);
-			$event->setRecipient(WidgetEvent::BROADCAST_USER, $userId);
+			$event->setRecipient(IWidgetEvent::BROADCAST_USER, $userId);
 			$event->setPayload($payload);
 			$event->setUniqueId($uniqueId);
 
@@ -100,7 +109,9 @@ class EventsService {
 	 * @param array $payload
 	 * @param string $uniqueId
 	 */
-	public function createGroupEvent($widgetId, $groups, $payload, $uniqueId = '') {
+	public function createGroupEvent(
+		string $widgetId, $groups, array $payload, string $uniqueId = ''
+	) {
 		if (!is_array($groups)) {
 			$groups = [$groups];
 		}
@@ -111,7 +122,7 @@ class EventsService {
 
 		foreach ($groups as $groupId) {
 			$event = new WidgetEvent($widgetId);
-			$event->setRecipient(WidgetEvent::BROADCAST_GROUP, $groupId);
+			$event->setRecipient(IWidgetEvent::BROADCAST_GROUP, $groupId);
 			$event->setPayload($payload);
 			$event->setUniqueId($uniqueId);
 
@@ -125,13 +136,13 @@ class EventsService {
 	 * @param array $payload
 	 * @param string $uniqueId
 	 */
-	public function createGlobalEvent($widgetId, $payload, $uniqueId = '') {
+	public function createGlobalEvent(string $widgetId, array $payload, string $uniqueId = '') {
 		if ($uniqueId === '') {
 			$uniqueId = uniqid();
 		}
 
 		$event = new WidgetEvent($widgetId);
-		$event->setRecipient(WidgetEvent::BROADCAST_GLOBAL);
+		$event->setRecipient(IWidgetEvent::BROADCAST_GLOBAL);
 		$event->setPayload($payload);
 		$event->setUniqueId($uniqueId);
 
@@ -140,36 +151,60 @@ class EventsService {
 
 
 	/**
-	 * @param WidgetEvent $event
+	 * @param IWidgetEvent $event
 	 */
-	public function pushEvent(WidgetEvent $event) {
+	private function pushEvent(IWidgetEvent $event) {
 		try {
-//			$this->miscService->log('push event: ' . json_encode($event));
 			$this->eventsRequest->create($event);
 		} catch (Exception $e) {
 		}
 	}
 
+
 	/**
-	 * @param $userId
-	 *
+	 * @param string $userId
 	 * @param int $lastEventId
 	 *
 	 * @return WidgetEvent[]
 	 */
-	public function getEvents($userId, $lastEventId) {
+	public function getEvents(string $userId, int $lastEventId): array {
 		$userEvents = $this->eventsRequest->getUserEvents($userId, $lastEventId);
-//$groupEvents = $this->eventsRequest->getEventsByGroups($userId, $lastEventId);
-		$groupEvents = [];
+
+		$this->miscService->log(
+			'# GET EVENTS ## > ' . json_encode($this->getGroupsFromUserId($userId))
+		);
+		$groupEvents =
+			$this->eventsRequest->getGroupEvents($this->getGroupsFromUserId($userId), $lastEventId);
 		$globalEvents = $this->eventsRequest->getGlobalEvents($lastEventId);
 
 		return array_merge($userEvents, $groupEvents, $globalEvents);
 	}
 
 
-	public function getLastEventId() {
+	/**
+	 * @return int
+	 */
+	public function getLastEventId(): int {
 		return $this->eventsRequest->getLastEventId();
 	}
 
+
+	/**
+	 * @param string $userId
+	 *
+	 * @return array
+	 */
+	private function getGroupsFromUserId(string $userId): array {
+		$user = $this->userManager->get($userId);
+		$groups = $this->groupManager->getUserGroups($user);
+
+		return array_keys(
+			array_map(
+				function(IGroup $group) {
+					return $group->getGID();
+				}, $groups
+			)
+		);
+	}
 
 }

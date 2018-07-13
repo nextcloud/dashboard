@@ -1,12 +1,14 @@
-<?php
+<?php declare(strict_types=1);
+
+
 /**
- * Nextcloud - Dashboard App
+ * Nextcloud - Dashboard app
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author regio iT gesellschaft für informationstechnologie mbh
- * @copyright regio iT 2017
+ * @author Maxence Lange <maxence@artificial-owl.com>
+ * @copyright 2018, Maxence Lange <maxence@artificial-owl.com>
  * @license GNU AGPL version 3 or any later version
  *
  * This program is free software: you can redistribute it and/or modify
@@ -27,10 +29,10 @@
 namespace OCA\Dashboard\Model;
 
 
-use OCA\Dashboard\IDashboardWidget;
-use OCP\AppFramework\Http\TemplateResponse;
+use OCP\Dashboard\IDashboardWidget;
+use OCP\Dashboard\Model\IWidgetRequest;
 
-class WidgetRequest implements \JsonSerializable {
+class WidgetRequest implements IWidgetRequest, \JsonSerializable {
 
 
 	/** @var IDashboardWidget */
@@ -51,7 +53,7 @@ class WidgetRequest implements \JsonSerializable {
 	 *
 	 * @param string $widgetId
 	 */
-	public function __construct($widgetId) {
+	public function __construct(string $widgetId) {
 		$this->widgetId = $widgetId;
 	}
 
@@ -59,7 +61,7 @@ class WidgetRequest implements \JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function getWidgetId() {
+	public function getWidgetId(): string {
 		return $this->widgetId;
 	}
 
@@ -68,7 +70,7 @@ class WidgetRequest implements \JsonSerializable {
 	 *
 	 * @return $this;
 	 */
-	public function setWidgetId($widgetId) {
+	public function setWidgetId(string $widgetId): IWidgetRequest {
 		$this->widgetId = $widgetId;
 
 		return $this;
@@ -78,7 +80,7 @@ class WidgetRequest implements \JsonSerializable {
 	/**
 	 * @return IDashboardWidget
 	 */
-	public function getWidget() {
+	public function getWidget(): IDashboardWidget {
 		return $this->widget;
 	}
 
@@ -87,7 +89,7 @@ class WidgetRequest implements \JsonSerializable {
 	 *
 	 * @return $this
 	 */
-	public function setWidget($widget) {
+	public function setWidget(IDashboardWidget $widget): IWidgetRequest {
 		$this->widget = $widget;
 
 		return $this;
@@ -97,7 +99,7 @@ class WidgetRequest implements \JsonSerializable {
 	/**
 	 * @return string
 	 */
-	public function getRequest() {
+	public function getRequest(): string {
 		return $this->request;
 	}
 
@@ -106,7 +108,7 @@ class WidgetRequest implements \JsonSerializable {
 	 *
 	 * @return $this
 	 */
-	public function setRequest($request) {
+	public function setRequest(string $request): IWidgetRequest {
 		$this->request = $request;
 
 		return $this;
@@ -116,7 +118,7 @@ class WidgetRequest implements \JsonSerializable {
 	/**
 	 * @return array
 	 */
-	public function getResult() {
+	public function getResult(): array {
 		return $this->result;
 	}
 
@@ -125,7 +127,7 @@ class WidgetRequest implements \JsonSerializable {
 	 *
 	 * @return $this
 	 */
-	public function setResult($result) {
+	public function setResult(array $result): IWidgetRequest {
 		$this->result = $result;
 
 		return $this;
@@ -138,7 +140,7 @@ class WidgetRequest implements \JsonSerializable {
 	 *
 	 * @return $this
 	 */
-	public function addResult($key, $result) {
+	public function addResult(string $key, $result): IWidgetRequest {
 		$this->result[$key] = $result;
 
 		return $this;
@@ -153,7 +155,7 @@ class WidgetRequest implements \JsonSerializable {
 	 * which is a value of any type other than a resource.
 	 * @since 5.4.0
 	 */
-	public function jsonSerialize() {
+	public function jsonSerialize(): array {
 		$widget = $this->getWidget();
 
 		return [
