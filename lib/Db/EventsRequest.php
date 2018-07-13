@@ -152,7 +152,7 @@ class EventsRequest extends EventsRequestBuilder {
 			return 0;
 		}
 
-		$lastInsertedId = $data['id'];
+		$lastInsertedId = intval($data['id']);
 		$cursor->closeCursor();
 
 		return $lastInsertedId;
