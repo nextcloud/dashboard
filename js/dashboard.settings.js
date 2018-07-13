@@ -145,7 +145,7 @@ var settings = {
 			var liAddWidget = $('<li>').append($('<a>', {
 				href: '#',
 				class: 'icon-add'
-			}).append($('<span>').text('Add a widget')));
+			}).append($('<span>').text(_('Add a widget'))));
 			liAddWidget.on('click', function () {
 				nav.showWidgetsList();
 			}).on('mousedown mouseup', function (event) {
@@ -157,7 +157,7 @@ var settings = {
 		var liRemoveWidget = $('<li>').append($('<a>', {
 			href: '#',
 			class: 'icon-delete'
-		}).append($('<span>').text('Remove this widget')));
+		}).append($('<span>').text(_('Remove this widget'))));
 		liRemoveWidget.on('click', function () {
 			grid.removeWidget(item.widget.id)
 		}).on('mousedown mouseup', function (event) {

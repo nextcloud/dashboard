@@ -42,11 +42,15 @@ use OCP\AppFramework\QueryException;
 use OCP\Dashboard\IDashboardWidget;
 use OCP\Dashboard\Model\IWidgetRequest;
 use OCP\Dashboard\Model\IWidgetSettings;
+use OCP\IL10N;
 
 class WidgetsService {
 
 	/** @var string */
 	private $userId;
+
+	/** @var IL10N */
+	private $l10n;
 
 	/** @var AppManager */
 	private $appManager;
@@ -77,10 +81,11 @@ class WidgetsService {
 	 * @param MiscService $miscService
 	 */
 	public function __construct(
-		string $userId, AppManager $appManager, SettingsRequest $settingsRequest,
+		string $userId, IL10N $l10n, AppManager $appManager, SettingsRequest $settingsRequest,
 		ConfigService $configService, MiscService $miscService
 	) {
 		$this->userId = $userId;
+		$this->l10n = $l10n;
 		$this->appManager = $appManager;
 		$this->settingsRequest = $settingsRequest;
 		$this->configService = $configService;
@@ -153,7 +158,7 @@ class WidgetsService {
 	 * @return WidgetFrame
 	 * @throws WidgetDoesNotExistException
 	 */
-	public function getWidgetFrame(string $widgetId) : WidgetFrame {
+	public function getWidgetFrame(string $widgetId): WidgetFrame {
 		$widgetFrames = $this->getWidgetFrames();
 		foreach ($widgetFrames as $frame) {
 			$widget = $frame->getWidget();
@@ -217,7 +222,8 @@ class WidgetsService {
 	 *
 	 * @return WidgetFrame
 	 */
-	private function generateWidgetFrame(IDashboardWidget $widget, string $userId = ''): WidgetFrame {
+	private function generateWidgetFrame(IDashboardWidget $widget, string $userId = ''
+	): WidgetFrame {
 
 		if ($userId === '') {
 			$userId = $this->userId;

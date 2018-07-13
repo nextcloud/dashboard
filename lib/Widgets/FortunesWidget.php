@@ -30,11 +30,12 @@ namespace OCA\Dashboard\Widgets;
 
 
 use OCA\Dashboard\AppInfo\Application;
+use OCA\Dashboard\Service\Widgets\Fortunes\FortunesService;
+use OCP\AppFramework\QueryException;
 use OCP\Dashboard\IDashboardWidget;
 use OCP\Dashboard\Model\IWidgetRequest;
 use OCP\Dashboard\Model\IWidgetSettings;
-use OCA\Dashboard\Service\Widgets\Fortunes\FortunesService;
-use OCP\AppFramework\QueryException;
+use OCP\IL10N;
 
 
 class FortunesWidget implements IDashboardWidget {
@@ -42,8 +43,17 @@ class FortunesWidget implements IDashboardWidget {
 	const WIDGET_ID = 'fortunes';
 
 
+	/** @var IL10N */
+	private $l10n;
+
+
 	/** @var FortunesService */
 	private $fortunesService;
+
+
+	public function __construct(IL10N $l10n) {
+		$this->l10n = $l10n;
+	}
 
 
 	/**
@@ -58,7 +68,7 @@ class FortunesWidget implements IDashboardWidget {
 	 * @return string
 	 */
 	public function getName(): string {
-		return 'Fortune Quotes';
+		return $this->l10n->t('Fortune Quotes');
 	}
 
 
@@ -66,7 +76,7 @@ class FortunesWidget implements IDashboardWidget {
 	 * @return string
 	 */
 	public function getDescription(): string {
-		return 'Get a random fortune quote';
+		return $this->l10n->t('Get a random fortune quote');
 	}
 
 

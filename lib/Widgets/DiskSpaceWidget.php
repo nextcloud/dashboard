@@ -30,20 +30,31 @@ namespace OCA\Dashboard\Widgets;
 
 
 use OCA\Dashboard\AppInfo\Application;
+use OCA\Dashboard\Service\Widgets\DiskSpace\DiskSpaceService;
+use OCP\AppFramework\QueryException;
 use OCP\Dashboard\IDashboardWidget;
 use OCP\Dashboard\Model\IWidgetRequest;
 use OCP\Dashboard\Model\IWidgetSettings;
-use OCA\Dashboard\Service\Widgets\DiskSpace\DiskSpaceService;
-use OCP\AppFramework\QueryException;
 use OCP\Files\NotFoundException;
+use OCP\IL10N;
 
 class DiskSpaceWidget implements IDashboardWidget {
 
 	const WIDGET_ID = 'diskspace';
 
 
+	/** @var IL10N */
+	private $l10n;
+
+
 	/** @var DiskSpaceService */
 	private $diskSpaceService;
+
+
+	public function __construct(IL10N $l10n) {
+		$this->l10n = $l10n;
+	}
+
 
 	/**
 	 * @return string
@@ -57,7 +68,7 @@ class DiskSpaceWidget implements IDashboardWidget {
 	 * @return string
 	 */
 	public function getName(): string {
-		return 'Disk space';
+		return $this->l10n->t('Disk space');
 	}
 
 
@@ -65,7 +76,7 @@ class DiskSpaceWidget implements IDashboardWidget {
 	 * @return string
 	 */
 	public function getDescription(): string {
-		return 'Display the current use of your available disk space';
+		return $this->l10n->t('Display the current use of your available disk space');
 	}
 
 

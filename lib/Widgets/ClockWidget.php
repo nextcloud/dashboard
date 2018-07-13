@@ -33,10 +33,20 @@ use OCA\Dashboard\AppInfo\Application;
 use OCP\Dashboard\IDashboardWidget;
 use OCP\Dashboard\Model\IWidgetRequest;
 use OCP\Dashboard\Model\IWidgetSettings;
+use OCP\IL10N;
 
 class ClockWidget implements IDashboardWidget {
 
 	const WIDGET_ID = 'clock';
+
+
+	/** @var IL10N */
+	private $l10n;
+
+
+	public function __construct(IL10N $l10n) {
+		$this->l10n = $l10n;
+	}
 
 
 	/**
@@ -51,7 +61,7 @@ class ClockWidget implements IDashboardWidget {
 	 * @return string
 	 */
 	public function getName(): string {
-		return 'Clock';
+		return $this->l10n->t('Clock');
 	}
 
 
@@ -59,7 +69,7 @@ class ClockWidget implements IDashboardWidget {
 	 * @return string
 	 */
 	public function getDescription(): string {
-		return 'The time is now.';
+		return $this->l10n->t('The time is now.');
 	}
 
 
