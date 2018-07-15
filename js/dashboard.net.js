@@ -111,6 +111,11 @@ var net = {
 				json: JSON.stringify({eventId: lastEventId})
 			}
 		}).done(function (res) {
+			if (typeof res === 'string') {
+				var json = $.trim(res);
+				res = JSON.parse(json);
+			}
+
 			if (res.result === 'done') {
 				settings.broadcastPushWidget(res);
 				lastEventId = res.lastEventId;
@@ -125,7 +130,7 @@ var net = {
 
 
 	failedPush: function () {
-		// console.log('FAIL !');
+		//console.log('FAIL !');
 	},
 
 	onCallback: function (callback, result) {

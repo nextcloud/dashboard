@@ -164,6 +164,11 @@ class WidgetController extends Controller {
 
 				return $data;
 			}
+
+			// we sent few data so we can detect if connection is lost
+			echo ' ';
+			ob_flush();
+			flush();
 		}
 
 		return '';
