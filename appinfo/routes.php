@@ -34,6 +34,6 @@ return [
 		['name' => 'Navigation#deleteWidget', 'url' => '/widget', 'verb' => 'DELETE'],
 		['name' => 'Navigation#saveGrid', 'url' => '/widgets/grid', 'verb' => 'POST'],
 		['name' => 'Widget#requestWidget', 'url' => '/widget/request', 'verb' => 'GET'],
-		['name' => 'Widget#pushWidget', 'url' => '/widget/push', 'verb' => 'POST'],
+		['name' => 'Widget#pushWidget', 'url' => '/widget/push', 'verb' => 'POST']
 	]
 ];

@@ -170,9 +170,9 @@ class EventsService {
 	public function getEvents(string $userId, int $lastEventId): array {
 		$userEvents = $this->eventsRequest->getUserEvents($userId, $lastEventId);
 
-		$this->miscService->log(
-			'# GET EVENTS ## > ' . json_encode($this->getGroupsFromUserId($userId))
-		);
+//		$this->miscService->log(
+//			'# GET EVENTS ## > ' . json_encode($this->getGroupsFromUserId($userId))
+//		);
 		$groupEvents =
 			$this->eventsRequest->getGroupEvents($this->getGroupsFromUserId($userId), $lastEventId);
 		$globalEvents = $this->eventsRequest->getGlobalEvents($lastEventId);

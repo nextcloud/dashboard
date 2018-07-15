@@ -104,11 +104,11 @@ class EventsRequestBuilder extends CoreRequestBuilder {
 	 */
 	protected function parseEventsSelectSql($data): IWidgetEvent {
 		$event = new WidgetEvent($data['widget_id']);
-		$event->setId($data['id'])
+		$event->setId(intval($data['id']))
 			  ->setRecipient($data['broadcast'], $data['recipient'])
 			  ->setPayload(json_decode($data['payload'], true))
 			  ->setUniqueId($data['unique_id'])
-			  ->setCreation($data['creation']);
+			  ->setCreation(intval($data['creation']));
 
 		return $event;
 	}
