@@ -48,7 +48,7 @@ var grid = {
 			}
 
 			setTimeout(function () {
-				nav.executeFunction(widget.setup.resize, window, grid.getInfoFromDiv($(event.target)))
+				nav.executeFunction(widget.setup.resize, window, grid.getInfoFromDiv($(event.target)));
 			}, 200);
 		});
 
@@ -94,7 +94,7 @@ var grid = {
 		widgetDiv.append(widgetContent);
 
 		var widgetContentFront = $('<div>', {class: 'front'}).html(item.html);
-		widgetContent.append(widgetContentFront)
+		widgetContent.append(widgetContentFront);
 
 		if (item.setup.settings !== undefined) {
 			var widgetContentBack = $('<div>', {class: 'back'}).html(

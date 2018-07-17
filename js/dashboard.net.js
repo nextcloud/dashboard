@@ -78,7 +78,7 @@ var net = {
 			data: {
 				widgetId: widgetId
 			}
-		}).done(function (res) {
+		}).done(function () {
 		}).fail(function () {
 			// net.failedToAjax();
 		});

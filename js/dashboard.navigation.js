@@ -127,7 +127,7 @@ var nav = {
 			div.on('click', function () {
 				var item = settings.getWidget($(this).attr('data-widget-id'));
 				if (item === null || item.config.enabled) {
-					return
+					return;
 				}
 
 				grid.addWidget(item);

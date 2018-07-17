@@ -160,7 +160,7 @@ var settings = {
 			class: 'icon-delete'
 		}).append($('<span>').text(_('Remove this widget'))));
 		liRemoveWidget.on('click', function () {
-			grid.removeWidget(item.widget.id)
+			grid.removeWidget(item.widget.id);
 		}).on('mousedown mouseup', function (event) {
 			event.stopPropagation();
 		});
