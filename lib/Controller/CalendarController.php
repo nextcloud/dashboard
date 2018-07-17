@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Nextcloud - Dashboard App
  *
@@ -49,6 +48,11 @@ use OCP\ILogger;
  * @author regio iT gesellschaft für informationstechnologie mbh>
  */
 class CalendarController extends Controller {
+
+	const DASHBOARD_LUM_TRESHOULD   = 140.0000;
+	const DASHBOARD_LUM_MULTI_RED   =   0.2125;
+	const DASHBOARD_LUM_MULTI_GREEN =   0.7154;
+	const DASHBOARD_LUM_MULTI_BLUE  =   0.0721;
 
 	/** @var IURLGenerator */
 	private $urlGenerator;
@@ -136,15 +140,35 @@ class CalendarController extends Controller {
 		$calendars = $this->calDavBackend->getCalendarsForUser("principals/users/" . $this->userId);
 
 		foreach ($calendars as $calendar) {
+			// luminance threshold source: https://hacks.mozilla.org/2018/07/dark-theme-darkening-better-theming-for-firefox-quantum/
+			$lum = static::DASHBOARD_LUM_TRESHOULD + 1.0000;
+			$calBackgroundColor = $calendar['{http://apple.com/ns/ical/}calendar-color'];
+			if(!isset($calBackgroundColor)) {
+				$calBackgroundColor = '#3A87AD'; // standard background color of private events
+			}
+			// six digit hex notation?
+			if (preg_match('/^[#][0-9A-F]{6}$/i', $calBackgroundColor) === 1) {
+				$rColorInt = hexdec(substr($calBackgroundColor, 1, 2));
+				$gColorInt = hexdec(substr($calBackgroundColor, 3, 2));
+				$bColorInt = hexdec(substr($calBackgroundColor, 5, 2));
+				$lum = (static::DASHBOARD_LUM_MULTI_RED * $rColorInt)
+					+ (static::DASHBOARD_LUM_MULTI_GREEN * $gColorInt)
+					+ (static::DASHBOARD_LUM_MULTI_BLUE * $bColorInt)
+				;
+			}
+			$textColor = '#FFFFFF'; // white font color
+			// $lum values over 140 will be classified as bright background color
+			if ($lum > static::DASHBOARD_LUM_TRESHOULD) {
+				$textColor = '#000000'; // black font color
+			}
 			$eventSources[] = [
-				'url'             => $this->urlGenerator->linkToRoute(
-					'dashboard.calendar.get_events', [
-													   'calendarid' => $calendar['id'],
-												   ]
+				'url' => $this->urlGenerator->linkToRoute(
+					'dashboard.calendar.get_events',
+					['calendarid' => $calendar['id']]
 				),
 				'backgroundColor' => $calendar['{http://apple.com/ns/ical/}calendar-color'],
 				'borderColor'     => '#888',
-				'textColor'       => '#FFF',
+				'textColor'       => $textColor,
 				'cache'           => true,
 			];
 		}
