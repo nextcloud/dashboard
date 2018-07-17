@@ -70,8 +70,6 @@ var net = {
 
 
 	deleteWidget: function (widgetId) {
-		var res = {status: -1};
-
 		$.ajax({
 			method: 'DELETE',
 			url: OC.generateUrl('/apps/dashboard/widget'),
