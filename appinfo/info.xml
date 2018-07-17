@@ -5,14 +5,8 @@
 	<name>Dashboard</name>
 	<summary>Dashboard app for Nextcloud</summary>
 	<description>
-		<![CDATA[The Dashboard app allows users to easily keep an eye on their instance, and to retrieve useful information.
-        Here is what they can see:
-
-                - last uploaded files
-                - most recent e-mails
-                - last notifications
-                - upcoming events
-                - remaining storage space in their account
+		<![CDATA[The Dashboard app allows users to monitor their data throw sub-elements called Widgets.
+		Widgets are imported from other apps and can be added, removed, moved and resized
 ]]>
 	</description>
 	<version>5.99.8</version>
