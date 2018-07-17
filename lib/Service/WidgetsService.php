@@ -224,7 +224,7 @@ class WidgetsService {
 		}
 
 		$settings = $this->settingsRequest->get($widget->getId(), $userId);
-		$settings->setDefaultSettings(MiscService::get($widget->widgetSetup(), 'settings', []));
+		$settings->setDefaultSettings((array) MiscService::get($widget->widgetSetup(), 'settings', []));
 
 		return new WidgetFrame($widget, $settings);
 	}
