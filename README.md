@@ -5,7 +5,7 @@
 ```
  $ git clone -b gridstack https://github.com/nextcloud/dashboard.git
  $ cd dashboard
- $ make composer npm
+ $ make npm
 ```
 
 
