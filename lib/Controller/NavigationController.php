@@ -88,20 +88,55 @@ class NavigationController extends Controller {
 		foreach ($widgetFrames as $frame) {
 			$tmpl = $frame->getWidget()
 						  ->getTemplate();
-			if (!array_key_exists('app', $tmpl)) {
+			if (!is_array($tmpl) || !array_key_exists('app', $tmpl)) {
 				continue;
 			}
 
-			if (array_key_exists('css', $tmpl)) {
-				Util::addStyle($tmpl['app'], $tmpl['css']);
-			}
-
-			if (array_key_exists('js', $tmpl)) {
-				Util::addScript($tmpl['app'], $tmpl['js']);
-			}
+			$this->includeWidgetCss($tmpl);
+			$this->includeWidgetJs($tmpl);
 		}
 
 		return new TemplateResponse(Application::APP_NAME, 'navigate', []);
+	}
+
+
+	/**
+	 * @param array $tmpl
+	 */
+	private function includeWidgetCss(array $tmpl) {
+		if (!array_key_exists('css', $tmpl)) {
+			return;
+		}
+
+		$css = $tmpl['css'];
+		if (!is_array($css)) {
+			$css = [$css];
+		}
+
+		foreach ($css as $file) {
+			Util::addStyle($tmpl['app'], $file);
+		}
+
+	}
+
+
+	/**
+	 * @param array $tmpl
+	 */
+	private function includeWidgetJs(array $tmpl) {
+		if (!array_key_exists('js', $tmpl)) {
+			return;
+		}
+
+		$js = $tmpl['js'];
+		if (!is_array($js)) {
+			$js = [$js];
+		}
+
+		foreach ($js as $file) {
+			Util::addScript($tmpl['app'], $file);
+		}
+
 	}
 
 
