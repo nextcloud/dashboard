@@ -157,6 +157,7 @@ class EventsService {
 		try {
 			$this->eventsRequest->create($event);
 		} catch (Exception $e) {
+			/** we do nohtin */
 		}
 	}
 

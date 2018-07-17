@@ -24,6 +24,8 @@
  */
 
 
+/** global: grid */
+
 var dashboard = {
 
 	setTitle: function (widgetId, title) {

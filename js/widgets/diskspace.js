@@ -24,6 +24,7 @@
  */
 
 /** global: OCA */
+/** global: OC */
 /** global: net */
 
 
@@ -52,10 +53,6 @@
 				net.requestWidget(request, diskspace.displayDiskSpace);
 			},
 
-
-			test: function () {
-				console.log('delayed job !');
-			},
 
 			displayDiskSpace: function (result) {
 				if (result.result === 'fail') {

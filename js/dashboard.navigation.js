@@ -25,6 +25,10 @@
 
 
 /** global: OC */
+/** global: net */
+/** global: grid */
+/** global: settings */
+/** global: curr */
 
 
 var nav = {
@@ -143,7 +147,7 @@ var nav = {
 		for (var i = 0; i < namespaces.length; i++) {
 			if (context[namespaces[i]] === undefined) {
 				console.log('Unknown function \'' + functionName + '\'');
-				return;
+				return undefined;
 			}
 			context = context[namespaces[i]];
 		}

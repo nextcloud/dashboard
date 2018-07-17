@@ -23,6 +23,9 @@
  *
  */
 
+/** global: OC */
+/** global: settings */
+
 
 var net = {
 

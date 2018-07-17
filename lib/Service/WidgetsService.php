@@ -300,6 +300,7 @@ class WidgetsService {
 			$widgetFrame = $this->generateWidgetFrame($widget);
 			$this->widgetFrames[] = $widgetFrame;
 		} catch (Exception $e) {
+			/** we do nohtin */
 		}
 	}
 

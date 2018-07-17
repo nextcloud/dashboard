@@ -28,6 +28,8 @@
 /** global: settings */
 /** global: nav */
 /** global: net */
+/** global: grid */
+/** global: dashboard */
 
 
 (function () {
