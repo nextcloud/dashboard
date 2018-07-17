@@ -10,4 +10,5 @@ vendor/
 components/
 node_modules/
 js/gridstack.all.js
+js/jquery.flip.js
 css/gridstack.css
