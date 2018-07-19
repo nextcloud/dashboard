@@ -25,6 +25,7 @@ OC.L10N.register(
     "Content" : "Obsah",
     "Mailserver" : "E-mailový server",
     "SSL" : "SSL",
+    "validate Cert" : "ověřit certifikát",
     "Username" : "Uživatelské jméno",
     "Password" : "Heslo",
     "File" : "Soubor",
