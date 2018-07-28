@@ -4,6 +4,7 @@
     "Create announcement" : "Búa til tilkynningu",
     "Settings have been updated." : "Stillingar voru uppfærðar.",
     "Dashboard app for Nextcloud" : "Stjórnborðsforrit fyrir Nextcloud",
+    "The Dashboard app allows users to easily keep an eye on their instance, and to retrieve useful information.\n        Here is what they can see:\n\n                - last uploaded files\n                - most recent e-mails\n                - last notifications\n                - upcoming events\n                - remaining storage space in their account" : "Stjórnborðsforritið (Dashboard) gerir notendum kleift að hafa auga með tilvikinu/þjóninum sínum og að nálgast upplýsingar á fljótlegan hátt.\n        Hér er það sem notendur geta skoðað:\n\n                - síðast innsendu skrár\n                - nýjustu tölvupóstar\n                - síðustu tilkynningar\n                - atburði á næstunni\n                - geymslupláss sem eftir er á notandaaðgangi sínum",
     "Show box" : "Birta reit",
     "Wide box" : "Breiður reitur",
     "Placement" : "Staðsetning",
