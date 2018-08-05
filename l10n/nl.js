@@ -24,6 +24,7 @@ OC.L10N.register(
     "Content" : "Inhoud",
     "Mailserver" : "Mailserver",
     "SSL" : "SSL",
+    "validate Cert" : "valideren Cert",
     "Username" : "Gebruikersnaam",
     "Password" : "Wachtwoord",
     "File" : "Bestand",
