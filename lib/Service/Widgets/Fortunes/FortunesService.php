@@ -27,17 +27,8 @@
 
 namespace OCA\Dashboard\Service\Widgets\Fortunes;
 
-use Exception;
-use OC\App\AppManager;
-use OC_App;
-use OCA\Dashboard\Exceptions\WidgetIsNotCompatibleException;
-use OCA\Dashboard\Exceptions\WidgetIsNotUniqueException;
-use OCP\Dashboard\IDashboardWidget;
-use OCA\Dashboard\Model\WidgetFrame;
 use OCA\Dashboard\Service\ConfigService;
 use OCA\Dashboard\Service\MiscService;
-use OCP\AppFramework\QueryException;
-use OCP\PreConditionNotMetException;
 
 class FortunesService {
 

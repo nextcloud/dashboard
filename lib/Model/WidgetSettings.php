@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 
 /**
@@ -92,7 +93,7 @@ class WidgetSettings implements IWidgetSettings, \JsonSerializable {
 	 *
 	 * @return $this
 	 */
-	public function setWidgetId($widgetId): IWidgetSettings {
+	public function setWidgetId(string $widgetId): IWidgetSettings {
 		$this->widgetId = $widgetId;
 
 		return $this;

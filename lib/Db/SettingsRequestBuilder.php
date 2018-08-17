@@ -31,7 +31,6 @@ namespace OCA\Dashboard\Db;
 
 
 use OCA\Dashboard\Model\WidgetSettings;
-use OCP\Dashboard\Model\IWidgetSettings;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 
 class SettingsRequestBuilder extends CoreRequestBuilder {

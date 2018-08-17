@@ -27,19 +27,10 @@
 
 namespace OCA\Dashboard\Service\Widgets\DiskSpace;
 
-use Exception;
-use OC\App\AppManager;
-use OC_App;
 use OC_Helper;
-use OCA\Dashboard\Exceptions\WidgetIsNotCompatibleException;
-use OCA\Dashboard\Exceptions\WidgetIsNotUniqueException;
-use OCP\Dashboard\IDashboardWidget;
-use OCA\Dashboard\Model\WidgetFrame;
 use OCA\Dashboard\Service\ConfigService;
 use OCA\Dashboard\Service\MiscService;
-use OCP\AppFramework\QueryException;
 use OCP\Files\NotFoundException;
-use OCP\PreConditionNotMetException;
 
 class DiskSpaceService {
 
