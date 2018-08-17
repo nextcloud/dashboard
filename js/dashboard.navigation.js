@@ -75,7 +75,7 @@ var nav = {
 	showWidgetsList: function () {
 		nav.generateWidgetsList();
 
-		$('#app-content').append(nav.elements.elWidgetList);
+		$('.app-dashboard').append(nav.elements.elWidgetList);
 		nav.elements.elWidgetList.ocdialog({
 			closeOnEscape: true,
 			modal: true,
