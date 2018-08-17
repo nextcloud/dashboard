@@ -136,15 +136,33 @@ class CalendarController extends Controller {
 		$calendars = $this->calDavBackend->getCalendarsForUser("principals/users/" . $this->userId);
 
 		foreach ($calendars as $calendar) {
+			// luminance threshold source: https://hacks.mozilla.org/2018/07/dark-theme-darkening-better-theming-for-firefox-quantum/
+			$lum = 141.0000;
+			$lumThreshold = 140.0000;
+			$calBackgroundColor = $calendar['{http://apple.com/ns/ical/}calendar-color'];
+			if (!isset($calBackgroundColor)) {
+				$calBackgroundColor = '#3A87AD'; // standard background color of private events
+			}
+			// six digit hex notation?
+			if (preg_match('/^[#]([0-9A-F]){6}$/i', $calBackgroundColor) === 1) {
+				$rColorInt = hexdec(substr($calBackgroundColor, 1, 2));
+				$gColorInt = hexdec(substr($calBackgroundColor, 3, 2));
+				$bColorInt = hexdec(substr($calBackgroundColor, 5, 2));
+				$lum = (0.2125 * $rColorInt) + (0.7154 * $gColorInt) + (0.0721 * $bColorInt);
+			}
+			$textColor = '#FFFFFF'; // white font color
+			// $lum values over 140 will be classified as bright background color
+			if ($lum > $lumThreshold) {
+				$textColor = '#000000'; // black font color
+			}
 			$eventSources[] = [
 				'url'             => $this->urlGenerator->linkToRoute(
-					'dashboard.calendar.get_events', [
-													   'calendarid' => $calendar['id'],
-												   ]
+					'dashboard.calendar.get_events',
+					['calendarid' => $calendar['id']]
 				),
 				'backgroundColor' => $calendar['{http://apple.com/ns/ical/}calendar-color'],
 				'borderColor'     => '#888',
-				'textColor'       => '#FFF',
+				'textColor'       => $textColor,
 				'cache'           => true,
 			];
 		}
@@ -199,16 +217,15 @@ class CalendarController extends Controller {
 			foreach ($parts as $element) {
 				// exception for calendar text with containing double-point chars
 				// (at example 'Meeting 10:45')
-				if (substr_count($element, ':') > 1 &&
-				    (strpos($element, 'SUMMARY:') === 0))
-				{
+				if (substr_count($element, ':') > 1
+					&& (strpos($element, 'SUMMARY:') === 0)) {
 					$part1 = substr($element, 0, strpos($element, ":"));
-					$part2 = substr($element, strpos($element, ":") +1);
+					$part2 = substr($element, strpos($element, ":") + 1);
 				} else {
 					$part1 = substr($element, 0, strrpos($element, ":"));
 					$part2 = substr(
-					    $element, strrpos($element, ":") + 1,
-					    strlen($element) - strrpos($element, ":") + 1
+						$element, strrpos($element, ":") + 1,
+						strlen($element) - strrpos($element, ":") + 1
 					);
 				}
 				$newEventArray = $newEventArray + [$part1 => $part2];
@@ -227,9 +244,7 @@ class CalendarController extends Controller {
 				$fixedstart = "";
 				$fixedend = "";
 				if (isset($newEventArray["DTSTART;TZID=" . $tzid])) {
-					$datestart = $newEventArray[
-						"DTSTART;TZID=" . $tzid
-					];
+					$datestart = $newEventArray["DTSTART;TZID=" . $tzid];
 					$fixedstart = date(
 						'Y-m-d H:i:s',
 						strtotime(
@@ -242,9 +257,7 @@ class CalendarController extends Controller {
 					);
 				}
 				if (isset($newEventArray["DTEND;TZID=" . $tzid])) {
-					$dateend = $newEventArray[
-						"DTEND;TZID=" . $tzid
-					];
+					$dateend = $newEventArray["DTEND;TZID=" . $tzid];
 					$fixedend = date(
 						'Y-m-d H:i:s',
 						strtotime(
@@ -256,7 +269,7 @@ class CalendarController extends Controller {
 						)
 					);
 				}
-			//Allday-Event = true;
+				//Allday-Event = true;
 			} else {
 				$fixeslastmodified = strtotime(date("Y-m-d H:i:s"));
 				$allDay = true;

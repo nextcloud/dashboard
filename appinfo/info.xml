@@ -15,7 +15,7 @@
                 - remaining storage space in their account
 ]]>
 	</description>
-	<version>5.0.0</version>
+	<version>5.0.1</version>
 	<licence>agpl</licence>
 	<author>regio iT gesellschaft für informationstechnologie mbh</author>
 	<namespace>Dashboard</namespace>
