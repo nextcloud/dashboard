@@ -223,16 +223,15 @@ class CalendarController extends Controller {
 			foreach ($parts as $element) {
 				// exception for calendar text with containing double-point chars
 				// (at example 'Meeting 10:45')
-				if (substr_count($element, ':') > 1 &&
-				    (strpos($element, 'SUMMARY:') === 0))
-				{
+				if (substr_count($element, ':') > 1
+					&& (strpos($element, 'SUMMARY:') === 0)) {
 					$part1 = substr($element, 0, strpos($element, ":"));
-					$part2 = substr($element, strpos($element, ":") +1);
+					$part2 = substr($element, strpos($element, ":") + 1);
 				} else {
 					$part1 = substr($element, 0, strrpos($element, ":"));
 					$part2 = substr(
-					    $element, strrpos($element, ":") + 1,
-					    strlen($element) - strrpos($element, ":") + 1
+						$element, strrpos($element, ":") + 1,
+						strlen($element) - strrpos($element, ":") + 1
 					);
 				}
 				$newEventArray = $newEventArray + [$part1 => $part2];
@@ -251,9 +250,7 @@ class CalendarController extends Controller {
 				$fixedstart = "";
 				$fixedend = "";
 				if (isset($newEventArray["DTSTART;TZID=" . $tzid])) {
-					$datestart = $newEventArray[
-						"DTSTART;TZID=" . $tzid
-					];
+					$datestart = $newEventArray["DTSTART;TZID=" . $tzid];
 					$fixedstart = date(
 						'Y-m-d H:i:s',
 						strtotime(
@@ -266,9 +263,7 @@ class CalendarController extends Controller {
 					);
 				}
 				if (isset($newEventArray["DTEND;TZID=" . $tzid])) {
-					$dateend = $newEventArray[
-						"DTEND;TZID=" . $tzid
-					];
+					$dateend = $newEventArray["DTEND;TZID=" . $tzid];
 					$fixedend = date(
 						'Y-m-d H:i:s',
 						strtotime(
@@ -280,7 +275,7 @@ class CalendarController extends Controller {
 						)
 					);
 				}
-			//Allday-Event = true;
+				//Allday-Event = true;
 			} else {
 				$fixeslastmodified = strtotime(date("Y-m-d H:i:s"));
 				$allDay = true;
