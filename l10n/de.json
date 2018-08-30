@@ -1,0 +1,9 @@
+{ "translations": {
+    "Add a widget" : "Eine Widget hinzufügen",
+    "Remove this widget" : "Dieses Widget entfernen",
+    "Dashboard" : "Dashboard",
+    "Clock" : "Uhr",
+    "Disk space" : "Speicherplatz",
+    "Dashboard app for Nextcloud" : "Dashboard App für Nextcloud"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
