@@ -167,7 +167,9 @@ class WidgetController extends Controller {
 
 			// we send few data so we can detect if connection is lost
 			echo ' ';
-			ob_flush();
+			if (ob_get_contents() !== false) {
+				ob_flush();
+			}
 			flush();
 		}
 
