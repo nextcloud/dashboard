@@ -78,16 +78,13 @@ class EventsService {
 
 	/**
 	 * @param string $widgetId
-	 * @param string|array $users
+	 * @param array $users
 	 * @param array $payload
 	 * @param string $uniqueId
 	 */
-	public function createUserEvent(string $widgetId, $users, array $payload, string $uniqueId = ''
+	public function createUsersEvent(
+		string $widgetId, array $users, array $payload, string $uniqueId = ''
 	) {
-		if (!is_array($users)) {
-			$users = [$users];
-		}
-
 		if ($uniqueId === '') {
 			$uniqueId = uniqid();
 		}
@@ -105,17 +102,13 @@ class EventsService {
 
 	/**
 	 * @param string $widgetId
-	 * @param string|array $groups
+	 * @param array $groups
 	 * @param array $payload
 	 * @param string $uniqueId
 	 */
-	public function createGroupEvent(
-		string $widgetId, $groups, array $payload, string $uniqueId = ''
+	public function createGroupsEvent(
+		string $widgetId, array $groups, array $payload, string $uniqueId = ''
 	) {
-		if (!is_array($groups)) {
-			$groups = [$groups];
-		}
-
 		if ($uniqueId === '') {
 			$uniqueId = uniqid();
 		}

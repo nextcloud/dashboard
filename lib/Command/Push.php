@@ -92,7 +92,7 @@ class Push extends Base {
 		if ($user === 'global') {
 			$this->eventsService->createGlobalEvent($widget, $payload);
 		} else {
-			$this->eventsService->createUserEvent($widget, $user, $payload);
+			$this->eventsService->createUsersEvent($widget, [$user], $payload);
 		}
 		$output->writeln('event created');
 	}
