@@ -6,6 +6,9 @@
     "The time is now." : "Güncel zamanı görüntüler.",
     "Disk space" : "Disk alanı",
     "Display the current use of your available disk space" : "Disk alanının kullanım durumunu görüntüler.",
-    "Dashboard app for Nextcloud" : "Nextcloud Pano uygulaması"
+    "Fortune Quotes" : "Gelecek Haberleri",
+    "Get a random fortune quote" : "Rastgele bir gelecek haberi al",
+    "Dashboard app for Nextcloud" : "Nextcloud Pano uygulaması",
+    "The Dashboard app allows users to monitor their data throw sub-elements called Widgets.\n\t\tWidgets are imported from other apps and can be added, removed, moved and resized" : "Pano aracı gereç olarak adlandırılan alt bileşenleri kullanarak kullanıcıların kendi verilerini izlemesini sağlar...\n\t\tGereçler diğer uygulamalardan içe aktarılır ve eklenebilir, silinebilir, taşınabilir ve yeniden boyutlandırılabilir"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }
