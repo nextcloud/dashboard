@@ -238,7 +238,7 @@ class AnnouncementController extends Controller {
 		$canDeleteAnnouncements = $this->dashboardService->isInGroup('News');
 		$canEditAnnouncements = $this->dashboardService->isInGroup('News');
 
-		$limit = 10;
+		$limit = 5;
 		$announcements = $this->announcementMapper->findAll($limit);
 
 		$params = [
