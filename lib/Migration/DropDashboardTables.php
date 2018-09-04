@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Nextcloud - Dashboard App
  *
@@ -69,6 +68,9 @@ class DropDashboardTables implements IRepairStep {
 	public function run(IOutput $output) {
 		$this->db->dropTable('dashboard_announcements');
 		$this->db->dropTable('dashboard_files');
+		if ($this->db->tableExists('dashboard_files') === TRUE) {
+			$this->db->dropTable('dashboard_files');
+		}
 		$this->db->dropTable('dashboard_settings');
 
 		$this->config->deleteAppFromAllUsers('dashboard');
