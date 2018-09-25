@@ -1,0 +1,6 @@
+{ "translations": {
+    "Dashboard" : "Πίνακας Εργαλείων",
+    "Clock" : "Ρολόι",
+    "Disk space" : "Χώρος στο δίσκο"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
