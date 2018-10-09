@@ -1,0 +1,16 @@
+OC.L10N.register(
+    "dashboard",
+    {
+    "Add a widget" : "Добавить виджет",
+    "Remove this widget" : "Удалить этот виджет",
+    "Dashboard" : "Панель управления",
+    "Clock" : "Часы",
+    "The time is now." : "Время настало.",
+    "Disk space" : "Дисковое пространство",
+    "Display the current use of your available disk space" : "Выводить информацию об использовании дискового пространства",
+    "Fortune Quotes" : "Случайные цитаты",
+    "Get a random fortune quote" : "Получить случайную цитату",
+    "Dashboard app for Nextcloud" : "Dashboard для Nextcloud",
+    "The Dashboard app allows users to monitor their data through sub-elements called Widgets.\n\t\tWidgets are imported from other apps and can be added, removed, moved and resized" : "Приложение «Панель управления» служит для визуализации данных при помощи виджетов.\n\t\tПанели управления позволяет добавлять, убирать и перемещать и изменять размер виджетов, импортируемых их других приложений."
+},
+"nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);");
