@@ -31,9 +31,10 @@ namespace OCA\Dashboard\Model;
 
 
 use OCA\Dashboard\Service\MiscService;
-use OCP\Dashboard\Model\IWidgetSettings;
+use OCP\Dashboard\Model\IWidgetConfig;
 
-class WidgetSettings implements IWidgetSettings, \JsonSerializable {
+class WidgetConfig implements IWidgetConfig, \JsonSerializable {
+
 
 	/** @var string */
 	private $userId;
@@ -50,8 +51,9 @@ class WidgetSettings implements IWidgetSettings, \JsonSerializable {
 	/** @var bool */
 	private $enabled = false;
 
+
 	/**
-	 * WidgetSettings constructor.
+	 * WidgetConfig constructor.
 	 *
 	 * @param string $widgetId
 	 * @param string $userId
@@ -74,7 +76,7 @@ class WidgetSettings implements IWidgetSettings, \JsonSerializable {
 	 *
 	 * @return $this
 	 */
-	public function setUserId(string $userId): IWidgetSettings {
+	public function setUserId(string $userId): IWidgetConfig {
 		$this->userId = $userId;
 
 		return $this;
@@ -93,7 +95,7 @@ class WidgetSettings implements IWidgetSettings, \JsonSerializable {
 	 *
 	 * @return $this
 	 */
-	public function setWidgetId(string $widgetId): IWidgetSettings {
+	public function setWidgetId(string $widgetId): IWidgetConfig {
 		$this->widgetId = $widgetId;
 
 		return $this;
@@ -112,7 +114,7 @@ class WidgetSettings implements IWidgetSettings, \JsonSerializable {
 	 *
 	 * @return $this
 	 */
-	public function setPosition(array $position): IWidgetSettings {
+	public function setPosition(array $position): IWidgetConfig {
 		$this->position = $position;
 
 		return $this;
@@ -131,7 +133,7 @@ class WidgetSettings implements IWidgetSettings, \JsonSerializable {
 	 *
 	 * @return $this
 	 */
-	public function setSettings(array $settings): IWidgetSettings {
+	public function setSettings(array $settings): IWidgetConfig {
 		$this->settings = $settings;
 
 		return $this;
@@ -165,7 +167,7 @@ class WidgetSettings implements IWidgetSettings, \JsonSerializable {
 	 *
 	 * @return $this
 	 */
-	public function setEnabled(bool $enabled): IWidgetSettings {
+	public function setEnabled(bool $enabled): IWidgetConfig {
 		$this->enabled = $enabled;
 
 		return $this;

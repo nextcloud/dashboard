@@ -29,12 +29,16 @@
 namespace OCA\Dashboard\Widgets;
 
 
+use OC\Dashboard\Model\WidgetSetup;
+use OC\Dashboard\Model\WidgetTemplate;
 use OCA\Dashboard\AppInfo\Application;
 use OCA\Dashboard\Service\Widgets\Fortunes\FortunesService;
 use OCP\AppFramework\QueryException;
 use OCP\Dashboard\IDashboardWidget;
 use OCP\Dashboard\Model\IWidgetRequest;
-use OCP\Dashboard\Model\IWidgetSettings;
+use OCP\Dashboard\Model\IWidgetConfig;
+use OCP\Dashboard\Model\IWidgetSetup;
+use OCP\Dashboard\Model\IWidgetTemplate;
 use OCP\IL10N;
 
 
@@ -81,61 +85,41 @@ class FortunesWidget implements IDashboardWidget {
 
 
 	/**
-	 * @return array
+	 * @return IWidgetTemplate
 	 */
-	public function getTemplate(): array {
-		return [
-			'app'      => Application::APP_NAME,
-			'icon'     => 'icon-fortunes',
-			'css'      => 'widgets/fortunes',
-			'js'       => 'widgets/fortunes',
-			'content'  => 'widgets/fortunes',
-			'function' => 'OCA.DashBoard.fortunes.init'
-		];
+	public function getWidgetTemplate(): IWidgetTemplate {
+		$template = new WidgetTemplate();
+		$template->addCss('widgets/fortunes')
+				 ->addJs('widgets/fortunes')
+				 ->setIcon('icon-fortunes')
+				 ->setContent('widgets/fortunes')
+				 ->setInitFunction('OCA.DashBoard.fortunes.init');
+
+		return $template;
 	}
 
 
 	/**
-	 * @return array
+	 * @return IWidgetSetup
 	 */
-	public function widgetSetup(): array {
-		return [
-			'size' => [
-				'min'     => [
-					'width'  => 2,
-					'height' => 1
-				],
-				'default' => [
-					'width'  => 3,
-					'height' => 2
-				],
-				'max'     => [
-					'width'  => 4,
-					'height' => 4
-				]
-			],
-			'menu' => [
-				[
-					'icon'     => 'icon-fortunes',
-					'text'     => 'New fortune',
-					'function' => 'OCA.DashBoard.fortunes.getFortune'
-				]
-			],
-			'jobs' => [
-				[
-					'delay'    => 300,
-					'function' => 'OCA.DashBoard.fortunes.getFortune'
-				]
-			],
-			'push' => 'OCA.DashBoard.fortunes.push'
-		];
+	public function getWidgetSetup(): IWidgetSetup {
+		$setup = new WidgetSetup();
+		$setup->addSize(IWidgetSetup::SIZE_TYPE_MIN, 2, 1)
+			  ->addSize(IWidgetSetup::SIZE_TYPE_MAX, 4, 4)
+			  ->addSize(IWidgetSetup::SIZE_TYPE_DEFAULT, 3, 2);
+
+		$setup->addMenuEntry('OCA.DashBoard.fortunes.getFortune', 'icon-fortunes', 'New Fortune');
+		$setup->addDelayedJob('OCA.DashBoard.fortunes.getFortune', 300);
+		$setup->setPush('OCA.DashBoard.fortunes.push');
+
+		return $setup;
 	}
 
 
 	/**
-	 * @param IWidgetSettings $settings
+	 * @param IWidgetConfig $settings
 	 */
-	public function loadWidget(IWidgetSettings $settings) {
+	public function loadWidget(IWidgetConfig $settings) {
 		$app = new Application();
 
 		$container = $app->getContainer();

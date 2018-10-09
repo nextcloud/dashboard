@@ -29,10 +29,13 @@
 namespace OCA\Dashboard\Widgets;
 
 
-use OCA\Dashboard\AppInfo\Application;
+use OC\Dashboard\Model\WidgetSetup;
+use OC\Dashboard\Model\WidgetTemplate;
 use OCP\Dashboard\IDashboardWidget;
 use OCP\Dashboard\Model\IWidgetRequest;
-use OCP\Dashboard\Model\IWidgetSettings;
+use OCP\Dashboard\Model\IWidgetConfig;
+use OCP\Dashboard\Model\IWidgetSetup;
+use OCP\Dashboard\Model\IWidgetTemplate;
 use OCP\IL10N;
 
 class ClockWidget implements IDashboardWidget {
@@ -74,53 +77,39 @@ class ClockWidget implements IDashboardWidget {
 
 
 	/**
-	 * @return array
+	 * @return IWidgetTemplate
 	 */
-	public function getTemplate(): array {
-		return [
-			'app'      => Application::APP_NAME,
-			'icon'     => 'icon-clock',
-			'css'      => 'widgets/clock',
-			'js'       => 'widgets/clock',
-			'content'  => 'widgets/clock',
-			'function' => 'OCA.DashBoard.clock.init'
-		];
+	public function getWidgetTemplate(): IWidgetTemplate {
+		$template = new WidgetTemplate();
+		$template->addCss('widgets/clock')
+				 ->addJs('widgets/clock')
+				 ->setIcon('icon-clock')
+				 ->setContent('widgets/clock')
+				 ->setInitFunction('OCA.DashBoard.clock.init');
+
+		return $template;
 	}
 
 
 	/**
-	 * @return array
+	 * @return IWidgetSetup
 	 */
-	public function widgetSetup(): array {
-		return [
-			'size' => [
-				'min'     => [
-					'width'  => 2,
-					'height' => 1
-				],
-				'default' => [
-					'width'  => 2,
-					'height' => 1
-				],
-				'max'     => [
-					'width'  => 2,
-					'height' => 1
-				]
-			],
-			'jobs' => [
-				[
-					'delay'    => 1,
-					'function' => 'OCA.DashBoard.clock.displayTime'
-				]
-			]
-		];
+	public function getWidgetSetup(): IWidgetSetup {
+		$setup = new WidgetSetup();
+		$setup->addSize(IWidgetSetup::SIZE_TYPE_MIN, 2, 1)
+			  ->addSize(IWidgetSetup::SIZE_TYPE_MAX, 2, 1)
+			  ->addSize(IWidgetSetup::SIZE_TYPE_DEFAULT, 2, 1);
+
+		$setup->addDelayedJob('OCA.DashBoard.clock.displayTime', 1);
+
+		return $setup;
 	}
 
 
 	/**
-	 * @param IWidgetSettings $settings
+	 * @param IWidgetConfig $settings
 	 */
-	public function loadWidget(IWidgetSettings $settings) {
+	public function loadWidget(IWidgetConfig $settings) {
 	}
 
 

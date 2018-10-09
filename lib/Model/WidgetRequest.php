@@ -29,10 +29,11 @@
 namespace OCA\Dashboard\Model;
 
 
+use JsonSerializable;
 use OCP\Dashboard\IDashboardWidget;
 use OCP\Dashboard\Model\IWidgetRequest;
 
-class WidgetRequest implements IWidgetRequest, \JsonSerializable {
+class WidgetRequest implements IWidgetRequest, JsonSerializable {
 
 
 	/** @var IDashboardWidget */
@@ -136,11 +137,26 @@ class WidgetRequest implements IWidgetRequest, \JsonSerializable {
 
 	/**
 	 * @param string $key
-	 * @param string|array $result
+	 * @param string $result
 	 *
 	 * @return $this
 	 */
-	public function addResult(string $key, $result): IWidgetRequest {
+	public function addResult(string $key, string $result): IWidgetRequest {
+		$this->result[$key] = $result;
+
+		return $this;
+	}
+
+
+	/**
+	 * @since 15.0.0
+	 *
+	 * @param string $key
+	 * @param array $result
+	 *
+	 * @return $this
+	 */
+	public function addResultArray(string $key, array $result): IWidgetRequest {
 		$this->result[$key] = $result;
 
 		return $this;

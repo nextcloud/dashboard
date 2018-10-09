@@ -30,17 +30,16 @@ namespace OCA\Dashboard\Service;
 
 use Exception;
 use OC\App\AppManager;
-use OC_App;
 use OCA\Dashboard\Db\SettingsRequest;
 use OCA\Dashboard\Exceptions\WidgetDoesNotExistException;
 use OCA\Dashboard\Exceptions\WidgetIsNotCompatibleException;
 use OCA\Dashboard\Exceptions\WidgetIsNotUniqueException;
 use OCA\Dashboard\Model\WidgetFrame;
-use OCA\Dashboard\Model\WidgetSettings;
+use OCA\Dashboard\Model\WidgetConfig;
 use OCP\AppFramework\QueryException;
 use OCP\Dashboard\IDashboardWidget;
 use OCP\Dashboard\Model\IWidgetRequest;
-use OCP\Dashboard\Model\IWidgetSettings;
+use OCP\Dashboard\Model\IWidgetConfig;
 
 class WidgetsService {
 
@@ -91,9 +90,9 @@ class WidgetsService {
 	 * @param string $widgetId
 	 * @param string $userId
 	 *
-	 * @return IWidgetSettings
+	 * @return IWidgetConfig
 	 */
-	public function getWidgetSettings(string $widgetId, string $userId): IWidgetSettings {
+	public function getWidgetConfig(string $widgetId, string $userId): IWidgetConfig {
 		return $this->settingsRequest->get($widgetId, $userId);
 	}
 
@@ -137,7 +136,7 @@ class WidgetsService {
 				'height' => $item['height']
 			];
 
-			$settings = new WidgetSettings($item['widgetId'], $this->userId);
+			$settings = new WidgetConfig($item['widgetId'], $this->userId);
 			$settings->setPosition($pos);
 			$settings->setEnabled(true);
 
@@ -175,7 +174,7 @@ class WidgetsService {
 		$widgetFrame = $this->getWidgetFrame($widgetId);
 
 		$widget = $widgetFrame->getWidget();
-		$widget->loadWidget($widgetFrame->getSettings());
+		$widget->loadWidget($widgetFrame->getConfig());
 
 		$widgetRequest->setWidget($widget);
 	}
@@ -200,7 +199,7 @@ class WidgetsService {
 		foreach ($this->widgetFrames as $widgetFrame) {
 			try {
 				$widget = $widgetFrame->getWidget();
-				$widget->loadWidget($widgetFrame->getSettings());
+				$widget->loadWidget($widgetFrame->getConfig());
 			} catch (Exception $e) {
 				$this->miscService->log($e->getMessage());
 			}
@@ -211,12 +210,14 @@ class WidgetsService {
 
 
 	/**
+	 * @param string $appId
 	 * @param IDashboardWidget $widget
 	 * @param string $userId
 	 *
 	 * @return WidgetFrame
 	 */
-	private function generateWidgetFrame(IDashboardWidget $widget, string $userId = ''
+	private function generateWidgetFrame(
+		string $appId, IDashboardWidget $widget, string $userId = ''
 	): WidgetFrame {
 
 		if ($userId === '') {
@@ -224,9 +225,18 @@ class WidgetsService {
 		}
 
 		$settings = $this->settingsRequest->get($widget->getId(), $userId);
-		$settings->setDefaultSettings((array) MiscService::get($widget->widgetSetup(), 'settings', []));
+		$setup = $widget->getWidgetSetup();
+		$settings->setDefaultSettings(
+			(array)MiscService::get($setup->getDefaultSettings(), 'settings', [])
+		);
 
-		return new WidgetFrame($widget, $settings);
+		$frame = new WidgetFrame($appId, $widget);
+		$frame->setConfig($settings);
+		$frame->setSetup($setup);
+		$frame->setTemplate($widget->getWidgetTemplate());
+
+		$this->miscService->log('### ' . json_encode($frame));
+		return $frame;
 	}
 
 
@@ -256,28 +266,29 @@ class WidgetsService {
 	 * @throws QueryException
 	 */
 	private function getWidgetsFromApp(string $appId) {
-		$appInfo = OC_App::getAppInfo($appId);
+		$appInfo = $this->appManager->getAppInfo($appId);
 		if (!is_array($appInfo) || !key_exists('dashboard', $appInfo)
 			|| !key_exists('widget', $appInfo['dashboard'])) {
 			return;
 		}
 
 		$widgets = $appInfo['dashboard']['widget'];
-		$this->getWidgetsFromList($widgets);
-	}
-
-
-	/**
-	 * @param string|array $widgets
-	 *
-	 * @throws WidgetIsNotCompatibleException
-	 * @throws QueryException
-	 */
-	private function getWidgetsFromList($widgets) {
 		if (!is_array($widgets)) {
 			$widgets = [$widgets];
 		}
 
+		$this->getWidgetsFromList($appId, $widgets);
+	}
+
+
+	/**
+	 * @param string $appId
+	 * @param array $widgets
+	 *
+	 * @throws QueryException
+	 * @throws WidgetIsNotCompatibleException
+	 */
+	private function getWidgetsFromList(string $appId, array $widgets) {
 		foreach ($widgets AS $widgetId) {
 			$widget = \OC::$server->query((string)$widgetId);
 			if (!($widget instanceof IDashboardWidget)) {
@@ -286,18 +297,19 @@ class WidgetsService {
 				);
 			}
 
-			$this->addWidgetFrame($widget);
+			$this->addWidgetFrame($appId, $widget);
 		}
 	}
 
 
 	/**
+	 * @param string $appId
 	 * @param IDashboardWidget $widget
 	 */
-	private function addWidgetFrame(IDashboardWidget $widget) {
+	private function addWidgetFrame(string $appId, IDashboardWidget $widget) {
 		try {
 			$this->widgetIdMustBeUnique($widget);
-			$widgetFrame = $this->generateWidgetFrame($widget);
+			$widgetFrame = $this->generateWidgetFrame($appId, $widget);
 			$this->widgetFrames[] = $widgetFrame;
 		} catch (Exception $e) {
 			/** we do nohtin */

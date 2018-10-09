@@ -29,29 +29,60 @@
 namespace OCA\Dashboard\Model;
 
 
+use OC\Dashboard\Model\WidgetSetup;
+use OC\Dashboard\Model\WidgetTemplate;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\Dashboard\IDashboardWidget;
-use OCP\Dashboard\Model\IWidgetSettings;
+use OCP\Dashboard\Model\IWidgetConfig;
+use OCP\Dashboard\Model\IWidgetSetup;
+use OCP\Dashboard\Model\IWidgetTemplate;
 
 class WidgetFrame implements \JsonSerializable {
 
+	/** @var string */
+	private $appId;
 
 	/** @var IDashboardWidget */
 	private $widget;
 
-	/** @var WidgetSettings */
-	private $settings;
+	/** @var WidgetSetup */
+	private $setup;
+
+	/** @var WidgetTemplate */
+	private $template;
+
+	/** @var WidgetConfig */
+	private $config;
 
 
 	/**
 	 * WidgetFrame constructor.
 	 *
+	 * @param string $appId
 	 * @param IDashboardWidget $widget
-	 * @param IWidgetSettings $settings
 	 */
-	public function __construct(IDashboardWidget $widget, IWidgetSettings $settings) {
+	public function __construct(string $appId, IDashboardWidget $widget) {
+		$this->appId = $appId;
 		$this->widget = $widget;
-		$this->settings = $settings;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getAppId(): string {
+		return $this->appId;
+	}
+
+	/**
+	 * @param string $appId
+	 *
+	 * @return WidgetFrame
+	 */
+	public function setAppId(string $appId): WidgetFrame {
+		$this->appId = $appId;
+
+		return $this;
 	}
 
 
@@ -75,37 +106,70 @@ class WidgetFrame implements \JsonSerializable {
 
 
 	/**
-	 * @return IWidgetSettings
+	 * @return IWidgetSetup
 	 */
-	public function getSettings(): IWidgetSettings {
-		return $this->settings;
+	public function getSetup(): IWidgetSetup {
+		return $this->setup;
 	}
 
 	/**
-	 * @param IWidgetSettings $settings
+	 * @param IWidgetSetup $setup
 	 *
-	 * @return $this
+	 * @return WidgetFrame
 	 */
-	public function setConfig(IWidgetSettings $settings): WidgetFrame {
-		$this->settings = $settings;
+	public function setSetup(IWidgetSetup $setup): WidgetFrame {
+		$this->setup = $setup;
 
 		return $this;
 	}
 
 
 	/**
-	 * Specify data which should be serialized to JSON
+	 * @return WidgetTemplate
+	 */
+	public function getTemplate(): WidgetTemplate {
+		return $this->template;
+	}
+
+	/**
+	 * @param IWidgetTemplate $template
 	 *
-	 * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-	 * @return mixed data which can be serialized by <b>json_encode</b>,
-	 * which is a value of any type other than a resource.
-	 * @since 5.4.0
+	 * @return WidgetFrame
+	 */
+	public function setTemplate(IWidgetTemplate $template): WidgetFrame {
+		$this->template = $template;
+
+		return $this;
+	}
+
+
+	/**
+	 * @return IWidgetConfig
+	 */
+	public function getConfig(): IWidgetConfig {
+		return $this->config;
+	}
+
+	/**
+	 * @param IWidgetConfig $config
+	 *
+	 * @return $this
+	 */
+	public function setConfig(IWidgetConfig $config): WidgetFrame {
+		$this->config = $config;
+
+		return $this;
+	}
+
+
+	/**
+	 * @return array
 	 */
 	public function jsonSerialize(): array {
 		$widget = $this->getWidget();
 
-		$template = $widget->getTemplate();
-		$html = new TemplateResponse($template['app'], $template['content'], [], 'blank');
+		$template = $this->getTemplate();
+		$html = new TemplateResponse($this->getAppId(), $template->getContent(), [], 'blank');
 
 		return [
 			'widget'   => [
@@ -113,10 +177,10 @@ class WidgetFrame implements \JsonSerializable {
 				'name'        => $widget->getName(),
 				'description' => $widget->getDescription()
 			],
-			'template' => $widget->getTemplate(),
-			'setup'    => $widget->widgetSetup(),
+			'template' => $this->getTemplate(),
+			'setup'    => $this->getSetup(),
 			'html'     => $html->render(),
-			'config'   => $this->getSettings()
+			'config'   => $this->getConfig()
 		];
 	}
 }

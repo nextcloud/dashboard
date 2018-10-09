@@ -56,8 +56,10 @@ class DiskSpaceService {
 
 	/**
 	 * @throws NotFoundException
+	 *
+	 * @return array
 	 */
-	public function getDiskSpace() {
+	public function getDiskSpace(): array {
 		$storageInfo = OC_Helper::getStorageInfo('/');
 
 		$diskSpace = [

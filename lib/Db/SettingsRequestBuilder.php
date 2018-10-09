@@ -30,7 +30,7 @@
 namespace OCA\Dashboard\Db;
 
 
-use OCA\Dashboard\Model\WidgetSettings;
+use OCA\Dashboard\Model\WidgetConfig;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 
 class SettingsRequestBuilder extends CoreRequestBuilder {
@@ -96,10 +96,10 @@ class SettingsRequestBuilder extends CoreRequestBuilder {
 	/**
 	 * @param array $data
 	 *
-	 * @return WidgetSettings
+	 * @return WidgetConfig
 	 */
-	protected function parseSettingsSelectSql($data): WidgetSettings {
-		$settings = new WidgetSettings($data['widget_id'], $data['user_id']);
+	protected function parseSettingsSelectSql($data): WidgetConfig {
+		$settings = new WidgetConfig($data['widget_id'], $data['user_id']);
 		$settings->setPosition(json_decode($data['position'], true))
 				 ->setSettings(json_decode($data['settings'], true))
 				 ->setEnabled(($data['enabled'] === '1') ? true : false);

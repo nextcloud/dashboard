@@ -29,12 +29,14 @@
 namespace OCA\Dashboard\Widgets;
 
 
-use OCA\Dashboard\AppInfo\Application;
+use OC\Dashboard\Model\WidgetSetup;
+use OC\Dashboard\Model\WidgetTemplate;
 use OCA\Dashboard\Service\Widgets\DiskSpace\DiskSpaceService;
-use OCP\AppFramework\QueryException;
 use OCP\Dashboard\IDashboardWidget;
 use OCP\Dashboard\Model\IWidgetRequest;
-use OCP\Dashboard\Model\IWidgetSettings;
+use OCP\Dashboard\Model\IWidgetConfig;
+use OCP\Dashboard\Model\IWidgetSetup;
+use OCP\Dashboard\Model\IWidgetTemplate;
 use OCP\Files\NotFoundException;
 use OCP\IL10N;
 
@@ -51,8 +53,9 @@ class DiskSpaceWidget implements IDashboardWidget {
 	private $diskSpaceService;
 
 
-	public function __construct(IL10N $l10n) {
+	public function __construct(IL10N $l10n, DiskSpaceService $diskSpaceService) {
 		$this->l10n = $l10n;
+		$this->diskSpaceService = $diskSpaceService;
 	}
 
 
@@ -81,61 +84,47 @@ class DiskSpaceWidget implements IDashboardWidget {
 
 
 	/**
-	 * @return array
+	 * @return IWidgetTemplate
 	 */
-	public function getTemplate(): array {
-		return [
-			'app'      => Application::APP_NAME,
-			'icon'     => 'icon-disk-space',
-			'css'      => 'widgets/diskspace',
-			'js'       => 'widgets/diskspace',
-			'content'  => 'widgets/diskspace',
-			'function' => 'OCA.DashBoard.diskspace.init',
-		];
+	public function getWidgetTemplate(): IWidgetTemplate {
+		$template = new WidgetTemplate();
+		$template->addCss('widgets/diskspace')
+				 ->addJs('widgets/diskspace')
+				 ->setIcon('icon-disk-space')
+				 ->setContent('widgets/diskspace')
+				 ->setInitFunction('OCA.DashBoard.diskspace.init');
+
+		return $template;
 	}
 
 
 	/**
-	 * @return array
+	 * @return IWidgetSetup
 	 */
-	public function widgetSetup(): array {
-		return [
-			'size' => [
-				'min'     => [
-					'width'  => 2,
-					'height' => 1
-				],
-				'default' => [
-					'width'  => 2,
-					'height' => 1
-				],
-				'max'     => [
-					'width'  => 3,
-					'height' => 1
-				]
-			],
-			'jobs' => [
-				[
-					'delay'    => 600,
-					'function' => 'OCA.DashBoard.diskspace.getDiskSpace'
-				]
-			]
-		];
+	public function getWidgetSetup(): IWidgetSetup {
+		$setup = new WidgetSetup();
+		$setup->addSize(IWidgetSetup::SIZE_TYPE_MIN, 2, 1)
+			  ->addSize(IWidgetSetup::SIZE_TYPE_MAX, 3, 1)
+			  ->addSize(IWidgetSetup::SIZE_TYPE_DEFAULT, 2, 1);
+
+		$setup->addDelayedJob('OCA.DashBoard.diskspace.getDiskSpace', 600);
+
+		return $setup;
 	}
 
 
 	/**
-	 * @param IWidgetSettings $settings
+	 * @param IWidgetConfig $settings
 	 */
-	public function loadWidget(IWidgetSettings $settings) {
-		$app = new Application();
+	public function loadWidget(IWidgetConfig $settings) {
+//		$app = new Application();
 
-		$container = $app->getContainer();
-		try {
-			$this->diskSpaceService = $container->query(DiskSpaceService::class);
-		} catch (QueryException $e) {
-			return;
-		}
+//		$container = $app->getContainer();
+//		try {
+//			$this->diskSpaceService = $container->query(DiskSpaceService::class);
+//		} catch (QueryException $e) {
+//			return;
+//		}
 	}
 
 
@@ -146,7 +135,7 @@ class DiskSpaceWidget implements IDashboardWidget {
 	 */
 	public function requestWidget(IWidgetRequest $request) {
 		if ($request->getRequest() === 'getDiskSpace') {
-			$request->addResult('diskSpace', $this->diskSpaceService->getDiskSpace());
+			$request->addResultArray('diskSpace', $this->diskSpaceService->getDiskSpace());
 		}
 	}
 

@@ -29,16 +29,16 @@
 namespace OCA\Dashboard\Db;
 
 
-use OCA\Dashboard\Model\WidgetSettings;
-use OCP\Dashboard\Model\IWidgetSettings;
+use OCA\Dashboard\Model\WidgetConfig;
+use OCP\Dashboard\Model\IWidgetConfig;
 
 class SettingsRequest extends SettingsRequestBuilder {
 
 
 	/**
-	 * @param IWidgetSettings $settings
+	 * @param IWidgetConfig $settings
 	 */
-	public function create(IWidgetSettings $settings) {
+	public function create(IWidgetConfig $settings) {
 		$qb = $this->getSettingsInsertSql();
 		$qb->setValue('user_id', $qb->createNamedParameter($settings->getUserId()))
 		   ->setValue('widget_id', $qb->createNamedParameter($settings->getWidgetId()))
@@ -54,7 +54,7 @@ class SettingsRequest extends SettingsRequestBuilder {
 	 * @param $widgetId
 	 * @param $userId
 	 *
-	 * @return WidgetSettings
+	 * @return WidgetConfig
 	 */
 	public function get(string $widgetId, string $userId) {
 
@@ -65,7 +65,7 @@ class SettingsRequest extends SettingsRequestBuilder {
 		$cursor = $qb->execute();
 		$data = $cursor->fetch();
 		if ($data === false) {
-			return new WidgetSettings($widgetId, $userId);
+			return new WidgetConfig($widgetId, $userId);
 		}
 
 		$cursor->closeCursor();
@@ -75,9 +75,9 @@ class SettingsRequest extends SettingsRequestBuilder {
 
 
 	/**
-	 * @param IWidgetSettings $settings
+	 * @param IWidgetConfig $settings
 	 */
-	public function savePosition(IWidgetSettings $settings) {
+	public function savePosition(IWidgetConfig $settings) {
 		$qb = $this->getSettingsUpdateSql();
 		$qb->set('position', $qb->createNamedParameter(json_encode($settings->getPosition())))
 		   ->set('enabled', $qb->createNamedParameter($settings->isEnabled()));

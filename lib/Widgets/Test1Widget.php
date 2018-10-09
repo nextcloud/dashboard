@@ -29,10 +29,16 @@
 namespace OCA\Dashboard\Widgets;
 
 
-use OCA\Dashboard\AppInfo\Application;
+use OC\Dashboard\Model\WidgetSetting;
+use OC\Dashboard\Model\WidgetSetup;
+use OC\Dashboard\Model\WidgetTemplate;
+use OCA\Dashboard\Model\WidgetConfig;
 use OCP\Dashboard\IDashboardWidget;
 use OCP\Dashboard\Model\IWidgetRequest;
-use OCP\Dashboard\Model\IWidgetSettings;
+use OCP\Dashboard\Model\IWidgetConfig;
+use OCP\Dashboard\Model\IWidgetSetting;
+use OCP\Dashboard\Model\IWidgetSetup;
+use OCP\Dashboard\Model\IWidgetTemplate;
 
 class Test1Widget implements IDashboardWidget {
 
@@ -65,71 +71,41 @@ class Test1Widget implements IDashboardWidget {
 
 
 	/**
-	 * @return array
+	 * @return IWidgetTemplate
 	 */
-	public function getTemplate(): array {
-		return [
-			'app'     => Application::APP_NAME,
-			'icon'    => 'icon-lorem',
-			'css'     => 'widgets/test1',
-			'content' => 'widgets/Test1'
-		];
+	public function getWidgetTemplate(): IWidgetTemplate {
+		$template = new WidgetTemplate();
+		$template->addCss('widgets/test1widget')
+				 ->setIcon('icon-lorem')
+				 ->setContent('widgets/Test1');
+
+		$setting = new WidgetSetting(IWidgetSetting::TYPE_INPUT);
+		$setting->setName('test_config');
+		$setting->setTitle('Test Config');
+		$setting->setPlaceholder('test');
+		$template->addSetting($setting);
+
+		return $template;
 	}
 
 
 	/**
-	 * @return array
+	 * @return IWidgetSetup
 	 */
-	public function widgetSetup(): array {
-		return [
-			'size'     => [
-				'min'     => [
-					'width'  => 4,
-					'height' => 3
-				],
-				'default' => [
-					'width'  => 6,
-					'height' => 4
-				],
-				'max'     => [
-					'width'  => 10,
-					'height' => 6
-				]
-			],
-			'settings' => [
-				[
-					'name'        => 'test_input',
-					'title'       => 'IMAP address',
-					'type'        => 'input',
-					'placeholder' => 'imap.example.net'
-				],
-				[
-					'name'        => 'test_input',
-					'title'       => 'Login',
-					'type'        => 'input',
-					'placeholder' => 'username'
-				],
-				[
-					'name'        => 'test_input',
-					'title'       => 'Password',
-					'type'        => 'input',
-					'placeholder' => ''
-				],
-				[
-					'name'    => 'test_long_lorem',
-					'title'   => 'Longer Lorem',
-					'type'    => 'checkbox',
-					'default' => true
-				]
-			]
-		];
+	public function getWidgetSetup(): IWidgetSetup {
+		$setup = new WidgetSetup();
+		$setup->addSize(IWidgetSetup::SIZE_TYPE_MIN, 4, 3)
+			  ->addSize(IWidgetSetup::SIZE_TYPE_MAX, 10, 6)
+			  ->addSize(IWidgetSetup::SIZE_TYPE_DEFAULT, 6, 4);
+
+		return $setup;
 	}
 
 
 	/**
-	 * @param IWidgetSettings $settings
+	 * @param IWidgetConfig $settings
 	 */
-	public function loadWidget(IWidgetSettings $settings) {
+	public function loadWidget(IWidgetConfig $settings) {
 	}
 
 

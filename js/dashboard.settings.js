@@ -129,7 +129,7 @@ var settings = {
 			}
 		}
 
-		if (item.setup.settings !== undefined) {
+		if (item.template.settings.length > 0) {
 			var liSettings = $('<li>').append($('<a>', {
 				href: '#',
 				class: 'icon-settings'
@@ -197,10 +197,10 @@ var settings = {
 	},
 
 
-// displayWidgetSettings: function (widgetId) {
+// displayWidgetConfig: function (widgetId) {
 	// 	if (curr.settingsWidget !== '') {
 	// 		if (widgetId !== curr.settingsWidget) {
-	// 			settings.hideWidgetSettings(widgetId);
+	// 			settings.hideWidgetConfig(widgetId);
 	// 		}
 	// 		return;
 	// 	}
@@ -231,7 +231,7 @@ var settings = {
 	// },
 
 
-	// hideWidgetSettings: function (widgetId) {
+	// hideWidgetConfig: function (widgetId) {
 	// 	curr.settingsWidget = '';
 	//
 	// 	// var divLi = nav.elements.divDashSettings.children('li');
@@ -242,7 +242,7 @@ var settings = {
 	// 	// 	if (widgetId !== undefined && widgetId !== '' && index === (divLi.length - 1)) {
 	// 	// 		$(this).stop().fadeTo(150, 0, function () {
 	// 	// 			$(this).remove();
-	// 	// 			settings.displayWidgetSettings(widgetId);
+	// 	// 			settings.displayWidgetConfig(widgetId);
 	// 	// 		});
 	// 	// 		return;
 	// 	// 	}
@@ -289,7 +289,7 @@ var settings = {
 			if (!widget.config.enabled || widget.setup.push === undefined) {
 				continue;
 			}
-console.log('payload !');
+			console.log('payload !');
 			nav.executeFunction(widget.setup.push, window, item.payload);
 		}
 	}
