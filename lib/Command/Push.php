@@ -32,6 +32,7 @@ use Exception;
 use OC\Core\Command\Base;
 use OCA\Dashboard\Service\EventsService;
 use OCA\Dashboard\Service\MiscService;
+use OCP\Dashboard\IDashboardManager;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -39,8 +40,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Push extends Base {
 
-	/** @var EventsService */
-	private $eventsService;
+	/** @var IDashboardManager */
+	private $dashboardManager;
 
 	/** @var MiscService */
 	private $miscService;
@@ -49,13 +50,13 @@ class Push extends Base {
 	/**
 	 * Index constructor.
 	 *
-	 * @param EventsService $eventsService
+	 * @param IDashboardManager $dashboardManager
 	 * @param MiscService $miscService
 	 */
-	public function __construct(EventsService $eventsService, MiscService $miscService) {
+	public function __construct(IDashboardManager $dashboardManager, MiscService $miscService) {
 		parent::__construct();
 
-		$this->eventsService = $eventsService;
+		$this->dashboardManager = $dashboardManager;
 		$this->miscService = $miscService;
 	}
 
@@ -89,10 +90,13 @@ class Push extends Base {
 			throw new Exception('payload must be a valid JSON');
 		}
 
+//		$config = $this->dashboardManager->getWidgetConfig('fortunes', 'cult');
+//
+//		echo json_encode($config);
 		if ($user === 'global') {
-			$this->eventsService->createGlobalEvent($widget, $payload);
+			$this->dashboardManager->createGlobalEvent($widget, $payload);
 		} else {
-			$this->eventsService->createUsersEvent($widget, [$user], $payload);
+			$this->dashboardManager->createUsersEvent($widget, [$user], $payload);
 		}
 		$output->writeln('event created');
 	}
