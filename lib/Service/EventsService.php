@@ -32,12 +32,12 @@ namespace OCA\Dashboard\Service;
 use Exception;
 use OCA\Dashboard\Db\EventsRequest;
 use OCA\Dashboard\Model\WidgetEvent;
-use OCP\Dashboard\Model\IWidgetEvent;
+use OCP\Dashboard\Service\IEventsService;
 use OCP\IGroup;
 use OCP\IGroupManager;
 use OCP\IUserManager;
 
-class EventsService {
+class EventsService implements IEventsService {
 
 	/** @var IUserManager */
 	private $userManager;
@@ -91,7 +91,7 @@ class EventsService {
 
 		foreach ($users as $userId) {
 			$event = new WidgetEvent($widgetId);
-			$event->setRecipient(IWidgetEvent::BROADCAST_USER, $userId);
+			$event->setRecipient(WidgetEvent::BROADCAST_USER, $userId);
 			$event->setPayload($payload);
 			$event->setUniqueId($uniqueId);
 
@@ -115,7 +115,7 @@ class EventsService {
 
 		foreach ($groups as $groupId) {
 			$event = new WidgetEvent($widgetId);
-			$event->setRecipient(IWidgetEvent::BROADCAST_GROUP, $groupId);
+			$event->setRecipient(WidgetEvent::BROADCAST_GROUP, $groupId);
 			$event->setPayload($payload);
 			$event->setUniqueId($uniqueId);
 
@@ -135,7 +135,7 @@ class EventsService {
 		}
 
 		$event = new WidgetEvent($widgetId);
-		$event->setRecipient(IWidgetEvent::BROADCAST_GLOBAL);
+		$event->setRecipient(WidgetEvent::BROADCAST_GLOBAL);
 		$event->setPayload($payload);
 		$event->setUniqueId($uniqueId);
 
@@ -144,9 +144,9 @@ class EventsService {
 
 
 	/**
-	 * @param IWidgetEvent $event
+	 * @param WidgetEvent $event
 	 */
-	private function pushEvent(IWidgetEvent $event) {
+	private function pushEvent(WidgetEvent $event) {
 		try {
 			$this->eventsRequest->create($event);
 		} catch (Exception $e) {

@@ -29,18 +29,18 @@
 namespace OCA\Dashboard\Db;
 
 
-use OCP\Dashboard\Model\IWidgetEvent;
+use OCA\Dashboard\Model\WidgetEvent;
 
 class EventsRequest extends EventsRequestBuilder {
 
 
 	/**
-	 * @param IWidgetEvent $event
+	 * @param WidgetEvent $event
 	 *
 	 * @return int
 	 * @throws \Exception
 	 */
-	public function create(IWidgetEvent $event): int {
+	public function create(WidgetEvent $event): int {
 
 		try {
 			$qb = $this->getEventsInsertSql();
@@ -74,11 +74,11 @@ class EventsRequest extends EventsRequestBuilder {
 	 * @param string $userId
 	 * @param int $lastEventId
 	 *
-	 * @return IWidgetEvent[]
+	 * @return WidgetEvent[]
 	 */
 	public function getUserEvents(string $userId, int $lastEventId): array {
 		$qb = $this->getEventsSelectSql();
-		$this->limitToBroadcast($qb, IWidgetEvent::BROADCAST_USER);
+		$this->limitToBroadcast($qb, WidgetEvent::BROADCAST_USER);
 		$this->limitToRecipient($qb, $userId);
 		$this->startFromId($qb, $lastEventId);
 
@@ -97,11 +97,11 @@ class EventsRequest extends EventsRequestBuilder {
 	 * @param array $groups
 	 * @param int $lastEventId
 	 *
-	 * @return IWidgetEvent []
+	 * @return WidgetEvent []
 	 */
 	public function getGroupEvents(array $groups, int $lastEventId): array {
 		$qb = $this->getEventsSelectSql();
-		$this->limitToBroadcast($qb, IWidgetEvent::BROADCAST_GROUP);
+		$this->limitToBroadcast($qb, WidgetEvent::BROADCAST_GROUP);
 		$this->limitToRecipient($qb, $groups);
 		$this->startFromId($qb, $lastEventId);
 
@@ -119,11 +119,11 @@ class EventsRequest extends EventsRequestBuilder {
 	/**
 	 * @param int $lastEventId
 	 *
-	 * @return IWidgetEvent []
+	 * @return WidgetEvent []
 	 */
 	public function getGlobalEvents(int $lastEventId): array {
 		$qb = $this->getEventsSelectSql();
-		$this->limitToBroadcast($qb, IWidgetEvent::BROADCAST_GLOBAL);
+		$this->limitToBroadcast($qb, WidgetEvent::BROADCAST_GLOBAL);
 		$this->startFromId($qb, $lastEventId);
 
 		$events = [];

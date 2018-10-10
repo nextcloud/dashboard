@@ -201,6 +201,11 @@ class WidgetRequest implements IWidgetRequest, JsonSerializable {
 	}
 
 
+	/**
+	 * @param $json
+	 *
+	 * @return WidgetRequest
+	 */
 	public static function fromJson($json) {
 		$arr = json_decode($json, true);
 		$request = new WidgetRequest($arr['widget']);

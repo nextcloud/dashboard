@@ -30,7 +30,6 @@ namespace OCA\Dashboard\Db;
 
 
 use OCA\Dashboard\Model\WidgetEvent;
-use OCP\Dashboard\Model\IWidgetEvent;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 
 class EventsRequestBuilder extends CoreRequestBuilder {
@@ -102,7 +101,7 @@ class EventsRequestBuilder extends CoreRequestBuilder {
 	 *
 	 * @return WidgetEvent
 	 */
-	protected function parseEventsSelectSql($data): IWidgetEvent {
+	protected function parseEventsSelectSql($data): WidgetEvent {
 		$event = new WidgetEvent($data['widget_id']);
 		$event->setId(intval($data['id']))
 			  ->setRecipient($data['broadcast'], $data['recipient'])

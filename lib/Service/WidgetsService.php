@@ -34,14 +34,15 @@ use OCA\Dashboard\Db\SettingsRequest;
 use OCA\Dashboard\Exceptions\WidgetDoesNotExistException;
 use OCA\Dashboard\Exceptions\WidgetIsNotCompatibleException;
 use OCA\Dashboard\Exceptions\WidgetIsNotUniqueException;
-use OCA\Dashboard\Model\WidgetFrame;
 use OCA\Dashboard\Model\WidgetConfig;
+use OCA\Dashboard\Model\WidgetFrame;
+use OCA\Dashboard\Model\WidgetRequest;
 use OCP\AppFramework\QueryException;
 use OCP\Dashboard\IDashboardWidget;
-use OCP\Dashboard\Model\IWidgetRequest;
 use OCP\Dashboard\Model\IWidgetConfig;
+use OCP\Dashboard\Service\IWidgetsService;
 
-class WidgetsService {
+class WidgetsService implements IWidgetsService {
 
 	/** @var string */
 	private $userId;
@@ -165,11 +166,11 @@ class WidgetsService {
 
 
 	/**
-	 * @param IWidgetRequest $widgetRequest
+	 * @param WidgetRequest $widgetRequest
 	 *
 	 * @throws WidgetDoesNotExistException
 	 */
-	public function initWidgetRequest(IWidgetRequest $widgetRequest) {
+	public function initWidgetRequest(WidgetRequest $widgetRequest) {
 		$widgetId = $widgetRequest->getWidgetId();
 		$widgetFrame = $this->getWidgetFrame($widgetId);
 
@@ -181,9 +182,9 @@ class WidgetsService {
 
 
 	/**
-	 * @param IWidgetRequest $widgetRequest
+	 * @param WidgetRequest $widgetRequest
 	 */
-	public function requestWidget(IWidgetRequest $widgetRequest) {
+	public function requestWidget(WidgetRequest $widgetRequest) {
 		$widget = $widgetRequest->getWidget();
 		$widget->requestWidget($widgetRequest);
 	}
@@ -235,7 +236,6 @@ class WidgetsService {
 		$frame->setSetup($setup);
 		$frame->setTemplate($widget->getWidgetTemplate());
 
-		$this->miscService->log('### ' . json_encode($frame));
 		return $frame;
 	}
 

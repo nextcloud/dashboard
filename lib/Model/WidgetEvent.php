@@ -29,10 +29,13 @@
 namespace OCA\Dashboard\Model;
 
 
-use OCP\Dashboard\Model\IWidgetEvent;
+class WidgetEvent implements \JsonSerializable {
 
-class WidgetEvent implements IWidgetEvent, \JsonSerializable {
 
+
+	const BROADCAST_USER = 'user';
+	const BROADCAST_GROUP = 'group';
+	const BROADCAST_GLOBAL = 'global';
 
 	/** @var int */
 	private $id;
@@ -77,7 +80,7 @@ class WidgetEvent implements IWidgetEvent, \JsonSerializable {
 	 *
 	 * @return $this
 	 */
-	public function setId(int $id): IWidgetEvent {
+	public function setId(int $id): WidgetEvent {
 		$this->id = $id;
 
 		return $this;
@@ -96,7 +99,7 @@ class WidgetEvent implements IWidgetEvent, \JsonSerializable {
 	 *
 	 * @return $this
 	 */
-	public function setWidgetId(string $widgetId): IWidgetEvent {
+	public function setWidgetId(string $widgetId): WidgetEvent {
 		$this->widgetId = $widgetId;
 
 		return $this;
@@ -125,7 +128,7 @@ class WidgetEvent implements IWidgetEvent, \JsonSerializable {
 	 *
 	 * @return $this
 	 */
-	public function setRecipient(string $broadcast, string $recipient = ''): IWidgetEvent {
+	public function setRecipient(string $broadcast, string $recipient = ''): WidgetEvent {
 		$this->broadcast = $broadcast;
 		$this->recipient = $recipient;
 
@@ -145,7 +148,7 @@ class WidgetEvent implements IWidgetEvent, \JsonSerializable {
 	 *
 	 * @return $this
 	 */
-	public function setPayload(array $payload): IWidgetEvent {
+	public function setPayload(array $payload): WidgetEvent {
 		$this->payload = $payload;
 
 		return $this;
@@ -164,7 +167,7 @@ class WidgetEvent implements IWidgetEvent, \JsonSerializable {
 	 *
 	 * @return $this
 	 */
-	public function setUniqueId(string $uniqueId): IWidgetEvent {
+	public function setUniqueId(string $uniqueId): WidgetEvent {
 		$this->uniqueId = $uniqueId;
 
 		return $this;
@@ -183,7 +186,7 @@ class WidgetEvent implements IWidgetEvent, \JsonSerializable {
 	 *
 	 * @return $this
 	 */
-	public function setCreation(int $creation): IWidgetEvent {
+	public function setCreation(int $creation): WidgetEvent {
 		$this->creation = $creation;
 
 		return $this;

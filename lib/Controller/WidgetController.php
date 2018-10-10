@@ -31,13 +31,13 @@ namespace OCA\Dashboard\Controller;
 
 use Exception;
 use OCA\Dashboard\AppInfo\Application;
+use OCA\Dashboard\Model\WidgetEvent;
 use OCA\Dashboard\Model\WidgetRequest;
 use OCA\Dashboard\Service\ConfigService;
 use OCA\Dashboard\Service\EventsService;
 use OCA\Dashboard\Service\MiscService;
 use OCA\Dashboard\Service\WidgetsService;
 use OCP\AppFramework\Controller;
-use OCP\Dashboard\Model\IWidgetEvent;
 use OCP\IRequest;
 
 class WidgetController extends Controller {
@@ -178,7 +178,7 @@ class WidgetController extends Controller {
 
 
 	/**
-	 * @param IWidgetEvent[] $events
+	 * @param WidgetEvent[] $events
 	 * @param int $lastEventId
 	 */
 	private function updateLastEventId(array $events, int &$lastEventId) {
