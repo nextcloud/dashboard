@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 
 /**
@@ -32,10 +33,9 @@ namespace OCA\Dashboard\Widgets;
 use OC\Dashboard\Model\WidgetSetting;
 use OC\Dashboard\Model\WidgetSetup;
 use OC\Dashboard\Model\WidgetTemplate;
-use OCA\Dashboard\Model\WidgetConfig;
 use OCP\Dashboard\IDashboardWidget;
-use OCP\Dashboard\Model\IWidgetRequest;
 use OCP\Dashboard\Model\IWidgetConfig;
+use OCP\Dashboard\Model\IWidgetRequest;
 use OCP\Dashboard\Model\IWidgetSetting;
 use OCP\Dashboard\Model\IWidgetSetup;
 use OCP\Dashboard\Model\IWidgetTemplate;

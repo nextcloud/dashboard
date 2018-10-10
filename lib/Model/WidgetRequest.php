@@ -45,6 +45,9 @@ class WidgetRequest implements IWidgetRequest, JsonSerializable {
 	/** @var string */
 	private $request = '';
 
+	/** @var string */
+	private $value = '';
+
 	/** @var array */
 	private $result = [];
 
@@ -117,6 +120,25 @@ class WidgetRequest implements IWidgetRequest, JsonSerializable {
 
 
 	/**
+	 * @return string
+	 */
+	public function getValue(): string {
+		return $this->value;
+	}
+
+	/**
+	 * @param string $value
+	 *
+	 * @return $this
+	 */
+	public function setValue(string $value): IWidgetRequest {
+		$this->value = $value;
+
+		return $this;
+	}
+
+
+	/**
 	 * @return array
 	 */
 	public function getResult(): array {
@@ -164,12 +186,7 @@ class WidgetRequest implements IWidgetRequest, JsonSerializable {
 
 
 	/**
-	 * Specify data which should be serialized to JSON
-	 *
-	 * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-	 * @return mixed data which can be serialized by <b>json_encode</b>,
-	 * which is a value of any type other than a resource.
-	 * @since 5.4.0
+	 * @return array
 	 */
 	public function jsonSerialize(): array {
 		$widget = $this->getWidget();
@@ -188,6 +205,9 @@ class WidgetRequest implements IWidgetRequest, JsonSerializable {
 		$arr = json_decode($json, true);
 		$request = new WidgetRequest($arr['widget']);
 		$request->setRequest($arr['request']);
+		if (array_key_exists('value', $arr)) {
+			$request->setValue($arr['value']);
+		}
 
 //		$request->setType($arr['keyword']);
 

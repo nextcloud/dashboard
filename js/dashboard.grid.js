@@ -136,7 +136,7 @@ var grid = {
 		nav.elements.gridStack.setStatic(true);
 		settings.firstInstall();
 
-		if (item.template.function !== undefined) {
+		if (item.template.function !== '') {
 			nav.executeFunction(item.template.function, window, position);
 		}
 
