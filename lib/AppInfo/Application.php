@@ -28,8 +28,14 @@
 
 namespace OCA\Dashboard\AppInfo;
 
+use OCA\Dashboard\Service\EventsService;
+use OCA\Dashboard\Service\WidgetsService;
 use OCP\AppFramework\App;
 use OCP\AppFramework\IAppContainer;
+use OCP\AppFramework\QueryException;
+use OCP\Dashboard\IDashboardManager;
+use OCP\Dashboard\Service\IEventsService;
+use OCP\Dashboard\Service\IWidgetsService;
 
 class Application extends App {
 
@@ -42,6 +48,25 @@ class Application extends App {
 	public function __construct(array $urlParams = array()) {
 		parent::__construct(self::APP_NAME, $urlParams);
 		$this->container = $this->getContainer();
+	}
+
+
+	/**
+	 * Register Navigation Tab
+	 *
+	 * @throws QueryException
+	 */
+	public function registerServices() {
+		/** @var IDashboardManager $dashboardManager */
+		$dashboardManager = $this->container->query(IDashboardManager::class);
+
+		/** @var IWidgetsService $widgetsService */
+		$widgetsService = $this->container->query(WidgetsService::class);
+		/** @var IEventsService $eventsService */
+		$eventsService = $this->container->query(EventsService::class);
+
+		$dashboardManager->registerWidgetsService($widgetsService);
+		$dashboardManager->registerEventsService($eventsService);
 	}
 
 

@@ -29,5 +29,6 @@
 namespace OCA\Dashboard\AppInfo;
 
 $app = new Application();
+$app->registerServices();
 $app->registerNavigation();
 
