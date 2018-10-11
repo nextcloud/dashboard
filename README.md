@@ -33,7 +33,7 @@ nextcloud/apps/ folder:
 cd [path to your webroot]/nextcloud/apps/
 ```
 ```
-git clone https://github.com/nextcloud/dashboard.git
+git clone --branch stable14 --single-branch https://github.com/nextcloud/dashboard.git
 ```
 
 Install 3rd party scripts via composer [https://getcomposer.org/](https://getcomposer.org/).
@@ -56,18 +56,18 @@ Finally, enable the Dashboard App through the admin backend.
 ### Installation per archive download
 
 Download the archive from:
-[https://github.com/nextcloud/dashboard/archive/master.zip](https://github.com/nextcloud/dashboard/archive/master.zip)
+[https://github.com/nextcloud/dashboard/archive/stable14.zip](https://github.com/nextcloud/dashboard/archive/stable14.zip)
 
 Open a terminal, unzip the archive into your nextcloud/apps/ folder and
-rename the dashboard-master folder to dashboard: 
+rename the dashboard-stable14 folder to dashboard: 
 ```
 cd [path to downloaded archive]
 ```
 ```
-unzip master.zip -d [path to your webroot]/nextcloud/apps/
+unzip stable14.zip -d [path to your webroot]/nextcloud/apps/
 ```
 ```
-mv [path to your webroot]/nextcloud/apps/dashboard-master [path to your webroot]/nextcloud/apps/dashboard
+mv [path to your webroot]/nextcloud/apps/dashboard-stable14 [path to your webroot]/nextcloud/apps/dashboard
 ```
 
 Install 3rd party scripts via composer [https://getcomposer.org/](https://getcomposer.org/).
