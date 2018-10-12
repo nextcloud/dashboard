@@ -15,6 +15,7 @@ OC.L10N.register(
     "Save changes" : "Wijzigingen bewaren",
     "Create announcement" : "Opstellen aankondiging",
     "Settings have been updated." : "Instellingen zijn bijgewerkt",
+    "The Dashboard app allows users to easily keep an eye on their instance, and to retrieve useful information.\n        Here is what they can see:\n\n                - last uploaded files\n                - most recent e-mails\n                - last notifications\n                - upcoming events\n                - remaining storage space in their account" : "De Dashboard app laat gebruikers eenvoudig hun server monitoren en relevante informatie ophalen.\n        Dit is wat ze kunnen zien:\n\n                - laatst geüploade bestanden\n                - meest recente e-mails\n                - laatste meldingen\n                - toekomstige afspraken\n                - resterende opslagruimte in hun account",
     "Show box" : "Tonen box",
     "Wide box" : "Brede box",
     "Placement" : "Plaatsing",
