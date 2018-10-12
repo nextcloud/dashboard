@@ -34,8 +34,6 @@ use OC\Dashboard\Model\WidgetTemplate;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\Dashboard\IDashboardWidget;
 use OCP\Dashboard\Model\IWidgetConfig;
-use OCP\Dashboard\Model\IWidgetSetup;
-use OCP\Dashboard\Model\IWidgetTemplate;
 
 class WidgetFrame implements \JsonSerializable {
 
@@ -106,18 +104,18 @@ class WidgetFrame implements \JsonSerializable {
 
 
 	/**
-	 * @return IWidgetSetup
+	 * @return WidgetSetup
 	 */
-	public function getSetup(): IWidgetSetup {
+	public function getSetup(): WidgetSetup {
 		return $this->setup;
 	}
 
 	/**
-	 * @param IWidgetSetup $setup
+	 * @param WidgetSetup $setup
 	 *
 	 * @return WidgetFrame
 	 */
-	public function setSetup(IWidgetSetup $setup): WidgetFrame {
+	public function setSetup(WidgetSetup $setup): WidgetFrame {
 		$this->setup = $setup;
 
 		return $this;
@@ -132,11 +130,11 @@ class WidgetFrame implements \JsonSerializable {
 	}
 
 	/**
-	 * @param IWidgetTemplate $template
+	 * @param WidgetTemplate $template
 	 *
 	 * @return WidgetFrame
 	 */
-	public function setTemplate(IWidgetTemplate $template): WidgetFrame {
+	public function setTemplate(WidgetTemplate $template): WidgetFrame {
 		$this->template = $template;
 
 		return $this;
@@ -177,7 +175,7 @@ class WidgetFrame implements \JsonSerializable {
 				'name'        => $widget->getName(),
 				'description' => $widget->getDescription()
 			],
-			'template' => $this->getTemplate(),
+			'template' => $template,
 			'setup'    => $this->getSetup(),
 			'html'     => $html->render(),
 			'config'   => $this->getConfig()

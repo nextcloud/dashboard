@@ -30,7 +30,6 @@ namespace OCA\Dashboard\Command;
 
 use Exception;
 use OC\Core\Command\Base;
-use OCA\Dashboard\Service\EventsService;
 use OCA\Dashboard\Service\MiscService;
 use OCP\Dashboard\IDashboardManager;
 use Symfony\Component\Console\Input\InputArgument;

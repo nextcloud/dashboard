@@ -37,8 +37,6 @@ use OCP\AppFramework\QueryException;
 use OCP\Dashboard\IDashboardWidget;
 use OCP\Dashboard\Model\IWidgetRequest;
 use OCP\Dashboard\Model\IWidgetConfig;
-use OCP\Dashboard\Model\IWidgetSetup;
-use OCP\Dashboard\Model\IWidgetTemplate;
 use OCP\IL10N;
 
 
@@ -85,9 +83,9 @@ class FortunesWidget implements IDashboardWidget {
 
 
 	/**
-	 * @return IWidgetTemplate
+	 * @return WidgetTemplate
 	 */
-	public function getWidgetTemplate(): IWidgetTemplate {
+	public function getWidgetTemplate(): WidgetTemplate {
 		$template = new WidgetTemplate();
 		$template->addCss('widgets/fortunes')
 				 ->addJs('widgets/fortunes')
@@ -100,13 +98,13 @@ class FortunesWidget implements IDashboardWidget {
 
 
 	/**
-	 * @return IWidgetSetup
+	 * @return WidgetSetup
 	 */
-	public function getWidgetSetup(): IWidgetSetup {
+	public function getWidgetSetup(): WidgetSetup {
 		$setup = new WidgetSetup();
-		$setup->addSize(IWidgetSetup::SIZE_TYPE_MIN, 2, 1)
-			  ->addSize(IWidgetSetup::SIZE_TYPE_MAX, 4, 4)
-			  ->addSize(IWidgetSetup::SIZE_TYPE_DEFAULT, 3, 2);
+		$setup->addSize(WidgetSetup::SIZE_TYPE_MIN, 2, 1)
+			  ->addSize(WidgetSetup::SIZE_TYPE_MAX, 4, 4)
+			  ->addSize(WidgetSetup::SIZE_TYPE_DEFAULT, 3, 2);
 
 		$setup->addMenuEntry('OCA.DashBoard.fortunes.getFortune', 'icon-fortunes', 'New Fortune');
 		$setup->addDelayedJob('OCA.DashBoard.fortunes.getFortune', 300);

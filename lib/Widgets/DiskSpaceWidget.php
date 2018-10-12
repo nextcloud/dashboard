@@ -35,8 +35,6 @@ use OCA\Dashboard\Service\Widgets\DiskSpace\DiskSpaceService;
 use OCP\Dashboard\IDashboardWidget;
 use OCP\Dashboard\Model\IWidgetRequest;
 use OCP\Dashboard\Model\IWidgetConfig;
-use OCP\Dashboard\Model\IWidgetSetup;
-use OCP\Dashboard\Model\IWidgetTemplate;
 use OCP\Files\NotFoundException;
 use OCP\IL10N;
 
@@ -84,9 +82,9 @@ class DiskSpaceWidget implements IDashboardWidget {
 
 
 	/**
-	 * @return IWidgetTemplate
+	 * @return WidgetTemplate
 	 */
-	public function getWidgetTemplate(): IWidgetTemplate {
+	public function getWidgetTemplate(): WidgetTemplate {
 		$template = new WidgetTemplate();
 		$template->addCss('widgets/diskspace')
 				 ->addJs('widgets/diskspace')
@@ -99,13 +97,13 @@ class DiskSpaceWidget implements IDashboardWidget {
 
 
 	/**
-	 * @return IWidgetSetup
+	 * @return WidgetSetup
 	 */
-	public function getWidgetSetup(): IWidgetSetup {
+	public function getWidgetSetup(): WidgetSetup {
 		$setup = new WidgetSetup();
-		$setup->addSize(IWidgetSetup::SIZE_TYPE_MIN, 2, 1)
-			  ->addSize(IWidgetSetup::SIZE_TYPE_MAX, 3, 1)
-			  ->addSize(IWidgetSetup::SIZE_TYPE_DEFAULT, 2, 1);
+		$setup->addSize(WidgetSetup::SIZE_TYPE_MIN, 2, 1)
+			  ->addSize(WidgetSetup::SIZE_TYPE_MAX, 3, 1)
+			  ->addSize(WidgetSetup::SIZE_TYPE_DEFAULT, 2, 1);
 
 		$setup->addDelayedJob('OCA.DashBoard.diskspace.getDiskSpace', 600);
 
