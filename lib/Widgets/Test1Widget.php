@@ -30,9 +30,9 @@ declare(strict_types=1);
 namespace OCA\Dashboard\Widgets;
 
 
-use OC\Dashboard\Model\WidgetSetting;
-use OC\Dashboard\Model\WidgetSetup;
-use OC\Dashboard\Model\WidgetTemplate;
+use OCP\Dashboard\Model\WidgetSetting;
+use OCP\Dashboard\Model\WidgetSetup;
+use OCP\Dashboard\Model\WidgetTemplate;
 use OCP\Dashboard\IDashboardWidget;
 use OCP\Dashboard\Model\IWidgetConfig;
 use OCP\Dashboard\Model\IWidgetRequest;

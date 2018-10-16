@@ -29,8 +29,8 @@
 namespace OCA\Dashboard\Widgets;
 
 
-use OC\Dashboard\Model\WidgetSetup;
-use OC\Dashboard\Model\WidgetTemplate;
+use OCP\Dashboard\Model\WidgetSetup;
+use OCP\Dashboard\Model\WidgetTemplate;
 use OCA\Dashboard\AppInfo\Application;
 use OCA\Dashboard\Service\Widgets\Fortunes\FortunesService;
 use OCP\AppFramework\QueryException;

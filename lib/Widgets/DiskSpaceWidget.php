@@ -29,8 +29,8 @@
 namespace OCA\Dashboard\Widgets;
 
 
-use OC\Dashboard\Model\WidgetSetup;
-use OC\Dashboard\Model\WidgetTemplate;
+use OCP\Dashboard\Model\WidgetSetup;
+use OCP\Dashboard\Model\WidgetTemplate;
 use OCA\Dashboard\Service\Widgets\DiskSpace\DiskSpaceService;
 use OCP\Dashboard\IDashboardWidget;
 use OCP\Dashboard\Model\IWidgetRequest;

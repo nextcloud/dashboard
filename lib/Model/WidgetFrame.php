@@ -29,8 +29,8 @@
 namespace OCA\Dashboard\Model;
 
 
-use OC\Dashboard\Model\WidgetSetup;
-use OC\Dashboard\Model\WidgetTemplate;
+use OCP\Dashboard\Model\WidgetSetup;
+use OCP\Dashboard\Model\WidgetTemplate;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\Dashboard\IDashboardWidget;
 use OCP\Dashboard\Model\IWidgetConfig;
