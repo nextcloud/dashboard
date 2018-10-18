@@ -53,8 +53,15 @@ class FortunesWidget implements IDashboardWidget {
 	private $fortunesService;
 
 
-	public function __construct(IL10N $l10n) {
+	/**
+	 * FortunesWidget constructor.
+	 *
+	 * @param IL10N $l10n
+	 * @param FortunesService $fortunesService
+	 */
+	public function __construct(IL10N $l10n, FortunesService $fortunesService) {
 		$this->l10n = $l10n;
+		$this->fortunesService = $fortunesService;
 	}
 
 
@@ -118,14 +125,6 @@ class FortunesWidget implements IDashboardWidget {
 	 * @param IWidgetConfig $settings
 	 */
 	public function loadWidget(IWidgetConfig $settings) {
-		$app = new Application();
-
-		$container = $app->getContainer();
-		try {
-			$this->fortunesService = $container->query(FortunesService::class);
-		} catch (QueryException $e) {
-			return;
-		}
 	}
 
 
