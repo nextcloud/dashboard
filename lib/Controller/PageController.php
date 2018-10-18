@@ -227,16 +227,16 @@ class PageController extends Controller {
 	private function getPaneltoOrder(
 		$order, $activityPosition, $inboxPosition, $announcementPosition, $calendarPosition
 	) {
-		if ($order == $activityPosition) {
+		if ($order === $activityPosition) {
 			return 'activities';
 		}
-		if ($order == $inboxPosition) {
+		if ($order === $inboxPosition) {
 			return 'inbox';
 		}
-		if ($order == $announcementPosition) {
+		if ($order === $announcementPosition) {
 			return 'announcements';
 		}
-		if ($order == $calendarPosition) {
+		if ($order === $calendarPosition) {
 			return 'calendar';
 		}
 	}

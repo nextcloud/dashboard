@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Nextcloud - Dashboard App
  *
@@ -141,7 +140,7 @@ class AnnouncementController extends Controller {
 		}
 
 		$entity = $this->announcementMapper->findOne(intval($id));
-		if ($entity == null) {
+		if ($entity === null) {
 			return new DataResponse($data, HTTP::STATUS_NOT_FOUND);
 		}
 
@@ -219,7 +218,7 @@ class AnnouncementController extends Controller {
 		}
 
 		$entity = $this->announcementMapper->findOne(intval($id));
-		if ($entity == null) {
+		if ($entity === null) {
 			return new DataResponse($data, HTTP::STATUS_NOT_FOUND);
 		}
 		$this->announcementMapper->delete($entity);

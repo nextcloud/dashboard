@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Nextcloud - Dashboard App
  *
@@ -28,8 +27,6 @@
 
 namespace OCA\Dashboard\AppInfo;
 
-use OCP\App;
-
 $app = new Application();
 $container = $app->getContainer();
 
@@ -51,5 +48,4 @@ $container->getServer()->getNavigationManager()->add(function () use ($container
         'name' => $l10n->t('Dashboard')
     ];
 });
-//App::registerAdmin($container->getAppName(), 'admin');
-App::registerPersonal($container->getAppName(), 'personal');
+static::registerPersonal($container->getAppName(), 'personal');

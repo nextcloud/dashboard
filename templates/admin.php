@@ -75,10 +75,10 @@ style('dashboard', 'settings');
                 </td>
                 <td class="small">
                     <select name="activity_position" size="1">
-                        <option <?php if ($_['activity_position']==1): ?>selected<?php endif; ?>>1</option>
-                        <option <?php if ($_['activity_position']==2): ?>selected<?php endif; ?>>2</option>
-                        <option <?php if ($_['activity_position']==3): ?>selected<?php endif; ?>>3</option>
-                        <option <?php if ($_['activity_position']==4): ?>selected<?php endif; ?>>4</option>
+                        <option <?php if ($_['activity_position']===1): ?>selected<?php endif; ?>>1</option>
+                        <option <?php if ($_['activity_position']===2): ?>selected<?php endif; ?>>2</option>
+                        <option <?php if ($_['activity_position']===3): ?>selected<?php endif; ?>>3</option>
+                        <option <?php if ($_['activity_position']===4): ?>selected<?php endif; ?>>4</option>
                     </select>
                     <label for="activity_position">
                     </label>
@@ -100,10 +100,10 @@ style('dashboard', 'settings');
                 </td>
                 <td class="small">
                     <select name="inbox_position" size="1">
-                        <option <?php if ($_['inbox_position']==1): ?>selected<?php endif; ?>>1</option>
-                        <option <?php if ($_['inbox_position']==2): ?>selected<?php endif; ?>>2</option>
-                        <option <?php if ($_['inbox_position']==3): ?>selected<?php endif; ?>>3</option>
-                        <option <?php if ($_['inbox_position']==4): ?>selected<?php endif; ?>>4</option>
+                        <option <?php if ($_['inbox_position']===1): ?>selected<?php endif; ?>>1</option>
+                        <option <?php if ($_['inbox_position']===2): ?>selected<?php endif; ?>>2</option>
+                        <option <?php if ($_['inbox_position']===3): ?>selected<?php endif; ?>>3</option>
+                        <option <?php if ($_['inbox_position']===4): ?>selected<?php endif; ?>>4</option>
                     </select>
                     <label for="inbox_position">
                     </label>
@@ -125,10 +125,10 @@ style('dashboard', 'settings');
                 </td>
                 <td class="small">
                     <select name="announcement_position" size="1">
-                        <option <?php if ($_['announcement_position']==1): ?>selected<?php endif; ?>>1</option>
-                        <option <?php if ($_['announcement_position']==2): ?>selected<?php endif; ?>>2</option>
-                        <option <?php if ($_['announcement_position']==3): ?>selected<?php endif; ?>>3</option>
-                        <option <?php if ($_['announcement_position']==4): ?>selected<?php endif; ?>>4</option>
+                        <option <?php if ($_['announcement_position']===1): ?>selected<?php endif; ?>>1</option>
+                        <option <?php if ($_['announcement_position']===2): ?>selected<?php endif; ?>>2</option>
+                        <option <?php if ($_['announcement_position']===3): ?>selected<?php endif; ?>>3</option>
+                        <option <?php if ($_['announcement_position']===4): ?>selected<?php endif; ?>>4</option>
                     </select>
                     <label for="announcement_position">
                     </label>
@@ -150,10 +150,10 @@ style('dashboard', 'settings');
                 </td>
                 <td class="small">
                     <select name="calendar_position" size="1">
-                        <option <?php if ($_['calendar_position']==1): ?>selected<?php endif; ?>>1</option>
-                        <option <?php if ($_['calendar_position']==2): ?>selected<?php endif; ?>>2</option>
-                        <option <?php if ($_['calendar_position']==3): ?>selected<?php endif; ?>>3</option>
-                        <option <?php if ($_['calendar_position']==4): ?>selected<?php endif; ?>>4</option>
+                        <option <?php if ($_['calendar_position']===1): ?>selected<?php endif; ?>>1</option>
+                        <option <?php if ($_['calendar_position']===2): ?>selected<?php endif; ?>>2</option>
+                        <option <?php if ($_['calendar_position']===3): ?>selected<?php endif; ?>>3</option>
+                        <option <?php if ($_['calendar_position']===4): ?>selected<?php endif; ?>>4</option>
                     </select>
                     <label for="calendar_position">
                     </label>

@@ -295,7 +295,7 @@ class CalendarController extends Controller {
 			if (isset($newEventArray["DESCRIPTION"])) {
 				$description = $newEventArray["DESCRIPTION"];
 			}
-			if ($fixedstart != "" && $fixedend != "") {
+			if ($fixedstart !== "" && $fixedend !== "") {
 				// declare new Event-Format with relevant Information
 				$mynewEvent = array(
 					"allDay"       => $allDay,
@@ -313,7 +313,7 @@ class CalendarController extends Controller {
 				$rule = $newEventArray["RRULE"];
 				// Check if serial event
 				$check = strrpos($rule, "BYDAY");
-				if ($check == false) {
+				if ($check === false) {
 					//daily, weeekly, monthly, yearly
 					$rule = $newEventArray["RRULE"];
 					$intervalDay = strrpos($rule, "DAILY");
