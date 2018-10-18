@@ -142,3 +142,7 @@ table.dataTable thead .sorting_asc:hover {
     width: auto;
     min-width: inherit;
 }
+
+.ui-front {
+    z-index: 1500 !important;
+}
