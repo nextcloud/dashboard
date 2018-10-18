@@ -39,5 +39,7 @@
 	<settings>
 		<admin>OCA\Dashboard\Settings\Admin</admin>
 		<admin-section>OCA\Dashboard\Settings\Section</admin-section>
+		<personal>OCA\Dashboard\Settings\Personal</personal>
+		<personal-section>OCA\Dashboard\Settings\Section</personal-section>
 	</settings>
 </info>

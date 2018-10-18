@@ -97,7 +97,7 @@ Visibility, positioning and proportioning of the 5 main dashboard sections
 are configurable under `Administration` -> `Dashboard`.
 
 The individual Email settings for each user are configurable under `Personal` ->
-`Additional settings`.
+`Dashboard`.
 
 
 ## Notes

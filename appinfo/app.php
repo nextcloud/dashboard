@@ -48,4 +48,3 @@ $container->getServer()->getNavigationManager()->add(function () use ($container
         'name' => $l10n->t('Dashboard')
     ];
 });
-static::registerPersonal($container->getAppName(), 'personal');

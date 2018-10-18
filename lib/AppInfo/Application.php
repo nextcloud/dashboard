@@ -27,8 +27,9 @@
 
 namespace OCA\Dashboard\AppInfo;
 
-use OCA\Dashboard\Controller\AdminController;
 use OCP\AppFramework\App;
+use OCA\Dashboard\Controller\AdminController;
+use OCA\Dashboard\Controller\PersonalController;
 
 class Application extends App {
 
@@ -40,6 +41,10 @@ class Application extends App {
 		$container->registerAlias(
 			'AdminController',
 			AdminController::class
+		);
+		$container->registerAlias(
+			'PersonalController',
+			PersonalController::class
 		);
 	}
 
