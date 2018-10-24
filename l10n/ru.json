@@ -1,6 +1,6 @@
 { "translations": {
     "Add a widget" : "Добавить виджет",
-    "Remove this widget" : "Удалить этот виджет",
+    "Remove this widget" : "Удалить виджет",
     "Dashboard" : "Панель управления",
     "Clock" : "Часы",
     "The time is now." : "Время настало.",
@@ -8,7 +8,7 @@
     "Display the current use of your available disk space" : "Выводить информацию об использовании дискового пространства",
     "Fortune Quotes" : "Случайные цитаты",
     "Get a random fortune quote" : "Получить случайную цитату",
-    "Dashboard app for Nextcloud" : "Dashboard для Nextcloud",
+    "Dashboard app for Nextcloud" : "Панель управления Nextcloud",
     "The Dashboard app allows users to monitor their data through sub-elements called Widgets.\n\t\tWidgets are imported from other apps and can be added, removed, moved and resized" : "Приложение «Панель управления» служит для визуализации данных при помощи виджетов.\n\t\tПанели управления позволяет добавлять, убирать и перемещать и изменять размер виджетов, импортируемых их других приложений.",
     "Save changes" : "Сохранить изменения",
     "Create announcement" : "Создать уведомление",
