@@ -4,6 +4,7 @@
     "Dashboard" : "ダッシュボード",
     "Clock" : "時計",
     "Disk space" : "ディスク領域",
+    "Save changes" : "変更を保存",
     "Calendar" : "カレンダー",
     "Save" : "保存",
     "Next events" : "次のイベント",
@@ -12,6 +13,9 @@
     "Title" : "タイトル",
     "Mailserver" : "メールサーバー",
     "SSL" : "SSL",
+    "Username" : "ユーザー名",
+    "Password" : "パスワード",
+    "File" : "ファイル",
     "Message" : "メッセージ"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

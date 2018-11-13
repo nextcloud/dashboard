@@ -6,6 +6,7 @@ OC.L10N.register(
     "Dashboard" : "ダッシュボード",
     "Clock" : "時計",
     "Disk space" : "ディスク領域",
+    "Save changes" : "変更を保存",
     "Calendar" : "カレンダー",
     "Save" : "保存",
     "Next events" : "次のイベント",
@@ -14,6 +15,9 @@ OC.L10N.register(
     "Title" : "タイトル",
     "Mailserver" : "メールサーバー",
     "SSL" : "SSL",
+    "Username" : "ユーザー名",
+    "Password" : "パスワード",
+    "File" : "ファイル",
     "Message" : "メッセージ"
 },
 "nplurals=1; plural=0;");
