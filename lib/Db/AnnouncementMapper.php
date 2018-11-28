@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Nextcloud - Dashboard App
  *
@@ -9,6 +8,7 @@
  * @author regio iT gesellschaft für informationstechnologie mbh
  * @copyright regio iT 2017
  * @license GNU AGPL version 3 or any later version
+ * @contributor tuxedo-rb | TUXEDO Computers GmbH | https://www.tuxedocomputers.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -27,13 +27,13 @@
 
 namespace OCA\Dashboard\Db;
 
-use OCP\AppFramework\Db\Mapper;
+use OCP\AppFramework\Db\QBMapper;
 use OCP\IDBConnection;
 
 /**
  * Description of AnnouncementMapper
  */
-class AnnouncementMapper extends Mapper
+class AnnouncementMapper extends QBMapper
 {
     /**
      * @param IDBConnection $db Instance of the Db abstraction layer
@@ -45,13 +45,35 @@ class AnnouncementMapper extends Mapper
 
     public function findAll($limit = null, $offset = null)
     {
-        $sql = 'SELECT * FROM `*PREFIX*dashboard_announcements` WHERE expiration >= CURDATE() ORDER BY created_at DESC';
-        return $this->findEntities($sql, [], $limit, $offset);
+		$queryBuilder = $this->db->getQueryBuilder();
+		$query = $queryBuilder
+			->select('*')
+			->from('dashboard_announcements')
+			->where(
+				$queryBuilder->expr()->gte(
+					'expiration',
+					$queryBuilder->createNamedParameter(date("Y-m-d"))
+				)
+			)
+			->orderBy('created_at', 'DESC')
+		;
+		$queryBuilder->setMaxResults($limit);
+		return $this->findEntities($query);
     }
 
     public function findOne($id)
     {
-        $sql = 'SELECT * FROM `*PREFIX*dashboard_announcements` WHERE id = ?';
-        return $this->findEntity($sql, [$id]);
+		$queryBuilder = $this->db->getQueryBuilder();
+		$query = $queryBuilder
+			->select('*')
+			->from('dashboard_announcements')
+			->where(
+				$queryBuilder->expr()->eq(
+					'id',
+					$queryBuilder->createNamedParameter($id)
+				)
+			)
+		;
+		return $this->findEntity($query);
     }
 }
