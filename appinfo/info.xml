@@ -9,7 +9,7 @@
 		Widgets are imported from other apps and can be added, removed, moved and resized
 ]]>
 	</description>
-	<version>5.99.8</version>
+	<version>6.0.0</version>
 	<licence>agpl</licence>
 	<author>Maxence Lange</author>
 	<namespace>Dashboard</namespace>
@@ -20,7 +20,7 @@
 	<screenshot>https://raw.githubusercontent.com/nextcloud/dashboard/master/screenshots/v4.0.5.png</screenshot>
 	<dependencies>
 		<php min-version="7"/>
-		<nextcloud min-version="14" max-version="15"/>
+		<nextcloud min-version="15" max-version="16"/>
 	</dependencies>
 
 	<commands>
@@ -31,7 +31,6 @@
 		<widget>OCA\Dashboard\Widgets\ClockWidget</widget>
 		<widget>OCA\Dashboard\Widgets\DiskSpaceWidget</widget>
 		<widget>OCA\Dashboard\Widgets\FortunesWidget</widget>
-		<widget>OCA\Dashboard\Widgets\Test1Widget</widget>
 	</dashboard>
 
 </info>
