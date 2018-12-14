@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Nextcloud - Dashboard App
  *
@@ -82,67 +81,67 @@ class SetDefaultDashboardSettings implements IRepairStep {
 		$this->dashboardSettings->setId(1);
 		$this->dashboardSettings->setKey('show_activity');
 		$this->dashboardSettings->setValue(1);
-		$this->dashboardSettingsMapper->insert($this->dashboardSettings);
+		$this->dashboardSettingsMapper->insertOrUpdate($this->dashboardSettings);
 
 		$this->dashboardSettings->setId(2);
 		$this->dashboardSettings->setKey('show_inbox');
 		$this->dashboardSettings->setValue(1);
-		$this->dashboardSettingsMapper->insert($this->dashboardSettings);
+		$this->dashboardSettingsMapper->insertOrUpdate($this->dashboardSettings);
 
 		$this->dashboardSettings->setId(3);
 		$this->dashboardSettings->setKey('show_announcement');
 		$this->dashboardSettings->setValue(1);
-		$this->dashboardSettingsMapper->insert($this->dashboardSettings);
+		$this->dashboardSettingsMapper->insertOrUpdate($this->dashboardSettings);
 
 		$this->dashboardSettings->setId(4);
 		$this->dashboardSettings->setKey('show_calendar');
 		$this->dashboardSettings->setValue(1);
-		$this->dashboardSettingsMapper->insert($this->dashboardSettings);
+		$this->dashboardSettingsMapper->insertOrUpdate($this->dashboardSettings);
 
 		$this->dashboardSettings->setId(5);
 		$this->dashboardSettings->setKey('show_wide_activity');
 		$this->dashboardSettings->setValue(0);
-		$this->dashboardSettingsMapper->insert($this->dashboardSettings);
+		$this->dashboardSettingsMapper->insertOrUpdate($this->dashboardSettings);
 
 		$this->dashboardSettings->setId(6);
 		$this->dashboardSettings->setKey('show_wide_inbox');
 		$this->dashboardSettings->setValue(0);
-		$this->dashboardSettingsMapper->insert($this->dashboardSettings);
+		$this->dashboardSettingsMapper->insertOrUpdate($this->dashboardSettings);
 
 		$this->dashboardSettings->setId(7);
 		$this->dashboardSettings->setKey('show_wide_announcement');
 		$this->dashboardSettings->setValue(0);
-		$this->dashboardSettingsMapper->insert($this->dashboardSettings);
+		$this->dashboardSettingsMapper->insertOrUpdate($this->dashboardSettings);
 
 		$this->dashboardSettings->setId(8);
 		$this->dashboardSettings->setKey('show_wide_calendar');
 		$this->dashboardSettings->setValue(0);
-		$this->dashboardSettingsMapper->insert($this->dashboardSettings);
+		$this->dashboardSettingsMapper->insertOrUpdate($this->dashboardSettings);
 
 		$this->dashboardSettings->setId(9);
 		$this->dashboardSettings->setKey('activity_position');
 		$this->dashboardSettings->setValue(1);
-		$this->dashboardSettingsMapper->insert($this->dashboardSettings);
+		$this->dashboardSettingsMapper->insertOrUpdate($this->dashboardSettings);
 
 		$this->dashboardSettings->setId(10);
 		$this->dashboardSettings->setKey('inbox_position');
 		$this->dashboardSettings->setValue(2);
-		$this->dashboardSettingsMapper->insert($this->dashboardSettings);
+		$this->dashboardSettingsMapper->insertOrUpdate($this->dashboardSettings);
 
 		$this->dashboardSettings->setId(11);
 		$this->dashboardSettings->setKey('announcement_position');
 		$this->dashboardSettings->setValue(3);
-		$this->dashboardSettingsMapper->insert($this->dashboardSettings);
+		$this->dashboardSettingsMapper->insertOrUpdate($this->dashboardSettings);
 
 		$this->dashboardSettings->setId(12);
 		$this->dashboardSettings->setKey('calendar_position');
 		$this->dashboardSettings->setValue(4);
-		$this->dashboardSettingsMapper->insert($this->dashboardSettings);
+		$this->dashboardSettingsMapper->insertOrUpdate($this->dashboardSettings);
 		
 		$this->dashboardSettings->setId(13);
 		$this->dashboardSettings->setKey('show_quota');
 		$this->dashboardSettings->setValue(1);
-		$this->dashboardSettingsMapper->insert($this->dashboardSettings);
+		$this->dashboardSettingsMapper->insertOrUpdate($this->dashboardSettings);
 
 		$this->config->setAppValue('dashboard', 'setDefaultDashboardSettings', 'yes');
 
