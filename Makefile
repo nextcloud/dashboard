@@ -12,7 +12,7 @@ branch=master
 version+=6.0.0
 
 
-all: npm appstore
+all: composer npm appstore
 
 release: appstore github-release github-upload
 
@@ -43,8 +43,11 @@ npm:
 	npm install nnattawat/flip
 	cp node_modules/flip/dist/jquery.flip.js ./js/
 
+# composer packages
+composer:
+	composer install --prefer-dist
 
-appstore: npm clean
+appstore: composer npm clean
 	mkdir -p $(sign_dir)
 	rsync -a \
 	--exclude=/build \

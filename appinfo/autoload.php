@@ -1,14 +1,15 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 
 /**
- * Nextcloud - Dashboard app
+ * Nextcloud - Dashboard App
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Maxence Lange <maxence@artificial-owl.com>
- * @copyright 2018, Maxence Lange <maxence@artificial-owl.com>
+ * @author regio iT gesellschaft für informationstechnologie mbh
+ * @copyright regio iT 2017
  * @license GNU AGPL version 3 or any later version
  *
  * This program is free software: you can redistribute it and/or modify
@@ -29,15 +30,9 @@
 namespace OCA\Dashboard\AppInfo;
 
 
-use OCP\AppFramework\QueryException;
+$composerDir = __DIR__ . '/../vendor/';
 
-require_once __DIR__ . '/autoload.php';
-
-
-$app = new Application();
-try {
-	$app->registerServices();
-} catch (QueryException $e) {
+if (is_dir($composerDir) && file_exists($composerDir . 'autoload.php')) {
+	require_once $composerDir . 'autoload.php';
 }
-$app->registerNavigation();
 
