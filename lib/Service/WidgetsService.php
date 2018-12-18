@@ -28,6 +28,7 @@
 
 namespace OCA\Dashboard\Service;
 
+use daita\MySmallPhpTools\Traits\TArrayTools;
 use Exception;
 use OC\App\AppManager;
 use OCA\Dashboard\Db\SettingsRequest;
@@ -43,6 +44,10 @@ use OCP\Dashboard\Model\IWidgetConfig;
 use OCP\Dashboard\Service\IWidgetsService;
 
 class WidgetsService implements IWidgetsService {
+
+
+	use TArrayTools;
+
 
 	/** @var string */
 	private $userId;
@@ -267,14 +272,20 @@ class WidgetsService implements IWidgetsService {
 	 */
 	private function getWidgetsFromApp(string $appId) {
 		$appInfo = $this->appManager->getAppInfo($appId);
-		if (!is_array($appInfo) || !key_exists('dashboard', $appInfo)
-			|| !key_exists('widget', $appInfo['dashboard'])) {
-			return;
-		}
+//
+//		if (!is_array($appInfo) || !key_exists('dashboard', $appInfo)
+//			|| !key_exists('widget', $appInfo['dashboard'])) {
+//			return;
+//		}
 
-		$widgets = $appInfo['dashboard']['widget'];
-		if (!is_array($widgets)) {
-			$widgets = [$widgets];
+		$widgets = $this->getArray('dashboard.widget', $appInfo, []);
+		if (empty($widgets)) {
+			$widget = $this->get('dashboard.widget', $appInfo, '');
+			if ($widget === '') {
+				return;
+			}
+
+			$widgets = [$widget];
 		}
 
 		$this->getWidgetsFromList($appId, $widgets);
