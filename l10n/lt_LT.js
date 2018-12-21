@@ -8,6 +8,8 @@ OC.L10N.register(
     "Settings have been updated." : "Nustatymai atnaujinti.",
     "Calendar" : "Kalendorius",
     "Save" : "Įrašyti",
+    "Delete announcement" : "Ištrinti skelbimą",
+    "Mailserver" : "Pašto serveris",
     "SSL" : "SSL",
     "Username" : "Naudotojo vardas",
     "Password" : "Slaptažodis",
