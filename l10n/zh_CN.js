@@ -21,6 +21,7 @@ OC.L10N.register(
     "Recently uploaded files" : "最近上传的文件",
     "Edit announcement" : "编辑公告",
     "Delete announcement" : "删除公告",
+    "Expiration date" : "过期日期",
     "Mailserver" : "邮件服务器",
     "Username" : "用户名",
     "Password" : "密码",
