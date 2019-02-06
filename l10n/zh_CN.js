@@ -21,11 +21,16 @@ OC.L10N.register(
     "Recently uploaded files" : "最近上传的文件",
     "Edit announcement" : "编辑公告",
     "Delete announcement" : "删除公告",
+    "Title" : "标题",
     "Expiration date" : "过期日期",
+    "Content" : "内容",
     "Mailserver" : "邮件服务器",
+    "validate Cert" : "验证证书",
     "Username" : "用户名",
     "Password" : "密码",
+    "File" : "文件",
     "Uploaded by" : "上传者",
-    "Uploaded at" : "上传时间"
+    "Uploaded at" : "上传时间",
+    "Message" : "消息"
 },
 "nplurals=1; plural=0;");
