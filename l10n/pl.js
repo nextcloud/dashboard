@@ -14,6 +14,8 @@ OC.L10N.register(
     "Save changes" : "Zapisz zmiany",
     "Create announcement" : "Utwórz ogłoszenie",
     "Settings have been updated." : "Ustawienia zostały zaktualizowane.",
+    "Show box" : "Pokaż okno",
+    "Wide box" : "Szerokie okno",
     "Placement" : "Położenie",
     "Activity" : "Aktywność",
     "Inbox" : "Odbiorcza",
