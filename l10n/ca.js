@@ -14,7 +14,7 @@ OC.L10N.register(
     "The Dashboard app allows users to monitor their data through sub-elements called Widgets.\n\t\tWidgets are imported from other apps and can be added, removed, moved and resized" : "L'app de panell de control permet als usuaris monitoritzar les seves dades mitjançant sub-elements anomenats Artefactes.\n\t\tEls artefactes s’importen d'altres apps i poden ser afegits, trets, moguts i redimensionats",
     "Save changes" : "Desa els canvis",
     "Create announcement" : "Crear l'anunci",
-    "Settings have been updated." : "La configuració s'ha actualitzat.",
+    "Settings have been updated." : "S'han actualitzat els paràmetres.",
     "The Dashboard app allows users to easily keep an eye on their instance, and to retrieve useful information.\n        Here is what they can see:\n\n                - last uploaded files\n                - most recent e-mails\n                - last notifications\n                - upcoming events\n                - remaining storage space in their account" : "L'app de panell de control permet als usuaris fàcilment mantenir una visió general de la seva instància i recuperar informació útil.\n        Heus aquí el que es pot veure:\n\n - últims arxius carregats\n - correus electrònics més recents\n- darreres notificacions\n - esdeveniments futurs\n - espai d'emmagatzematge que queda en el seu compte",
     "Show box" : "Mostrar caixa",
     "Wide box" : "Caixa gran",
