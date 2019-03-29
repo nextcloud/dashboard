@@ -6,6 +6,7 @@ OC.L10N.register(
     "Dashboard" : "Skydelis",
     "Save changes" : "Įrašyti pakeitimus",
     "Settings have been updated." : "Nustatymai atnaujinti.",
+    "Activity" : "Veikla",
     "Calendar" : "Kalendorius",
     "Save" : "Įrašyti",
     "Delete announcement" : "Ištrinti skelbimą",
