@@ -16,7 +16,7 @@ OC.L10N.register(
     "Create announcement" : "Criar anúncio",
     "Settings have been updated." : "As configurações foram atualizadas.",
     "The Dashboard app allows users to easily keep an eye on their instance, and to retrieve useful information.\n        Here is what they can see:\n\n                - last uploaded files\n                - most recent e-mails\n                - last notifications\n                - upcoming events\n                - remaining storage space in their account" : "O aplicativo Dashboard permite que os usuários acompanhem facilmente suas instâncias e recuperem informações úteis.\n        Aqui está o que eles podem ver:\n\n                - últimos arquivos enviados\n                - e-mails recentes\n                - últimas notificações\n                - eventos por acontecer\n                - espaço de armazenamento restante em sua conta",
-    "Show box" : "Mostrar caixa",
+    "Show box" : "Exibir caixa",
     "Wide box" : "Caixa larga",
     "Placement" : "Colocação",
     "Activity" : "Atividade",
