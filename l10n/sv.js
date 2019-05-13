@@ -11,7 +11,9 @@ OC.L10N.register(
     "Fortune Quotes" : "Kända citat",
     "Get a random fortune quote" : "Få ett slumpmässigt känt citat",
     "Dashboard app for Nextcloud" : "Dashboard app för Nextcloud",
+    "Calendar" : "Kalender",
     "Save" : "Spara",
+    "Mailserver" : "E-postserver",
     "Message" : "Meddelande"
 },
 "nplurals=2; plural=(n != 1);");
