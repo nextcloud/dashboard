@@ -9,6 +9,7 @@ OC.L10N.register(
     "Activity" : "Veikla",
     "Calendar" : "Kalendorius",
     "Save" : "Įrašyti",
+    "Next events" : "Kiti įvykiai",
     "Delete announcement" : "Ištrinti skelbimą",
     "Mailserver" : "Pašto serveris",
     "SSL" : "SSL",
