@@ -4,6 +4,7 @@ OC.L10N.register(
     "Add a widget" : "Pridėti valdiklį",
     "Remove this widget" : "Šalinti šį valdiklį",
     "Dashboard" : "Skydelis",
+    "Clock" : "Laikrodis",
     "Save changes" : "Įrašyti pakeitimus",
     "Settings have been updated." : "Nustatymai atnaujinti.",
     "Activity" : "Veikla",
