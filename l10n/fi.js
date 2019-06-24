@@ -10,6 +10,7 @@ OC.L10N.register(
     "Save changes" : "Tallenna muutokset",
     "Create announcement" : "Luo tiedote",
     "Settings have been updated." : "Asetukset on päivitetty.",
+    "Inbox" : "Saapuneet",
     "Announcements" : "Tiedotteet",
     "Calendar" : "Kalenteri",
     "Used space" : "Käytetty tila",
