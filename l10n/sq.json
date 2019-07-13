@@ -1,0 +1,7 @@
+{ "translations": {
+    "Dashboard" : "Tabelë",
+    "Clock" : "Ora",
+    "The time is now." : "Koha është tani.",
+    "Disk space" : "Hapësira e diskut"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

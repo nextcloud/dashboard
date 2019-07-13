@@ -1,0 +1,12 @@
+{ "translations": {
+    "Dashboard" : "Mahaia",
+    "Save changes" : "Gorde aldaketak",
+    "Create announcement" : "Sortu iragarpena",
+    "Settings have been updated." : "Ezarpenak eguneratu dira",
+    "Announcements" : "Iragarpenak",
+    "Save" : "Gorde",
+    "Edit announcement" : "Editatu iragarpena",
+    "Delete announcement" : "Ezabatu iragarpena",
+    "Password" : "Pasahitza"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
