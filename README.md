@@ -56,3 +56,5 @@ _Note: you can manually generate events using the command line:_
 _You can, this way, modify the displayed fortune for any user:_
 
 >     ./occ dashboard:push fortunes cult "{\"fortune\": \"foobar\"}"
+
+See the wiki, [in particular this page about how the fortune widget works,](https://github.com/nextcloud/dashboard/wiki/How-the-Fortunes-widget-works) for more background.
