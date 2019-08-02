@@ -1,6 +1,6 @@
 
-![](https://raw.githubusercontent.com/nextcloud/dashboard/gridstack/screenshots/dashboard-grid.png)
-### Quick guide on how to generate the app from git:
+![](https://raw.githubusercontent.com/nextcloud/dashboard/master/screenshots/dashboard-grid.png)
+### Quick guide on how to build the app from git:
 
 ```
  $ git clone -b gridstack https://github.com/nextcloud/dashboard.git
@@ -11,7 +11,7 @@
 
 ### How to create a Widget:
 
-- Generate an app
+- Generate an app (see [app development documentation](https://docs.nextcloud.com/server/16/developer_manual/app/index.html) or use the [app genreator from the app store.)](https://apps.nextcloud.com/developer/apps/generate)
 - Create a PHP class that implement IDashboardWidget:
 1. [getId()](https://github.com/nextcloud/dashboard/blob/a1d2f0d72d6d7a62e4309da7291bf215395ba7d7/lib/Widgets/FortunesWidget.php#L48-L50) returns a unique ID of the widget
 2. [getName()](https://github.com/nextcloud/dashboard/blob/a1d2f0d72d6d7a62e4309da7291bf215395ba7d7/lib/Widgets/FortunesWidget.php#L56-L58) returns the name of the widget
