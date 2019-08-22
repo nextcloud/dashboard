@@ -13,7 +13,7 @@ OC.L10N.register(
     "Save changes" : "変更を保存",
     "Create announcement" : "アナウンスを作成する",
     "Settings have been updated." : "設定が更新されました。",
-    "The Dashboard app allows users to easily keep an eye on their instance, and to retrieve useful information.\n        Here is what they can see:\n\n                - last uploaded files\n                - most recent e-mails\n                - last notifications\n                - upcoming events\n                - remaining storage space in their account" : "Dashboardアプリを使用すると、ユーザーは自分のインスタンスを簡単に監視し、有用な情報を取得することができます。\n　　　見られるもの：\n\n 　　　　　- 最後にアップロードしたファイル\n 　　　　    - 最新のEメール\n 　　　　　- 最後の通知\n 　　　　　- 今後のイベント\n 　　　　　- 自分のアカウントに残っているストレージ容量",
+    "The Dashboard app allows users to easily keep an eye on their instance, and to retrieve useful information.\n        Here is what they can see:\n\n                - last uploaded files\n                - most recent e-mails\n                - last notifications\n                - upcoming events\n                - remaining storage space in their account" : "Dashboardアプリを使用すると、ユーザーは自分のインスタンスを簡単に監視し、有用な情報を取得することができます。\n　　　見られるもの：\n\n 　　　　　- 最後にアップロードしたファイル\n 　　　　    - 最新のメール\n 　　　　　- 最後の通知\n 　　　　　- 今後のイベント\n 　　　　　- 自分のアカウントに残っているストレージ容量",
     "Show box" : "Boxを表示",
     "Wide box" : "横長の箱",
     "Placement" : "配置",
