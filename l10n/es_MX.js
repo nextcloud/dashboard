@@ -5,7 +5,6 @@ OC.L10N.register(
     "Remove this widget" : "Quitar este widget",
     "Dashboard" : "Tablero de control",
     "Clock" : "Reloj",
-    "Dashboard app for Nextcloud" : "Aplicación de tablero de control para Nextcloud",
-    "Save changes" : "Guardar cambios"
+    "Dashboard app for Nextcloud" : "Aplicación de tablero de control para Nextcloud"
 },
 "nplurals=2; plural=(n != 1);");

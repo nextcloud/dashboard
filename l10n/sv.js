@@ -10,10 +10,6 @@ OC.L10N.register(
     "Display the current use of your available disk space" : "Visa aktuell användning av ditt tillgängliga diskutrymme",
     "Fortune Quotes" : "Kända citat",
     "Get a random fortune quote" : "Få ett slumpmässigt känt citat",
-    "Dashboard app for Nextcloud" : "Dashboard app för Nextcloud",
-    "Calendar" : "Kalender",
-    "Save" : "Spara",
-    "Mailserver" : "E-postserver",
-    "Message" : "Meddelande"
+    "Dashboard app for Nextcloud" : "Dashboard app för Nextcloud"
 },
 "nplurals=2; plural=(n != 1);");

@@ -1,7 +1,4 @@
 { "translations": {
-    "Dashboard" : "Табло",
-    "Activity" : "Активност",
-    "Username" : "Потребител",
-    "Password" : "Парола"
+    "Dashboard" : "Табло"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
