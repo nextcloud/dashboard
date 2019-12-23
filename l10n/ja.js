@@ -8,6 +8,8 @@ OC.L10N.register(
     "The time is now." : "The time is now.",
     "Disk space" : "ディスク領域",
     "Display the current use of your available disk space" : "使用可能なディスクスペースの現在の使用状況を表示する",
+    "Fortune Quotes" : "財産の引用符",
+    "Get a random fortune quote" : "ランダムな財産の引用を取得します。",
     "Dashboard app for Nextcloud" : "NextCloudのダッシュボードアプリ",
     "The Dashboard app allows users to monitor their data through sub-elements called Widgets.\n\t\tWidgets are imported from other apps and can be added, removed, moved and resized" : "Dashboardアプリでは、ウィジェットと呼ばれる要素を介してユーザーがデータを監視できます。\n\t\tウィジェットは他のアプリからインポートされ、追加、削除、移動、サイズ変更ができます"
 },
