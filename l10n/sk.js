@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Dashboard" : "Informačný panel",
     "Clock" : "Hodiny",
+    "The time is now." : "Aktuálny čas.",
     "Disk space" : "Miesto na disku",
     "Display the current use of your available disk space" : "Zobraziť aktuálne využitie dostupného miesta na disku"
 },
