@@ -6,7 +6,7 @@
 	<summary>Dashboard app for Nextcloud</summary>
 	<description>
 		<![CDATA[The Dashboard app allows users to monitor their data through sub-elements called Widgets.
-		Widgets are imported from other apps and can be added, removed, moved and resized
+		Widgets are imported from other apps and can be added, removed, moved and resized.
 ]]>
 	</description>
 	<version>6.0.0</version>
