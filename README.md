@@ -1,3 +1,6 @@
+## Archived repository
+
+The dashboard app was rewritten as part of Nextcloud 20 and is now part of the [server repository](https://github.com/nextcloud/server/). Please head there for issue reporting and the app code.
 
 ![](https://raw.githubusercontent.com/nextcloud/dashboard/master/screenshots/dashboard-grid.png)
 ### Quick guide on how to build the app from git:
