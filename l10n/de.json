@@ -1,9 +1,9 @@
 { "translations": {
-    "Add a widget" : "Eine Widget hinzufügen",
+    "Add a widget" : "Ein Widget hinzufügen",
     "Remove this widget" : "Dieses Widget entfernen",
     "Dashboard" : "Dashboard",
     "Clock" : "Uhr",
-    "The time is now." : "Die aktuelle Zeit.",
+    "The time is now." : "Die aktuelle Uhrzeit ist.",
     "Disk space" : "Speicherplatz",
     "Display the current use of your available disk space" : "Anzeige des aktuell benutzten Speicherplatzes",
     "Fortune Quotes" : "Glückssprüche",
